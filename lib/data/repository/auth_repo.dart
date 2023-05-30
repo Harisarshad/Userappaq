@@ -31,6 +31,10 @@ class AuthRepo extends GetxService{
    Future<Response> registration(Map<String,String> customerInfo,List<MultipartBody> multipartBody) async {
      return await apiClient.postMultipartData(AppConstants.CUSTOMER_REGISTRATION_URI, customerInfo,multipartBody);
    }
+
+   Future<Response> registrationhome(Map<String,String> customerInfo,) async {
+     return await apiClient.postData(AppConstants.CUSTOMER_REGISTRATION_URI, customerInfo);
+   }
    Future<Response> login({String phone, String password}) async {
     String _countryCode = getCountryCode(phone);
      return await apiClient.postData(AppConstants.CUSTOMER_LOGIN_URI, {"phone": phone.replaceAll(_countryCode, ''), "password": password, "dial_country_code": getCountryCode(phone)});

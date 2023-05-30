@@ -68,7 +68,7 @@ class _CameraScreenState extends State<CameraScreen> {
             flex: 2,
             child: Stack(
               children: [
-                CameraView(),
+              //  CameraView(),
 
                 FractionallySizedBox(
                   child: Align(

@@ -1,3 +1,5 @@
+
+
 import 'package:phone_number/phone_number.dart';
 import 'package:six_cash/controller/auth_controller.dart';
 import 'package:six_cash/controller/create_account_controller.dart';
@@ -13,6 +15,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six_cash/view/base/custom_snackbar.dart';
 
+import '../../../../Constants.dart';
+import '../../../../CustomWidgets/DropDownInputField.dart';
+import '../../../../CustomWidgets/FormLabelText.dart';
+import '../../../../CustomWidgets/InputField.dart';
+import '../../../../controller/camera_screen_controller.dart';
+import '../../../../controller/verification_controller.dart';
+import '../../../../data/api/api_client.dart';
+import '../../../../data/model/body/signup_body.dart';
+import '../../../../helper/route_helper.dart';
+
 class CreateAccountScreen extends StatefulWidget {
 
   @override
@@ -23,23 +35,231 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final TextEditingController numberFieldController = TextEditingController();
 
 
+
+   final TextEditingController userFullName =  TextEditingController();
+
+   final TextEditingController userEmail=  TextEditingController();
+
+   final TextEditingController userPassword=  TextEditingController();
+
+   final TextEditingController userConfirmPassword=  TextEditingController();
+
+   final TextEditingController userResidents=  TextEditingController();
+   final TextEditingController numberOfResidents=  TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  // Overriding them for initializing them
   @override
   void initState() {
-    super.initState();
     Get.find<CreateAccountController>().setInitCountryCode(Get.find<SplashController>().getCountryCode());
+
+
+    super.initState();
   }
 
+// Dont forget to Dispose !!
+  @override
+  void dispose() {
+    userEmail.dispose();
+    userPassword.dispose();
+    userFullName.dispose();
+    userConfirmPassword.dispose();
+    userResidents.dispose();
+    numberOfResidents.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorResources.getWhiteAndBlack(),
-      appBar: CustomAppbar(title: 'login_registration'.tr),
+      appBar: AppBar(
+        title: const Center(
+          child: Text(
+            "Crea una cuenta",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Divider(color: Colors.grey.shade400),
+        ),
+      ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 30, 0, 25),
+                        child: Image.asset(
+                          "assets/Aqcess-Logo.png",
+                          width: 50,
+                          height: 50,
+                        ),
+                      ),
+                      Text(
+                        "Welcome To Aqcess",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      Center(
+                        child: Text(
+                          "Create an account and register\nyour apartment or housing complex",
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const FormLabelText(
+                          labelText: "Full Name",
+                        ),
+                        InputField(
+                          placeholderText: "Type your full name",
+                          fieldController: userFullName,
+                        ),
+                        const FormLabelText(
+                          labelText: "Email",
+                        ),
+                        InputField(
+                          placeholderText: "Type your email",
+                          fieldController: userEmail,
+                        ),
+                        const FormLabelText(
+                          labelText: "Password",
+                        ),
+                        InputField(
+                          placeholderText: "Create a password",
+                          fieldController: userPassword,
+                        ),
+                        const FormLabelText(
+                          labelText: "Confirm Password",
+                        ),
+                        InputField(
+                          placeholderText: "Confirm password",
+                          fieldController: userConfirmPassword,
+                        ),
+                        const FormLabelText(
+                          labelText: "Number of residents in your housing complex? ",
+                        ),
+                        Row(
+                          children: [
+                            DropdownInputField(
+                              values: ['100', '200', '300', '400', '500'],
+                              controller: numberOfResidents,
+                              placeholder: "200",
+                              width: 390,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(16, 15, 16, 5),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AqcessColors().primary,
+                        foregroundColor: Colors.white,
+                        elevation: 8,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        minimumSize: Size(400, 50),
+                      ),
+                      onPressed: ()  {
+
+                        if (userFullName.text == '' || userFullName.text == '') {
+                          showCustomSnackBar('first_name_or_last_name'.tr, isError: true);
+                        }
+                        else {
+                          if(userEmail.text != ''){
+                            bool _emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(userEmail.text);
+                            if(!_emailValid){
+                              showCustomSnackBar('please_provide_valid_email'.tr, isError: true);
+                            }
+                            else{
+                              String _password =  userConfirmPassword.text;
+                              String _gender =  'male';
+                              String _occupation =  'do n';
+                              String _fName =  userFullName.text;
+                              String _lName =  userFullName.text;
+                              String _email = userEmail.text;
+                              String _countryCode = getCountryCode(Get.find<CreateAccountController>().phoneNumber);
+                             // String _phoneNumber = Get.find<CreateAccountController>().phoneNumber.replaceAll(_countryCode, '');
+                              String _otp =  Get.find<VerificationController>().otp;
+
+                              SignUpBody signUpBody = SignUpBody(
+                                  fName: _fName,
+                                  lName: _lName,
+                                  gender: _gender,
+                                  occupation: _occupation,
+                                  email: _email,
+                                  phone: '16546546546',
+                                  otp: _otp,
+                                  password: _password,
+                                  dialCountryCode: _countryCode
+                              );
+
+                              //MultipartBody multipartBody = MultipartBody('image',_image );
+                              //MultipartBody multipartBody = multipartBody();
+                              Get.find<AuthController>().registrationhome(signUpBody);
+                            }
+                          }
+                          else{
+                            print('without email');
+                            String _password =  userConfirmPassword.text;
+                            String _gender =  'male';
+                            String _occupation =  '';
+                            String _fName =  userFullName.text;
+                            String _lName =  userFullName.text;
+                            String _email = userEmail.text;
+                            String _countryCode = getCountryCode(Get.find<CreateAccountController>().phoneNumber);
+                            String _phoneNumber = Get.find<CreateAccountController>().phoneNumber.replaceAll(_countryCode, '');
+                            String _otp =  Get.find<VerificationController>().otp;
+
+                            SignUpBody signUpBody = SignUpBody(
+                                fName: _fName,
+                                lName: _lName,
+                                gender: _gender,
+                                occupation: _occupation,
+                                email: _email,
+                                phone: _phoneNumber,
+                                otp: _otp,
+                                password: _password,
+                                dialCountryCode: _countryCode
+                            );
+
+                            //MultipartBody multipartBody = MultipartBody('image',_image );
+                            //MultipartBody multipartBody = multipartBody();
+                            Get.find<AuthController>().registrationhome(signUpBody);
+                          }
+                        }
+                      },
+                      child: Text(
+                        "Create an account",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE),
                   CustomLogo(height: Dimensions.BIG_LOGO, width: Dimensions.BIG_LOGO),
                   const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ColorResources {
   static  Color getPrimaryColor() {
-    return Get.isDarkMode ? Color(0xFF002931) : Color(0xFF003E47);
+    return Get.isDarkMode ? Color.fromARGB(255, 29, 113, 247) : Color.fromARGB(255, 29, 113, 247);
   }
   static  Color getPrimaryTextColor() {
     return Get.isDarkMode ? Color(0xFF8dbac3) : Color(0xFF003E47);

@@ -227,6 +227,54 @@ class AuthController extends GetxController implements GetxService {
 
 
   // registration ..
+  Future<Response> registrationhome(SignUpBody signUpBody) async{
+    _isLoading = true;
+    update();
+    Map<String, String> _allCustomerInfo = {
+      'f_name': signUpBody.fName,
+      'l_name': signUpBody.lName,
+      'phone': signUpBody.phone,
+      'dial_country_code': signUpBody.dialCountryCode,
+      'password': signUpBody.password,
+      'gender': signUpBody.gender,
+      'occupation': signUpBody.occupation,
+    };
+    if(signUpBody.otp != null) {
+      _allCustomerInfo.addAll({'otp': signUpBody.otp});
+    }
+    if(signUpBody.email != '') {
+      _allCustomerInfo.addAll({'email': signUpBody.email});
+    }
+
+    Response response = await authRepo.registrationhome(_allCustomerInfo);
+    print('error is');
+    if (response.statusCode == 200) {
+      Get.find<CameraScreenController>().removeImage();
+      String _countryCode, _nationalNumber;
+      try{
+        PhoneNumber _phoneNumber = await PhoneNumberUtil().parse(signUpBody.phone);
+        _countryCode = '+' + _phoneNumber.countryCode;
+        _nationalNumber = _phoneNumber.nationalNumber;
+      }catch(e){}
+      setCustomerCountryCode(_countryCode);
+      setCustomerNumber(_nationalNumber);
+      Get.offAllNamed(RouteHelper.getWelcomeRoute(
+          countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
+
   Future<Response> registration(SignUpBody signUpBody,List<MultipartBody> multipartBody) async{
       _isLoading = true;
       update();
