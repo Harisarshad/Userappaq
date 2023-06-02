@@ -127,6 +127,8 @@
   "we_have_send_the_code": "We have send the code verification to Your Mobile Number",
   "change_number": "Change Number",
   "please_give_your_phone_number": "Please give your phone number",
+  "please_give_your_email_number": "Please give your Email ",
+  "please_give_your_pass_number": "Please give your Password ",
   "phone_number_not_contain_characters": "Phone number not contain Characters",
   "phone_number_not_contain_spatial_characters": "Phone number not contain spatial character",
   "pin_not_matched": "Pin not matched",

@@ -33,6 +33,7 @@ class ApiClient extends GetxService {
   })
   {
     print(" token.............................................$token");
+    token = sharedPreferences.getString(AppConstants.TOKEN);
 
     _mainHeaders = {
       'Content-Type': 'application/json; charset=UTF-8',

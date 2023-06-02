@@ -19,6 +19,7 @@ class AppConstants {
   static const String CUSTOMER_PHONE_RESEND_OTP_URI = '/api/v1/customer/auth/resend-otp';
   static const String CUSTOMER_PHONE_VERIFY_URI = '/api/v1/customer/auth/verify-phone';
   static const String CUSTOMER_REGISTRATION_URI = '/api/v1/customer/auth/register';
+  static const String PASS_REGISTRATION_URI = '/api/v1/customer/reg-pass';
   static const String CUSTOMER_UPDATE_PROFILE = '/api/v1/customer/update-profile';
   static const String CUSTOMER_LOGIN_URI = '/api/v1/customer/auth/login';
   static const String CUSTOMER_LOGOUT_URI = '/api/v1/customer/logout';

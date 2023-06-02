@@ -66,10 +66,15 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
       if(value.isOk)
       Timer(Duration(seconds: 1), () async {
         Get.find<SplashController>().initSharedData().then((value) {
+          if (Get.find<AuthController>()
+              .isLoggedIn()){
+            Get.offAllNamed(RouteHelper.getNavBarRoute(), arguments: true);
+          }
+          else{
           (Get.find<AuthController>().getCustomerName().isNotEmpty && (Get.find<SplashController>().configModel.companyName != null))?
           Get.offNamed(RouteHelper.getLoginRoute(countryCode: Get.find<AuthController>().getCustomerCountryCode(),phoneNumber: Get.find<AuthController>().getCustomerNumber())) :
           Get.offNamed(RouteHelper.getChoseLoginRegRoute());
-        });
+        }});
 
       });
     });

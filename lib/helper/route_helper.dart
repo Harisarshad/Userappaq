@@ -34,8 +34,11 @@ import 'package:six_cash/view/screens/transaction_money/widget/share_statement_w
 import 'package:six_cash/view/screens/welcome_screen/welcome_screen.dart';
 import 'package:get/get.dart';
 
+import '../view/screens/home/create_pass.dart';
+
 class RouteHelper {
   static const String splash = '/splash';
+  static const String create_pass = '/CreatePass';
   static const String home = '/home';
   static const String navbar = '/navbar';
   static const String history = '/history';
@@ -91,6 +94,7 @@ class RouteHelper {
   static const String qr_code_download_or_share = '/qr_code_download_or_share';
 
   static getSplashRoute() => '$splash';
+  static getCreatePassRoute() => '$create_pass';
   static String getHomeRoute(String name) => '$home?name=$name';
 
   static  getLoginRoute({@required String countryCode, @required String phoneNumber}) {
@@ -141,6 +145,7 @@ class RouteHelper {
 
   static List<GetPage> routes = [
     GetPage(name: splash, page: () => SplashScreen()),
+    GetPage(name: create_pass, page: () => CreatePass()),
     GetPage(name: home, page: () => HomeScreen()),
     GetPage(name: navbar, page: () => NavBarScreen()),
     GetPage(name: share_statement, page: () => ShareStatementWidget(amount: Get.parameters['amount'], charge: null, trxId: null,

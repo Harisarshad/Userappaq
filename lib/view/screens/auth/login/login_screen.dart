@@ -19,6 +19,11 @@ import 'package:six_cash/view/screens/auth/pin_set/widget/appbar_view.dart';
 import 'package:six_cash/view/screens/home/widget/animated_card/custom_rect_tween.dart';
 import 'package:six_cash/view/screens/home/widget/animated_card/hero_dialogue_route.dart';
 
+import '../../../../CustomWidgets/ButtonCustom.dart';
+import '../../../../CustomWidgets/FormLabelText.dart';
+import '../../../../CustomWidgets/InputField.dart';
+import '../../../../CustomWidgets/ProfileBottomSheet.dart';
+
 
 class LoginScreen extends StatefulWidget {
   final String phoneNumber;
@@ -48,10 +53,16 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
    // Get.find<AuthController>().authenticateWithBiometric(true,  null);
   }
+   final TextEditingController userEmail = TextEditingController();
+
+   final TextEditingController userPassword  = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
   //  Get.find<AuthController>().authenticateWithBiometric(true, null);
+
     WidgetsBinding.instance.addObserver(this);
     setInitialCountryCode(widget.countryCode);
     phoneController.text = widget.phoneNumber;
@@ -65,6 +76,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Container(
       color: Theme.of(context).primaryColor,
       child: SafeArea(
@@ -106,52 +119,94 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          GetBuilder<AuthController>(builder: (controller){
-                            return Row(
+                          Form(
+                            key: _formKey,
+                            child: Column(
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text('welcome_back'.tr, textAlign: TextAlign.center,
-                                      style: rubikLight.copyWith(color: Theme.of(context).textTheme.titleLarge.color,
-                                        fontSize: Dimensions.FONT_SIZE_LARGE,),),
 
-                                    controller.getCustomerName().isNotEmpty ?
-                                    Container(width: MediaQuery.of(context).size.width * 0.6,
-                                      child: Text(
-                                        controller.getCustomerName(),
-                                        textAlign: TextAlign.start, maxLines: 1, overflow: TextOverflow.ellipsis,
-                                        style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_EXTRA_OVER_LARGE,),
-
-                                      ),
-                                    ) : Text('user'.tr,
-                                      overflow: TextOverflow.clip, textAlign: TextAlign.center,
-                                      style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_EXTRA_OVER_LARGE,
-                                      ),
-                                    ),
-                                  ],
+                                const FormLabelText(
+                                  labelText: "Email",
                                 ),
-                                const Spacer(),
-                                SizedBox(height: 50, width: 50,
-                                  child: Stack(
-                                    children: [
-                                      GetBuilder<AuthController>(builder: (controller){
-                                        return controller.getCustomerQrCode().isNotEmpty ?
-                                        InkWell(onTap: (){Navigator.of(context).push(HeroDialogRoute(builder: (context){
-                                          return LoginQrPopupCard();}));},
-                                          child: Hero(tag: _heroQrTag, createRectTween: (begin, end){
-                                            return CustomRectTween(begin: begin,end: end);},
-                                              child: Container(
-                                                  padding: const EdgeInsets.all(2), color: Colors.white,
-                                                  child: SvgPicture.string(controller.getCustomerQrCode(),))),) : Container();}),
-
-                                    ],
+                                InputField(
+                                  placeholderText: "Type your email",
+                                  fieldController: userEmail,
+                                ),
+                                const FormLabelText(
+                                  labelText: "Password",
+                                ),
+                                InputField(
+                                  placeholderText: "Your password",
+                                  fieldController: userPassword,
+                                ),
+                                ButtonCustom(
+                                  buttonText: "Log In",
+                                  width: 400,
+                                  height: 50,
+                                  onPress: () {
+                                    _login(context);
+                                  },
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Get.toNamed(RouteHelper.getRegistrationRoute());
+                                   // LoginBottomSheet(context, size);
+                                  },
+                                  child: Text(
+                                    "Create an account",
+                                    style: TextStyle(
+                                      color: Colors.grey.shade400,
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
-                            );
-                          }),
-                          const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
+                            ),
+                          ),
+                          // GetBuilder<AuthController>(builder: (controller){
+                          //   return Row(
+                          //     children: [
+                          //       Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min,
+                          //         children: [
+                          //           Text('welcome_back'.tr, textAlign: TextAlign.center,
+                          //             style: rubikLight.copyWith(color: Theme.of(context).textTheme.titleLarge.color,
+                          //               fontSize: Dimensions.FONT_SIZE_LARGE,),),
+                          //
+                          //           controller.getCustomerName().isNotEmpty ?
+                          //           Container(width: MediaQuery.of(context).size.width * 0.6,
+                          //             child: Text(
+                          //               controller.getCustomerName(),
+                          //               textAlign: TextAlign.start, maxLines: 1, overflow: TextOverflow.ellipsis,
+                          //               style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_EXTRA_OVER_LARGE,),
+                          //
+                          //             ),
+                          //           ) : Text('user'.tr,
+                          //             overflow: TextOverflow.clip, textAlign: TextAlign.center,
+                          //             style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_EXTRA_OVER_LARGE,
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       const Spacer(),
+                          //       SizedBox(height: 50, width: 50,
+                          //         child: Stack(
+                          //           children: [
+                          //             GetBuilder<AuthController>(builder: (controller){
+                          //               return controller.getCustomerQrCode().isNotEmpty ?
+                          //               InkWell(onTap: (){Navigator.of(context).push(HeroDialogRoute(builder: (context){
+                          //                 return LoginQrPopupCard();}));},
+                          //                 child: Hero(tag: _heroQrTag, createRectTween: (begin, end){
+                          //                   return CustomRectTween(begin: begin,end: end);},
+                          //                     child: Container(
+                          //                         padding: const EdgeInsets.all(2), color: Colors.white,
+                          //                         child: SvgPicture.string(controller.getCustomerQrCode(),))),) : Container();}),
+                          //
+                          //           ],
+                          //         ),
+                          //       )
+                          //     ],
+                          //   );
+                          // }),
+                           SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
                           Row(
                             children: [
                               Text('Account'.tr, style: rubikLight.copyWith(color: Theme.of(context).textTheme.bodyText1.color.withOpacity(0.9), fontSize: Dimensions.FONT_SIZE_LARGE)),
@@ -243,21 +298,20 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
   Future<void> _login( BuildContext context) async {
     Get.find<CustomMenuController>().resetNavBar();
     String _code = _countryCode;
-    String _phone = phoneController.text.trim();
-    String _password = passwordController.text.trim();
+    String _phone = userEmail.text.trim();
+    String _password = userPassword.text.trim();
     if (_phone.isEmpty) {
-      showCustomSnackBar('please_give_your_phone_number'.tr,  isError: true);
+      showCustomSnackBar('please_give_your_email_number'.tr,  isError: true);
     } else if (_password.isEmpty) {
-      showCustomSnackBar('please_enter_your_valid_pin'.tr,  isError: true);
-    } else if (_password.length != 4) {
-      showCustomSnackBar('pin_should_be_4_digit'.tr, isError: true);
-    } else {
+      showCustomSnackBar('please_give_your_pass_number'.tr,  isError: true);
+    }
+    else {
       String _phoneNumber = _code + _phone;
 
       try{
-        PhoneNumber num = await PhoneNumberUtil().parse(_phoneNumber);
-        print('+${num.countryCode}');
-        print(num.nationalNumber);
+        //PhoneNumber num = await PhoneNumberUtil().parse(_phoneNumber);
+       // print('+${num.countryCode}');
+       // print(num.nationalNumber);
         Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
           if(value.isOk){
             await Get.find<ProfileController>().profileData(reload: true);
@@ -265,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
         });
       }catch(e){
         print(e);
-        showCustomSnackBar('please_input_your_valid_number'.tr,isError: true);
+        showCustomSnackBar('please_give_your_email_number'.tr,isError: true);
       }
     }
   }

@@ -12,10 +12,10 @@ import 'package:six_cash/util/app_constants.dart';
 
 import '../../view/base/custom_country_code_picker.dart';
 
-class AuthRepo extends GetxService{
+class PassRepo extends GetxService{
    final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
-  AuthRepo({@required this.apiClient, @required this.sharedPreferences});
+   PassRepo({@required this.apiClient, @required this.sharedPreferences});
 
 
   Future<Response> checkPhoneNumber({String phoneNumber}) async {
@@ -33,7 +33,7 @@ class AuthRepo extends GetxService{
    }
 
    Future<Response> registrationhome(Map<String,String> customerInfo,) async {
-     return await apiClient.postData(AppConstants.CUSTOMER_REGISTRATION_URI, customerInfo);
+     return await apiClient.postData(AppConstants.PASS_REGISTRATION_URI, customerInfo);
    }
    Future<Response> login({String phone, String password}) async {
     String _countryCode = getCountryCode(phone);

@@ -1,7 +1,7 @@
-
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:six_cash/controller/auth_controller.dart';
 import 'package:six_cash/controller/banner_controller.dart';
 import 'package:six_cash/controller/home_controller.dart';
 import 'package:six_cash/controller/notification_controller.dart';
@@ -21,35 +21,40 @@ import 'package:six_cash/view/screens/home/widget/secend_card_portion.dart';
 import 'package:six_cash/view/screens/home/widget/shimmer/web_site_shimmer.dart';
 import 'package:six_cash/view/screens/home/widget/third_card_portion.dart';
 
+import '../../../Constants.dart';
+import '../../../CustomWidgets/Tile.dart';
+import '../../../helper/route_helper.dart';
+import '../../../helper/transaction_type.dart';
+import '../transaction_money/transaction_money_balance_input.dart';
+import '../transaction_money/transaction_money_screen.dart';
+import 'create_pass.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isFirst = true;
+
   Future<void> _loadData(BuildContext context, bool reload) async {
     Get.find<ProfileController>().profileData(reload: reload);
-    Get.find<BannerController>().getBannerList(reload);
-    Get.find<RequestedMoneyController>().getRequestedMoneyList(1 ,reload: reload );
-    Get.find<RequestedMoneyController>().getOwnRequestedMoneyList(1 ,reload: reload );
-    Get.find<TransactionHistoryController>().getTransactionData(1, reload: reload);
-    Get.find<WebsiteLinkController>().getWebsiteList();
-    Get.find<NotificationController>().getNotificationList();
-    Get.find<TransactionMoneyController>().getPurposeList();
-    Get.find<TransactionMoneyController>().fetchContact();
-    Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
-    Get.find<RequestedMoneyController>().getWithdrawHistoryList();
-
-
-
-
+    //Get.find<BannerController>().getBannerList(reload);
+    // Get.find<RequestedMoneyController>().getRequestedMoneyList(1 ,reload: reload );
+    // Get.find<RequestedMoneyController>().getOwnRequestedMoneyList(1 ,reload: reload );
+    // Get.find<TransactionHistoryController>().getTransactionData(1, reload: reload);
+    //Get.find<WebsiteLinkController>().getWebsiteList();
+    // Get.find<NotificationController>().getNotificationList();
+    // Get.find<TransactionMoneyController>().getPurposeList();
+     Get.find<TransactionMoneyController>().fetchContact();
+    //  Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
+    //Get.find<RequestedMoneyController>().getWithdrawHistoryList();
   }
+
   @override
   void initState() {
-
     _loadData(context, false);
     isFirst = false;
     super.initState();
@@ -57,46 +62,337 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  GetBuilder<HomeController>(
-        builder: (controller) {
-          return Scaffold(
-            appBar: AppBarBase(),
-            body: ExpandableBottomSheet(
-                enableToggle: true,
-                background: RefreshIndicator(
-                  onRefresh: () async {
-                    await _loadData(context, true);
-                  },
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    child: GetBuilder<SplashController>(builder: (splashController) {
-                        return Column(
-                          children: [
-                            splashController.configModel.themeIndex == '1'
-                                ? GetBuilder<ProfileController>(builder: (profile)=> FirstCardPortion())
-                                : splashController.configModel.themeIndex == '2' ? SecondCardPortion() : splashController.configModel.themeIndex == '3' ? ThirdCardPortion() :
-                            GetBuilder<ProfileController>(builder: (profile)=> FirstCardPortion()),
+    return GetBuilder<HomeController>(builder: (controller) {
+      return Scaffold(
+        appBar: AppBarBase(),
+        body:SafeArea(
+          child: RefreshIndicator(
+              onRefresh: () async {
+                await _loadData(context, true);
+              },
+              child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: GetBuilder<ProfileController>(builder: (usercontroller) {
+                  return usercontroller.isLoading ? WebSiteShimmer() : Column(
+                    children: [
+                      usercontroller.userInfo.type == 2
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                //User Type "Administrator"
+                                Container(
+                                  height: 25,
+                                  color: Colors.black,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Administrator",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: AqcessColors().secondary,
+                                        fontSize: 12),
+                                  ),
+                                ),
+                                //Rows Contains 2 card each....
+                                InkWell(
+                                  onTap: (){
+                                    Get.to(CreatePass());
+                                  //  Get.to(TransactionMoneyBalanceInput(transactionType: 'add_money'));
+                                  //   Get.to(()=> TransactionMoneyScreen(
+                                  //     fromEdit: false,
+                                  //     transactionType: TransactionType.SEND_MONEY,
+                                  //   ));
+                                    RouteHelper.getCreatePassRoute();  print("ASASASas");},
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      //Pass
+                                      Tile(
+                                        primaryColor: AqcessColors().primary,
+                                        secondaryColor: AqcessColors().secondary,
+                                        imagePath: "assets/primary.png",
+                                        text: "Create a Pass",
+                                        subText:
+                                            "Here you can create a pass\nfor visitors to access",
+                                      ),
+                                      //Contacts
+                                      Tile(
+                                        primaryColor: AqcessColors().secondary,
+                                        secondaryColor: Colors.black,
+                                        imagePath: "assets/Contact.png",
+                                        text: "Contacts",
+                                        subText:
+                                            "Here you will find your\ncontacts",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                //Second Row
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/Amenties.png",
+                                      text: "Amenties",
+                                      subText:
+                                          "Here you can view and\nbook amenties",
+                                    ),
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/History.png",
+                                      text: "History",
+                                      subText:
+                                          "Here you can see the\ncheckpoint’s history.",
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    //Pass
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/ScanPass.png",
+                                      text: "Scan Pass",
+                                      subText:
+                                          "Here you can scan a pass\nto provide access to a visitor",
+                                    ),
+                                    //Contacts
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/Amenties.png",
+                                      text: "Amenities Admin",
+                                      subText:
+                                          "Here you can create, manage\nand delete amenities.",
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    //Pass
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/Residents.png",
+                                      text: "Residents",
+                                      subText:
+                                          "Here you will find your\nResidents",
+                                    ),
+                                    //Contacts
+                                    Tile(
+                                      primaryColor: AqcessColors().secondary,
+                                      secondaryColor: Colors.black,
+                                      imagePath: "assets/SignOut.png",
+                                      text: "Sign Out",
+                                      subText:
+                                          "Here you can sign out of\nyour account",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          : usercontroller.userInfo.type == 3
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                      Container(
+                                        height: 25,
+                                        color: Colors.black,
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Resident",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: AqcessColors().secondary,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Tile(
+                                            primaryColor:
+                                                AqcessColors().primary,
+                                            secondaryColor:
+                                                AqcessColors().secondary,
+                                            imagePath: "assets/primary.png",
+                                            text: "Create a Pass",
+                                            subText:
+                                                "Here you can create a pass\nfor visitors to access",
+                                          ),
+                                          Tile(
+                                            primaryColor:
+                                                AqcessColors().secondary,
+                                            secondaryColor: Colors.black,
+                                            imagePath: "assets/Contact.png",
+                                            text: "Contacts",
+                                            subText:
+                                                "Here you will find your\ncontacts",
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Tile(
+                                            primaryColor:
+                                                AqcessColors().secondary,
+                                            secondaryColor: Colors.black,
+                                            imagePath: "assets/Amenties.png",
+                                            text: "Amenties",
+                                            subText:
+                                                "Here you can view and\nbook amenties",
+                                          ),
+                                          Tile(
+                                            primaryColor:
+                                                AqcessColors().secondary,
+                                            secondaryColor: Colors.black,
+                                            imagePath: "assets/SignOut.png",
+                                            text: "Sign Out",
+                                            subText: "SignOut of the app",
+                                          ),
+                                        ],
+                                      )
+                                    ])
+                              : usercontroller.userInfo.type == 1
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                          //User Type CHECKPOINT
+                                          Container(
+                                            height: 25,
+                                            color: Colors.black,
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Checkpoint",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color:
+                                                      AqcessColors().secondary,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Tile(
+                                                primaryColor:
+                                                    AqcessColors().primary,
+                                                secondaryColor:
+                                                    AqcessColors().secondary,
+                                                imagePath: "assets/primary.png",
+                                                text: "Regular Visit",
+                                                subText:
+                                                    "here you can manually\nregister a visit",
+                                              ),
+                                              Tile(
+                                                primaryColor:
+                                                    AqcessColors().secondary,
+                                                secondaryColor: Colors.black,
+                                                imagePath:
+                                                    "assets/ScanPass.png",
+                                                text: "Scan Pass",
+                                                subText:
+                                                    "Here you can scan a pass to\nprovide access to a vistor",
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Tile(
+                                                primaryColor:
+                                                    AqcessColors().secondary,
+                                                secondaryColor: Colors.black,
+                                                imagePath: "assets/History.png",
+                                                text: "History",
+                                                subText:
+                                                    "Here you can see the\ncheckpoint's history",
+                                              ),
+                                              Tile(
+                                                primaryColor:
+                                                    AqcessColors().secondary,
+                                                secondaryColor: Colors.black,
+                                                imagePath:
+                                                    "assets/Amenties.png",
+                                                text: "Bookings",
+                                                subText:
+                                                    "Here you can see booked\namenties",
+                                              ),
+                                            ],
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 0, 10, 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Tile(
+                                                    primaryColor: AqcessColors()
+                                                        .secondary,
+                                                    secondaryColor:
+                                                        Colors.black,
+                                                    imagePath:
+                                                        "assets/SignOut.png",
+                                                    text: "Sign Out",
+                                                    subText:
+                                                        "Here you can sign out of your\naccount")
+                                              ],
+                                            ),
+                                          )
+                                        ])
+                                  : SizedBox(
+                                      height: Dimensions.PADDING_SIZE_DEFAULT),
 
-                            SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-
-                            GetBuilder<WebsiteLinkController>(builder: (websiteLinkController){
-                              return websiteLinkController.isLoading ? WebSiteShimmer() :
-                              websiteLinkController.websiteList.length > 0 ?  LinkedWebsite() : SizedBox();
-                            }),
-                            const SizedBox(height: 80),
-                          ],
-                        );
-                      }
+                      // GetBuilder<WebsiteLinkController>(builder: (websiteLinkController){
+                      //   return websiteLinkController.isLoading ? WebSiteShimmer() :
+                      //   websiteLinkController.websiteList.length > 0 ?  LinkedWebsite() : SizedBox();
+                      // }),
+                      const SizedBox(height: 80),
+                    ],
+                  );
+                }
+                    // child: GetBuilder<SplashController>(builder: (splashController) {
+                    //   return Column(
+                    //     children: [
+                    //       splashController.configModel.themeIndex == '1'
+                    //           ? GetBuilder<ProfileController>(builder: (profile)=> FirstCardPortion())
+                    //           : splashController.configModel.themeIndex == '2' ? SecondCardPortion() : splashController.configModel.themeIndex == '3' ? ThirdCardPortion() :
+                    //       GetBuilder<ProfileController>(builder: (profile)=> FirstCardPortion()),
+                    //
+                    //       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                    //
+                    //       GetBuilder<WebsiteLinkController>(builder: (websiteLinkController){
+                    //         return websiteLinkController.isLoading ? WebSiteShimmer() :
+                    //         websiteLinkController.websiteList.length > 0 ?  LinkedWebsite() : SizedBox();
+                    //       }),
+                    //       const SizedBox(height: 80),
+                    //     ],
+                    //   );
+                    // }
                     ),
-                  ),
-                ),
-                persistentContentHeight: 70,
-                persistentHeader: CustomPersistentHeader(),
-                expandableContent: CustomExpandableContant()
+              ),
             ),
-          );
-        });
+            // persistentContentHeight: 70,
+            // persistentHeader: CustomPersistentHeader(),
+           // expandableContent: CustomExpandableContant()
+        ),
+      );
+    });
   }
-
 }
-

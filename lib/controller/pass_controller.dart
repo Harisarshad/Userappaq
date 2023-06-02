@@ -12,16 +12,18 @@ import 'package:six_cash/controller/splash_controller.dart';
 import 'package:six_cash/controller/verification_controller.dart';
 import 'package:six_cash/data/api/api_checker.dart';
 import 'package:six_cash/data/api/api_client.dart';
+import 'package:six_cash/data/model/body/pass_body.dart';
 import 'package:six_cash/data/model/body/signup_body.dart';
 import 'package:six_cash/data/model/response/response_model.dart';
-import 'package:six_cash/data/repository/auth_repo.dart';
 import 'package:six_cash/helper/route_helper.dart';
 import 'package:six_cash/util/app_constants.dart';
 import 'package:six_cash/view/base/custom_snackbar.dart';
 
-class AuthController extends GetxController implements GetxService {
-  final AuthRepo authRepo;
-  AuthController({@required this.authRepo}) {
+import '../data/repository/pass_repo.dart';
+
+class PassController extends GetxController implements GetxService {
+  final PassRepo authRepo;
+  PassController({@required this.authRepo}) {
     //_biometric = authRepo.isBiometricEnabled();
    // checkBiometricSupport();
   }
@@ -227,141 +229,140 @@ class AuthController extends GetxController implements GetxService {
 
 
   // registration ..
-  Future<Response> registrationhome(SignUpBody signUpBody) async{
-    _isLoading = true;
-    update();
-    Map<String, String> _allCustomerInfo = {
-      'f_name': signUpBody.fName,
-      'l_name': signUpBody.lName,
-      'phone': signUpBody.phone,
-      'dial_country_code': signUpBody.dialCountryCode,
-      'password': signUpBody.password,
-      'gender': signUpBody.gender,
-      'occupation': signUpBody.occupation,
-    };
-    if(signUpBody.otp != null) {
-      _allCustomerInfo.addAll({'otp': signUpBody.otp});
-    }
-    if(signUpBody.email != '') {
-      _allCustomerInfo.addAll({'email': signUpBody.email});
-    }
-
-    Response response = await authRepo.registrationhome(_allCustomerInfo);
-    print('error is');
-    if (response.statusCode == 200) {
-      Get.find<CameraScreenController>().removeImage();
-      String _countryCode, _nationalNumber;
-      try{
-        PhoneNumber _phoneNumber = await PhoneNumberUtil().parse(signUpBody.phone);
-        _countryCode = '+' + _phoneNumber.countryCode;
-        _nationalNumber = _phoneNumber.nationalNumber;
-      }catch(e){}
-      setCustomerCountryCode(_countryCode);
-      setCustomerNumber(_nationalNumber);
-      _login(signUpBody.email,signUpBody.password);
-      Get.offAllNamed(RouteHelper.getWelcomeRoute(
-          countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
-      ));
-
-      // authenticateWithBiometric(false, signUpBody.password).then((value) {
-      //   Future.delayed(Duration(seconds: 1)).then((value) {
-      //     _callSetting();
-      //
-      //   });
-      // });
-    } else {
-      ApiChecker.checkApi(response);
-    }
-    _isLoading = false;
-    update();
-    return response;
-  }
-  Future<void> _login(String phone,String password) async {
-
-
-    String _phone = phone;
-    String _password = password;
-    String _code ='';
-    Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
-      if(value.isOk){
-        print(value.toString());
-        print('value.toString()');
-        // Map map = value;
-        // String temporaryToken = '';
-        // String token = '';
-        // String message = '';
-        // // String token = map["token"];
-        //
-        // try{
-        //   message = map["message"];
-        //
-        // }catch(e){
-        //
-        // }
-        // try{
-        //   token = map["token"];
-        //
-        // }catch(e){
-        //
-        // }
-        // try{
-        //   temporaryToken = map["temporary_token"];
-        //
-        // }catch(e){
-        //
-        // }
-        //
-        // if(token != null && token.isNotEmpty){
-        //   authRepo.saveUserToken(token);
-        //   await authRepo.updateToken();
-        // }
-        await Get.find<ProfileController>().profileData(reload: true);
-
-      }
-    });
-    // if (_phone.isEmpty) {
-    //   showCustomSnackBar('please_give_your_email_number'.tr,  isError: true);
-    // } else if (_password.isEmpty) {
-    //   showCustomSnackBar('please_give_your_pass_number'.tr,  isError: true);
-    // }
-    // else {
-    //
-    //
-    //   try{
-    //     //PhoneNumber num = await PhoneNumberUtil().parse(_phoneNumber);
-    //     // print('+${num.countryCode}');
-    //     // print(num.nationalNumber);
-    //     Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
-    //       if(value.isOk){
-    //         await Get.find<ProfileController>().profileData(reload: true);
-    //       }
-    //     });
-    //   }catch(e){
-    //     print(e);
-    //     showCustomSnackBar('please_give_your_email_number'.tr,isError: true);
-    //   }
-    // }
-  }
-  Future<Response> registration(SignUpBody signUpBody,List<MultipartBody> multipartBody) async{
+  // Future<Response> registrationhome(SignUpBody signUpBody) async{
+  //   _isLoading = true;
+  //   update();
+  //   Map<String, String> _allCustomerInfo = {
+  //     'f_name': signUpBody.fName,
+  //     'l_name': signUpBody.lName,
+  //     'phone': signUpBody.phone,
+  //     'dial_country_code': signUpBody.dialCountryCode,
+  //     'password': signUpBody.password,
+  //     'gender': signUpBody.gender,
+  //     'occupation': signUpBody.occupation,
+  //   };
+  //   if(signUpBody.otp != null) {
+  //     _allCustomerInfo.addAll({'otp': signUpBody.otp});
+  //   }
+  //   if(signUpBody.email != '') {
+  //     _allCustomerInfo.addAll({'email': signUpBody.email});
+  //   }
+  //
+  //   Response response = await authRepo.registrationhome(_allCustomerInfo);
+  //   print('error is');
+  //   if (response.statusCode == 200) {
+  //     Get.find<CameraScreenController>().removeImage();
+  //     String _countryCode, _nationalNumber;
+  //     try{
+  //       PhoneNumber _phoneNumber = await PhoneNumberUtil().parse(signUpBody.phone);
+  //       _countryCode = '+' + _phoneNumber.countryCode;
+  //       _nationalNumber = _phoneNumber.nationalNumber;
+  //     }catch(e){}
+  //     setCustomerCountryCode(_countryCode);
+  //     setCustomerNumber(_nationalNumber);
+  //     _login(signUpBody.email,signUpBody.password);
+  //     Get.offAllNamed(RouteHelper.getWelcomeRoute(
+  //         countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+  //     ));
+  //
+  //     // authenticateWithBiometric(false, signUpBody.password).then((value) {
+  //     //   Future.delayed(Duration(seconds: 1)).then((value) {
+  //     //     _callSetting();
+  //     //
+  //     //   });
+  //     // });
+  //   } else {
+  //     ApiChecker.checkApi(response);
+  //   }
+  //   _isLoading = false;
+  //   update();
+  //   return response;
+  // }
+  // Future<void> _login(String phone,String password) async {
+  //
+  //
+  //   String _phone = phone;
+  //   String _password = password;
+  //   String _code ='';
+  //   Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
+  //     if(value.isOk){
+  //       print(value.toString());
+  //       print('value.toString()');
+  //       // Map map = value;
+  //       // String temporaryToken = '';
+  //       // String token = '';
+  //       // String message = '';
+  //       // // String token = map["token"];
+  //       //
+  //       // try{
+  //       //   message = map["message"];
+  //       //
+  //       // }catch(e){
+  //       //
+  //       // }
+  //       // try{
+  //       //   token = map["token"];
+  //       //
+  //       // }catch(e){
+  //       //
+  //       // }
+  //       // try{
+  //       //   temporaryToken = map["temporary_token"];
+  //       //
+  //       // }catch(e){
+  //       //
+  //       // }
+  //       //
+  //       // if(token != null && token.isNotEmpty){
+  //       //   authRepo.saveUserToken(token);
+  //       //   await authRepo.updateToken();
+  //       // }
+  //       await Get.find<ProfileController>().profileData(reload: true);
+  //
+  //     }
+  //   });
+  //   // if (_phone.isEmpty) {
+  //   //   showCustomSnackBar('please_give_your_email_number'.tr,  isError: true);
+  //   // } else if (_password.isEmpty) {
+  //   //   showCustomSnackBar('please_give_your_pass_number'.tr,  isError: true);
+  //   // }
+  //   // else {
+  //   //
+  //   //
+  //   //   try{
+  //   //     //PhoneNumber num = await PhoneNumberUtil().parse(_phoneNumber);
+  //   //     // print('+${num.countryCode}');
+  //   //     // print(num.nationalNumber);
+  //   //     Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
+  //   //       if(value.isOk){
+  //   //         await Get.find<ProfileController>().profileData(reload: true);
+  //   //       }
+  //   //     });
+  //   //   }catch(e){
+  //   //     print(e);
+  //   //     showCustomSnackBar('please_give_your_email_number'.tr,isError: true);
+  //   //   }
+  //   // }
+  // }
+  Future<Response> registration(PassBody signUpBody) async{
       _isLoading = true;
       update();
       Map<String, String> _allCustomerInfo = {
-        'f_name': signUpBody.fName,
-        'l_name': signUpBody.lName,
-        'phone': signUpBody.phone,
-        'dial_country_code': signUpBody.dialCountryCode,
-        'password': signUpBody.password,
-        'gender': signUpBody.gender,
-        'occupation': signUpBody.occupation,
-      };
-      if(signUpBody.otp != null) {
-        _allCustomerInfo.addAll({'otp': signUpBody.otp});
-      }
-      if(signUpBody.email != '') {
-        _allCustomerInfo.addAll({'email': signUpBody.email});
-      }
+        'f_name': signUpBody.lName,
 
-      Response response = await authRepo.registration(_allCustomerInfo,multipartBody);
+        'phone': signUpBody.phone,
+        'save': signUpBody.save,
+        'reason': signUpBody.reason,
+        'permanent': signUpBody.permanent,
+        'date': signUpBody.permanent,
+        'startDate': signUpBody.startDate,
+        'endDate': signUpBody.endDate,
+
+      };
+
+
+
+      Response response = await authRepo.registrationhome(_allCustomerInfo);
       print('error is');
       if (response.statusCode == 200) {
         Get.find<CameraScreenController>().removeImage();
@@ -373,9 +374,9 @@ class AuthController extends GetxController implements GetxService {
         }catch(e){}
         setCustomerCountryCode(_countryCode);
         setCustomerNumber(_nationalNumber);
-        Get.offAllNamed(RouteHelper.getWelcomeRoute(
-          countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
-        ));
+        // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+        //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+        // ));
         // authenticateWithBiometric(false, signUpBody.password).then((value) {
         //   Future.delayed(Duration(seconds: 1)).then((value) {
         //     _callSetting();
