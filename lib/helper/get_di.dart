@@ -10,6 +10,7 @@ import 'package:six_cash/controller/add_money_controller.dart';
 import 'package:six_cash/controller/kyc_verify_controller.dart';
 import 'package:six_cash/controller/menu_controller.dart';
 import 'package:six_cash/controller/notification_controller.dart';
+import 'package:six_cash/controller/pass_controller.dart';
 import 'package:six_cash/controller/qr_code_scanner_controller.dart';
 import 'package:six_cash/controller/screen_shot_widget_controller.dart';
 import 'package:six_cash/controller/requested_money_controller.dart';
@@ -46,6 +47,7 @@ import 'package:get/get.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
 import '../data/repository/kyc_verify_repo.dart';
+import '../data/repository/pass_repo.dart';
 
 
 Future<Map<String, Map<String, String>>> init() async {
@@ -84,6 +86,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => NotificationRepo(apiClient: Get.find()));
   Get.lazyPut(() => RequestedMoneyRepo(apiClient: Get.find()));
   Get.lazyPut(() => TransactionHistoryRepo(apiClient: Get.find()));
+  Get.lazyPut(() => PassRepo(apiClient: Get.find(), sharedPreferences: null));
   Get.lazyPut(() => KycVerifyRepo(apiClient: Get.find()));
 
   // Controller
@@ -109,6 +112,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => QrCodeScannerController());
   Get.lazyPut(() => BannerController(bannerRepo: Get.find()));
   Get.lazyPut(() => TransactionHistoryController(transactionHistoryRepo: Get.find()));
+  Get.lazyPut(() => PassController(passRepo: Get.find()));
   Get.lazyPut(() => EditProfileController(authRepo: Get.find()));
   Get.lazyPut(() => RequestedMoneyController(requestedMoneyRepo: Get.find()));
   Get.lazyPut(() => ScreenShootWidgetController());

@@ -22,8 +22,8 @@ import 'package:six_cash/view/base/custom_snackbar.dart';
 import '../data/repository/pass_repo.dart';
 
 class PassController extends GetxController implements GetxService {
-  final PassRepo authRepo;
-  PassController({@required this.authRepo}) {
+  final PassRepo passRepo;
+  PassController({@required this.passRepo}) {
     //_biometric = authRepo.isBiometricEnabled();
    // checkBiometricSupport();
   }
@@ -54,7 +54,7 @@ class PassController extends GetxController implements GetxService {
     // }
 
     Future<void> updatePin(String pin) async {
-      await authRepo.writeSecureData(AppConstants.BIOMETRIC_PIN, pin);
+      await passRepo.writeSecureData(AppConstants.BIOMETRIC_PIN, pin);
     }
 
   //   bool setBiometric(bool isActive) {
@@ -80,18 +80,6 @@ class PassController extends GetxController implements GetxService {
   // }
 
 
-  Future<String> biometricPin() async {
-      return await  authRepo.readSecureData(AppConstants.BIOMETRIC_PIN) ?? '';
-  }
-  Future<void> removeBiometricPin() async {
-    return await  authRepo.deleteSecureData(AppConstants.BIOMETRIC_PIN);
-  }
-
-  checkBiometricWithPin() async {
-    if(_biometric && (await biometricPin() == null || await biometricPin() == ''))  {
-      authRepo.setBiometric(false).then((value) => _biometric = authRepo.isBiometricEnabled());
-    }
-  }
 
   // Future<void> authenticateWithBiometric(bool autoLogin, String pin) async {
   //   final LocalAuthentication _bioAuth = LocalAuthentication();
@@ -127,105 +115,9 @@ class PassController extends GetxController implements GetxService {
   //   _isBiometricSupported = await _bioAuth.canCheckBiometrics || await _bioAuth.isDeviceSupported();
   // }
 
-  Future<Response> checkPhone(String phoneNumber) async{
-      _isLoading = true;
-      update();
-      Response response = await authRepo.checkPhoneNumber(phoneNumber: phoneNumber);
-      if(response.statusCode == 200){
-        if(!Get.find<SplashController>().configModel.phoneVerification) {
-          requestCameraPermission(fromEditProfile: false);
-        }else if(response.body['otp'] == "active"){
-          Get.find<VerificationController>().startTimer();
-          Get.toNamed(RouteHelper.getVerifyRoute());
-        }
-        _isLoading = false;
-        update();
-      }
-      else if(response.statusCode == 403){
-        String _countryCode;
-        String _nationalNumber;
-        try{
-          PhoneNumber _number = await PhoneNumberUtil().parse(phoneNumber);
-           _countryCode = '+' + _number.countryCode;
-           _nationalNumber = _number.nationalNumber;
-        }
-        catch(e){
 
-        }
-        authRepo.setBiometric(false);
-        Get.offNamed(RouteHelper.getLoginRoute(countryCode: _countryCode,phoneNumber: _nationalNumber));
-        _isLoading = false;
 
-      }
-      else{
-        ApiChecker.checkApi(response);
-      }
-      update();
-      return response;
-    }
-  Future<Response> resendOtp({@required String phoneNumber}) async{
-    _isLoading = true;
-    update();
-    Response response = await authRepo.resendOtp(phoneNumber: phoneNumber);
-    if(response.statusCode == 200){
-      _isLoading = false;
-    }
-    else{
-      _isLoading = false;
-      ApiChecker.checkApi(response);
-    }
-    update();
-    return response;
-  }
 
-  Future<void> requestCameraPermission({@required bool fromEditProfile}) async {
-    var serviceStatus = await Permission.camera.status;
-
-    if(serviceStatus.isGranted && GetPlatform.isAndroid){
-      Get.offNamed(RouteHelper.getSelfieRoute(fromEditProfile: fromEditProfile));
-    }else{
-      if(GetPlatform.isIOS){
-        Get.offNamed(RouteHelper.getSelfieRoute(fromEditProfile: fromEditProfile));
-      }else{
-        final status = await Permission.camera.request();
-        if (status == PermissionStatus.granted) {
-          Get.offNamed(RouteHelper.getSelfieRoute(fromEditProfile: fromEditProfile));
-        } else if (status == PermissionStatus.denied) {
-          Get.find<CameraScreenController>().showDeniedDialog(fromEditProfile: fromEditProfile);
-        } else if (status == PermissionStatus.permanentlyDenied) {
-          Get.find<CameraScreenController>().showPermanentlyDeniedDialog(fromEditProfile: fromEditProfile);
-        }
-      }
-
-    }
-  }
-
-    //Phone Number verification
-  Future<ResponseModel> phoneVerify(String phoneNumber,String otp) async{
-    debugPrint('==number==> '+ phoneNumber + '==otp==>' + otp);
-    _isLoading = true;
-    update();
-    Response response = await authRepo.verifyPhoneNumber(phoneNumber: phoneNumber, otp: otp);
-
-    ResponseModel responseModel;
-    if(response.statusCode == 200){
-      print(response.body['message']);
-      responseModel = ResponseModel(true, response.body["message"]);
-      Get.find<VerificationController>().cancelTimer();
-      showCustomSnackBar(responseModel.message, isError: false);
-      requestCameraPermission(fromEditProfile: false);
-    }
-    else{
-      print(response.body['errors'][0]['message']);
-      responseModel = ResponseModel(false, response.body['errors'][0]['message']);
-      showCustomSnackBar(
-          responseModel.message,
-          isError: true);
-    }
-    _isLoading = false;
-    update();
-    return responseModel;
-  }
 
 
   // registration ..
@@ -347,14 +239,16 @@ class PassController extends GetxController implements GetxService {
   Future<Response> registration(PassBody signUpBody) async{
       _isLoading = true;
       update();
-      Map<String, String> _allCustomerInfo = {
-        'f_name': signUpBody.lName,
+      Map<String, String> _allCustomerInfo =
+
+      {
+        'full_name': signUpBody.fullName,
 
         'phone': signUpBody.phone,
         'save': signUpBody.save,
         'reason': signUpBody.reason,
         'permanent': signUpBody.permanent,
-        'date': signUpBody.permanent,
+        'date': signUpBody.date,
         'startDate': signUpBody.startDate,
         'endDate': signUpBody.endDate,
 
@@ -362,7 +256,7 @@ class PassController extends GetxController implements GetxService {
 
 
 
-      Response response = await authRepo.registrationhome(_allCustomerInfo);
+      Response response = await passRepo.registrationhome(_allCustomerInfo);
       print('error is');
       if (response.statusCode == 200) {
         Get.find<CameraScreenController>().removeImage();
@@ -372,8 +266,7 @@ class PassController extends GetxController implements GetxService {
            _countryCode = '+' + _phoneNumber.countryCode;
            _nationalNumber = _phoneNumber.nationalNumber;
         }catch(e){}
-        setCustomerCountryCode(_countryCode);
-        setCustomerNumber(_nationalNumber);
+
         // Get.offAllNamed(RouteHelper.getWelcomeRoute(
         //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
         // ));
@@ -391,35 +284,13 @@ class PassController extends GetxController implements GetxService {
       return response;
   }
 
-  Future<Response> login({String code, String phone, String password}) async {
-    _isLoading = true;
-    update();
-    Response response = await authRepo.login(phone: phone, password: password);
-
-
-    if (response.body['response_code'] == 'auth_login_200' && response.body['content'] != null) {
-       authRepo.saveUserToken(response.body['content']).then((value) async {
-         await authRepo.updateToken();
-       });
-      setCustomerCountryCode(code);
-      setCustomerNumber(phone);
-      Get.offAllNamed(RouteHelper.getNavBarRoute(), arguments: true);
-      _isLoading = false;
-    }
-    else{
-      _isLoading = false;
-      ApiChecker.checkApi(response);
-    }
-    update();
-    return response;
-  }
 
   Future removeUser() async {
 
     _isLoading = true;
     update();
     Get.back();
-    Response response = await authRepo.deleteUser();
+    Response response = await passRepo.deleteUser();
     print('user del : ${response.body}');
 
     if (response.statusCode == 200) {
@@ -439,7 +310,7 @@ class PassController extends GetxController implements GetxService {
   Future<Response> checkOtp()async{
       _isLoading = true;
       update();
-      Response  response = await authRepo.checkOtpApi();
+      Response  response = await passRepo.checkOtpApi();
       if(response.statusCode == 200){
         _isLoading = false;
       }else{
@@ -453,7 +324,7 @@ class PassController extends GetxController implements GetxService {
   Future<Response> verifyOtp(String otp)async{
     _isVerifying = true;
     update();
-    Response  response = await authRepo.verifyOtpApi(otp: otp);
+    Response  response = await passRepo.verifyOtpApi(otp: otp);
     if(response.statusCode == 200){
       _isVerifying = false;
       Get.back();
@@ -468,130 +339,20 @@ class PassController extends GetxController implements GetxService {
   }
 
 
-  Future<Response> logout() async {
-    _isLoading = true;
-    update();
-    Response response = await authRepo.logout();
-    print('logout body : ${response.statusCode} || ${response.body}');
-    if (response.statusCode == 200) {
 
-      Get.offAllNamed(RouteHelper.getSplashRoute());
-      _isLoading = false;
-    }
-    else{
-      _isLoading = false;
-      ApiChecker.checkApi(response);
-    }
-    update();
-    return response;
-  }
 
-  Future<ResponseModel> otpForForgetPass(String phoneNumber, BuildContext context) async{
-    _isLoading = true;
-    update();
-    Response response = await authRepo.forgetPassOtp(phoneNumber: phoneNumber);
-    ResponseModel responseModel;
-    print(response.statusCode);
-    if(response.statusCode == 200){
-      _isLoading = false;
-      Get.toNamed(RouteHelper.getFVeryficationRoute(phoneNumber: phoneNumber));
-    }
-    else{
-      _isLoading = false;
-      ApiChecker.checkApi(response);
 
-    }
-    update();
-    return responseModel;
-  }
-
-  Future<Response> verificationForForgetPass(String phoneNumber, String otp) async{
-    _isLoading = true;
-    update();
-    Response response = await authRepo.forgetPassVerification(phoneNumber: phoneNumber,otp: otp);
-    if(response.statusCode == 200){
-      _isLoading = false;
-      Get.offNamed(RouteHelper.getFResetPassRoute(phoneNumber: phoneNumber));
-    }
-    else{
-      _isLoading = false;
-      ApiChecker.checkApi(response);
-    }
-    update();
-    return response;
-  }
-
-  Future<Response> resetPassword(String phoneNumber, String otp, String newPass, String confirmPass) async{
-    _isLoading = true;
-    update();
-    Response response = await authRepo.forgetPassReset(phoneNumber: phoneNumber,otp: otp,password: newPass,confirmPass: confirmPass);
-    if(response.statusCode == 200){
-      _isLoading = false;
-      String _countryCode , _nationalNumber;
-      try{
-        PhoneNumber num = await PhoneNumberUtil().parse(phoneNumber);
-        _countryCode = '+' + num.countryCode;
-        _nationalNumber = num.nationalNumber;
-       await updatePin(newPass);
-        Get.offAllNamed(RouteHelper.getLoginRoute(countryCode: _countryCode,phoneNumber: _nationalNumber));
-      }catch(e){
-        showCustomSnackBar('something_error_in_your_phone_number'.tr, isError: false);
-      }
-    }
-    else{
-      _isLoading = false;
-     ApiChecker.checkApi(response);
-    }
-    update();
-    return response;
-  }
 
   String getAuthToken() {
-    return authRepo.getUserToken();
+    return passRepo.getUserToken();
   }
 
 
   bool isLoggedIn() {
-    return authRepo.isLoggedIn();
+    return passRepo.isLoggedIn();
   }
 
-  void setCustomerName(String name){
-      authRepo.saveCustomerName(name);
-  }
-  void setCustomerCountryCode(String code){
-    authRepo.saveCustomerCountryCode(code);
-  }
-  void setCustomerNumber(String number){
-    authRepo.saveCustomerNumber(number);
-  }
-  void setCustomerQrCode(String qrCode){
-    authRepo.saveCustomerQrCode(qrCode);
-  }
-  String getCustomerName(){
-      return authRepo.getCustomerName();
-  }
-  String getCustomerNumber(){
-    return authRepo.getCustomerNumber();
-  }
-  String getCustomerCountryCode(){
-    return authRepo.getCustomerCountryCode();
-  }
-  String getCustomerQrCode(){
-    return authRepo.getCustomerQrCode();
-  }
-  void removeCustomerName() {
-     authRepo.removeCustomerName();
-  }
-  void removeCustomerNumber() {
-    authRepo.removeCustomerNumber();
-  }
-  void removeCustomerQrCode() {
-    authRepo.removeCustomerQrCode();
-  }
 
-  void removeCustomerToken() {
-    authRepo.removeCustomerToken();
-  }
 
   PageController pageController = PageController();
   int _page = 0;

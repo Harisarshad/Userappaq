@@ -43,6 +43,8 @@ class CreatePass extends StatefulWidget {
 
 class _CreatePassState extends State<CreatePass> {
    final TextEditingController Contacts= TextEditingController();
+   final bool saveContact = false;
+   final bool permanentPass = false;
    final TextEditingController fullName= TextEditingController();
    final TextEditingController visitingReason= TextEditingController();
    final TextEditingController passDate= TextEditingController();
@@ -241,7 +243,7 @@ class _CreatePassState extends State<CreatePass> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomCheckbox(),
+                          CustomCheckbox(fieldController:saveContact),
                              FormLabelText(labelText: "Save Contact"),
                         ],
                       ),
@@ -256,31 +258,91 @@ class _CreatePassState extends State<CreatePass> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomCheckbox(),
+                          CustomCheckbox(fieldController:permanentPass),
                              FormLabelText(
                               labelText: "Is this a permanent pass ?"),
                         ],
                       ),
                     ),
                        FormLabelText(labelText: "Select Date"),
-                CalendarDatePicker2(
-                  config: CalendarDatePicker2Config(),
-                  value: _singleDatePickerValueWithDefaultValue,
-                  onValueChanged: (dates) => _singleDatePickerValueWithDefaultValue = dates,
-                ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        DropdownInputField(
-                          placeholder:
-                          date, // Convert the placeholder value to a string
-                          values: [
-                            "2023",
-                            "2022",
-                            "2023-05-22",
-                          ],
-                          controller: passDate,
-                          width: 175,
+                        Expanded(
+                          child: TextFormField(
+
+                            onTap:  ( )  async {
+                              var results = await showCalendarDatePicker2Dialog(
+                                context: context,
+                                config: CalendarDatePicker2WithActionButtonsConfig(),
+                                dialogSize: const Size(325, 400),
+                                value: _singleDatePickerValueWithDefaultValue,
+                                borderRadius: BorderRadius.circular(15),
+                              );
+                              print(results);
+                              passDate.text = results.isNotEmpty
+                                  ? results
+                                  .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                                  .join(', ')
+                                  : 'null';
+                              print(passDate.text);
+
+                              // showModalBottomSheet(
+                              //   context: context,
+                              //   builder: (context) {
+                              //     return CalendarDatePicker2(
+                              //
+                              //       config: CalendarDatePicker2Config(),
+                              //       value: _singleDatePickerValueWithDefaultValue,
+                              //       onValueChanged: (dates) => {
+                              //         _singleDatePickerValueWithDefaultValue = dates,
+                              //         print(dates),
+                              //
+                              //         passDate.text = dates.isNotEmpty
+                              //             ? dates
+                              //             .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                              //             .join(', ')
+                              //             : 'null',
+                              //       }
+                              //       //passDate.text =dates.da
+                              //       ,
+                              //     );
+                              //   },
+                              // ),
+                            },
+                            readOnly: true,
+                            style: TextStyle(),
+                            controller: passDate,
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'This is a required field.';
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              fillColor: Colors.white,
+                              hintText: 'Date',
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade400,
+                              ),
+
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -294,12 +356,93 @@ class _CreatePassState extends State<CreatePass> {
                                   child:
                                   FormLabelText(labelText: "Start Time")),
                             ),
-                            DropdownInputField(
-                              placeholder: "12:00",
-                              controller: passStartTime,
+                            Container(
                               width: 175,
-                              values: ['12:00', '12:00', '12:00', '12:00'],
+                              child: TextFormField(
+
+
+                                onTap:  ( )  async {
+                                  TimeOfDay initialTime = TimeOfDay.now();
+                                  TimeOfDay pickedTime = await showTimePicker(
+                                    context: context,
+                                    initialTime: initialTime,
+                                  );
+                              //   var results = await showCalendarDatePicker2Dialog(
+                              //   context: context,
+                              //   config: CalendarDatePicker2WithActionButtonsConfig(),
+                              //   dialogSize: const Size(325, 400),
+                              //   value: _singleDatePickerValueWithDefaultValue,
+                              //   borderRadius: BorderRadius.circular(15),
+                              // );
+                                  setState(() {
+                                    TimeOfDay selectedTime = pickedTime;
+                                    passStartTime.text = selectedTime.format(context);
+                                  });
+
+
+                                  // showModalBottomSheet(
+                                  //   context: context,
+                                  //   builder: (context) {
+                                  //     return CalendarDatePicker2(
+                                  //
+                                  //       config: CalendarDatePicker2Config(),
+                                  //       value: _singleDatePickerValueWithDefaultValue,
+                                  //       onValueChanged: (dates) => {
+                                  //         _singleDatePickerValueWithDefaultValue = dates,
+                                  //         print(dates),
+                                  //
+                                  //         passDate.text = dates.isNotEmpty
+                                  //             ? dates
+                                  //             .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                                  //             .join(', ')
+                                  //             : 'null',
+                                  //       }
+                                  //       //passDate.text =dates.da
+                                  //       ,
+                                  //     );
+                                  //   },
+                                  // ),
+                                },
+                                readOnly: true,
+                                style: TextStyle(),
+
+                                controller: passStartTime,
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'This is a required field.';
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  fillColor: Colors.white,
+                                  hintText: '12:00',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey.shade400,
+                                  ),
+
+                                ),
+                              ),
                             ),
+                            // DropdownInputField(
+                            //   placeholder: "12:00",
+                            //   controller: passStartTime,
+                            //   width: 175,
+                            //   values: ['12:00', '12:00', '12:00', '12:00'],
+                            // ),
                           ],
                         ),
                         Column(
@@ -309,12 +452,94 @@ class _CreatePassState extends State<CreatePass> {
                               child: Container(
                                   child: FormLabelText(labelText: "End Time")),
                             ),
-                            DropdownInputField(
-                              placeholder: "12:00",
-                              controller: passEndTime,
+                            Container(
                               width: 175,
-                              values: ["1200", "12:00", "12:00", "12:00"],
+                              child: TextFormField(
+
+
+                                onTap:  ( )  async {
+                                  TimeOfDay initialTime = TimeOfDay.now();
+                                  TimeOfDay pickedTime = await showTimePicker(
+                                    context: context,
+                                    initialTime: initialTime,
+                                  );
+                                  //   var results = await showCalendarDatePicker2Dialog(
+                                  //   context: context,
+                                  //   config: CalendarDatePicker2WithActionButtonsConfig(),
+                                  //   dialogSize: const Size(325, 400),
+                                  //   value: _singleDatePickerValueWithDefaultValue,
+                                  //   borderRadius: BorderRadius.circular(15),
+                                  // );
+
+                                  setState(() {
+                                    TimeOfDay selectedTime = pickedTime;
+                                    passEndTime.text = selectedTime.format(context);
+                                  });
+
+
+                                  // showModalBottomSheet(
+                                  //   context: context,
+                                  //   builder: (context) {
+                                  //     return CalendarDatePicker2(
+                                  //
+                                  //       config: CalendarDatePicker2Config(),
+                                  //       value: _singleDatePickerValueWithDefaultValue,
+                                  //       onValueChanged: (dates) => {
+                                  //         _singleDatePickerValueWithDefaultValue = dates,
+                                  //         print(dates),
+                                  //
+                                  //         passDate.text = dates.isNotEmpty
+                                  //             ? dates
+                                  //             .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                                  //             .join(', ')
+                                  //             : 'null',
+                                  //       }
+                                  //       //passDate.text =dates.da
+                                  //       ,
+                                  //     );
+                                  //   },
+                                  // ),
+                                },
+                                readOnly: true,
+                                style: TextStyle(),
+
+                                controller: passEndTime,
+                                // validator: (value) {
+                                //   if (value == null || value.isEmpty) {
+                                //     return 'This is a required field.';
+                                //   } else {
+                                //     return null;
+                                //   }
+                                // },
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(8),
+                                    ),
+                                  ),
+                                  fillColor: Colors.white,
+                                  hintText: '12:00',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey.shade400,
+                                  ),
+
+                                ),
+                              ),
                             ),
+                            // DropdownInputField(
+                            //   placeholder: "12:00",
+                            //   controller: passEndTime,
+                            //   width: 175,
+                            //   values: ["1200", "12:00", "12:00", "12:00"],
+                            // ),
                           ],
                         )
                       ],
@@ -334,16 +559,16 @@ class _CreatePassState extends State<CreatePass> {
                           minimumSize: Size(400, 50),
                         ),
                         onPressed: () {
-                          final TextEditingController Contacts= TextEditingController();
-                          final TextEditingController fullName= TextEditingController();
-                          final TextEditingController visitingReason= TextEditingController();
-                          final TextEditingController passDate= TextEditingController();
-                          final TextEditingController passStartTime= TextEditingController();
-                          final TextEditingController passEndTime= TextEditingController();
-                          if(Contacts.text.isEmpty  || Contacts.text.isEmpty){
-                            showCustomSnackBar('enter_contact_pin'.tr, isError: true);
-                          }
-                          else if(fullName.text.isEmpty  || fullName.text.isEmpty){
+                          // final TextEditingController Contacts= TextEditingController();
+                          // final TextEditingController fullName= TextEditingController();
+                          // final TextEditingController visitingReason= TextEditingController();
+                          // final TextEditingController passDate= TextEditingController();
+                          // final TextEditingController passStartTime= TextEditingController();
+                          // final TextEditingController passEndTime= TextEditingController();
+                          // if(Contacts.text.isEmpty  || Contacts.text.isEmpty){
+                          //   showCustomSnackBar('enter_contact_pin'.tr, isError: true);
+                          // }
+                           if(fullName.text.isEmpty  || fullName.text.isEmpty){
                             showCustomSnackBar('enter_fullname_pin'.tr, isError: true);
                           }
                           else if(visitingReason.text.isEmpty  || visitingReason.text.isEmpty){
@@ -366,15 +591,20 @@ class _CreatePassState extends State<CreatePass> {
                                 String _Contacts =  Contacts.text;
                                 String _passStartTime =  passStartTime.text;
                                 String _fullName =  fullName.text;
+                                String _saveContact =  saveContact == true? '1':'0' ;
+                                String _permanent =  permanentPass == true? '1':'0' ;
                                 String _visitingReason =  visitingReason.text;
                                 String _passDate =  passDate.text;
 
-
+                                            print(_passDate);
+                                            print('_passDate');
+                                            print(_passDate);
                                 PassBody signUpBody = PassBody(
 
-                                    lName: _fullName,
+                                  fullName: _fullName,
                                     reason: _visitingReason,
-                                    save: _visitingReason,
+                                    permanent: _permanent,
+                                    save: _saveContact,
                                     date: _passDate,
                                     phone: _Contacts,
                                     startDate: _passStartTime,
@@ -384,7 +614,7 @@ class _CreatePassState extends State<CreatePass> {
 
 
                                 Get.find<PassController>().registration(signUpBody);
-
+                                Navigator.pop(context);
 
 
 

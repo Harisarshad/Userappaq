@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class PassBody {
 
-  String lName;
+  String fullName;
   String save;
   String phone;
   String reason;
@@ -13,7 +13,7 @@ class PassBody {
   String endDate;
 
   PassBody({
-    @required this.lName,
+    @required this.fullName,
     @required this.phone,
     this.save,
     @required this.reason,
@@ -24,7 +24,7 @@ class PassBody {
   });
 
   PassBody.fromJson(Map<String, dynamic> json) {
-    lName = json['l_name'];
+    fullName = json['full_name'];
     phone = json['phone'];
     save = json['save'];
     reason = json['reason'];
@@ -36,7 +36,7 @@ class PassBody {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['f_name'] = this.lName;
+    data['full_name'] = this.fullName;
 
     data['phone'] = this.phone;
     data['save'] = this.save;
