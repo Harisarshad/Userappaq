@@ -6,12 +6,14 @@ class MyCustomTextAppBar extends StatelessWidget
   final String iconText;
   final String titleText;
   final IconData appbarLeadingIcon;
+  final Widget backButton;
 
   const MyCustomTextAppBar({
     Key key,
     this.iconText = "Back",
     this.titleText = "Amenities",
     this.appbarLeadingIcon = Icons.chevron_left_outlined,
+    this.backButton,
   }) : super(key: key);
 
   @override
