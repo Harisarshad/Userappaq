@@ -4,10 +4,11 @@ import 'package:flutter/cupertino.dart';
 class PassBody {
 
   String fullName;
-  String save;
+  int save;
   String phone;
   String reason;
-  String permanent;
+  int permanent;
+  String userId;
   String date;
   String startDate;
   String endDate;
@@ -19,6 +20,7 @@ class PassBody {
     @required this.reason,
     this.permanent,
     @required this.date,
+     this.userId,
     @required this.startDate,
     @required this.endDate,
   });
@@ -30,6 +32,7 @@ class PassBody {
     reason = json['reason'];
     permanent = json['permanent'];
     date = json['date'];
+    userId = json['user_id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
   }
@@ -42,6 +45,7 @@ class PassBody {
     data['save'] = this.save;
     data['reason'] = this.reason;
     data['permanent'] = this.permanent;
+    data['user_id'] = this.userId;
     data['date'] = this.date;
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;

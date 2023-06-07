@@ -147,7 +147,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
               padding: EdgeInsets.fromLTRB(16, 20, 0, 100),
               child: Row(
                 children: [
-                  CustomCheckbox(),
+                  CustomCheckbox(fieldController:false),
                   FormLabelText(
                     labelText: "Publish Amenity",
                     paddingleft: 10,

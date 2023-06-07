@@ -126,7 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         //Contacts
                                         InkWell(
                                           onTap: () {
-                                            Get.to(Contacts());
+                                           // Get.to(Contacts());
+
+                                            Get.to(() => Contacts());
                                           },
                                           child: Tile(
                                             primaryColor:

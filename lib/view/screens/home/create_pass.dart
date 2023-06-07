@@ -25,10 +25,12 @@ import 'package:six_cash/view/screens/home/widget/third_card_portion.dart';
 
 import '../../../Constants.dart';
 import '../../../CustomWidgets/CustomCheckbox.dart';
+import '../../../CustomWidgets/CustomListTile.dart';
 import '../../../CustomWidgets/DropDownInputField.dart';
 import '../../../CustomWidgets/FormLabelText.dart';
 import '../../../CustomWidgets/InputField.dart';
 import '../../../CustomWidgets/Tile.dart';
+import '../../../controller/contacts_controller.dart';
 import '../../../controller/pass_controller.dart';
 import '../../../data/api/api_client.dart';
 import '../../base/contact_view.dart';
@@ -45,6 +47,7 @@ class _CreatePassState extends State<CreatePass> {
    final TextEditingController Contacts= TextEditingController();
    final bool saveContact = false;
    final bool permanentPass = false;
+   String user_id ='0';
    final TextEditingController fullName= TextEditingController();
    final TextEditingController visitingReason= TextEditingController();
    final TextEditingController passDate= TextEditingController();
@@ -60,6 +63,7 @@ class _CreatePassState extends State<CreatePass> {
     // passDate = TextEditingController();
     // passStartTime = TextEditingController();
     // passEndTime = TextEditingController();
+    Get.find<ContactsController>().getContactsData(1, reload: true);
     super.initState();
   }
    List<DateTime> _singleDatePickerValueWithDefaultValue = [
@@ -194,13 +198,34 @@ class _CreatePassState extends State<CreatePass> {
                           showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return GetBuilder<TransactionMoneyController>(
+                              return GetBuilder<ContactsController>(
                                   builder: (contactController) {
                                     return ConstrainedBox(
-                                        constraints: contactController.filterdContacts.length > 0 ?
-                                        BoxConstraints(maxHeight: Get.find<TransactionMoneyController>().filterdContacts.length.toDouble() * 100) :
+                                        constraints: contactController.contactList.length > 0 ?
+                                        BoxConstraints(maxHeight: contactController.contactList.length.toDouble() * 100) :
                                         BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
-                                        child: ContactView(transactionType: 'cash_outs', contactController: contactController));
+
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemCount: contactController.contactList.length,
+                                            itemBuilder: (ctx,index){
+                                            return InkWell(
+                                              onTap: (){
+                                                fullName.text=contactController.contactList[index].userName;
+                                                user_id =contactController.contactList[index].id;
+                                                Navigator.pop(context);
+                                              },
+                                              child: CustomListTile(
+                                                  cont: contactController.contactList[index],
+                                                  userName: contactController.contactList[index].userName,
+                                                  userEmail: contactController.contactList[index].email,
+                                                  imagePath: "assets/Person1.png",
+                                                  edit:false),
+                                            );
+                                          }
+                                        ),);
+                                       // child: ContactView(transactionType: 'cash_outs', contactController: contactController));
                                   }
                               );
                             },
@@ -591,8 +616,8 @@ class _CreatePassState extends State<CreatePass> {
                                 String _Contacts =  Contacts.text;
                                 String _passStartTime =  passStartTime.text;
                                 String _fullName =  fullName.text;
-                                String _saveContact =  saveContact == true? '1':'0' ;
-                                String _permanent =  permanentPass == true? '1':'0' ;
+                                int _saveContact =  saveContact == true? 1:0 ;
+                                int _permanent =  permanentPass == true? 1:0 ;
                                 String _visitingReason =  visitingReason.text;
                                 String _passDate =  passDate.text;
 
@@ -605,6 +630,7 @@ class _CreatePassState extends State<CreatePass> {
                                     reason: _visitingReason,
                                     permanent: _permanent,
                                     save: _saveContact,
+                                    userId: user_id,
                                     date: _passDate,
                                     phone: _Contacts,
                                     startDate: _passStartTime,
@@ -613,8 +639,8 @@ class _CreatePassState extends State<CreatePass> {
                                 );
 
 
-                                Get.find<PassController>().registration(signUpBody);
-                                Navigator.pop(context);
+                                Get.find<PassController>().registration(signUpBody,context);
+
 
 
 

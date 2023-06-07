@@ -236,7 +236,7 @@ class PassController extends GetxController implements GetxService {
   //   //   }
   //   // }
   // }
-  Future<Response> registration(PassBody signUpBody) async{
+  Future<Response> registration(PassBody signUpBody ,BuildContext context ) async{
       _isLoading = true;
       update();
       Map<String, String> _allCustomerInfo =
@@ -245,9 +245,10 @@ class PassController extends GetxController implements GetxService {
         'full_name': signUpBody.fullName,
 
         'phone': signUpBody.phone,
-        'save': signUpBody.save,
+        'save': signUpBody.save.toString(),
         'reason': signUpBody.reason,
-        'permanent': signUpBody.permanent,
+        'user_id':signUpBody.userId,
+        'permanent': signUpBody.permanent.toString(),
         'date': signUpBody.date,
         'startDate': signUpBody.startDate,
         'endDate': signUpBody.endDate,
@@ -259,13 +260,9 @@ class PassController extends GetxController implements GetxService {
       Response response = await passRepo.registrationhome(_allCustomerInfo);
       print('error is');
       if (response.statusCode == 200) {
-        Get.find<CameraScreenController>().removeImage();
+        //Navigator.pop(context);
         String _countryCode, _nationalNumber;
-        try{
-          PhoneNumber _phoneNumber = await PhoneNumberUtil().parse(signUpBody.phone);
-           _countryCode = '+' + _phoneNumber.countryCode;
-           _nationalNumber = _phoneNumber.nationalNumber;
-        }catch(e){}
+
 
         // Get.offAllNamed(RouteHelper.getWelcomeRoute(
         //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
@@ -284,7 +281,86 @@ class PassController extends GetxController implements GetxService {
       return response;
   }
 
+  Future<Response> addContact(String name,String email,String type,String phone, BuildContext context ) async{
+    _isLoading = true;
+    update();
+    Map<String, String> _allCustomerInfo =
 
+    {
+      'name': name,
+
+      'email': email,
+      'phone': phone,
+      'type': type,
+
+
+    };
+
+
+
+    Response response = await passRepo.addContact(_allCustomerInfo);
+    print('error is');
+    if (response.statusCode == 200) {
+
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
+  Future<Response> updateContact(String name,String email,String type,String phone,String id, BuildContext context ) async{
+    _isLoading = true;
+    update();
+    Map<String, String> _allCustomerInfo =
+
+    {
+      'id': id,
+
+      'name': name,
+
+      'email': email,
+      'phone': phone,
+      'type': type,
+
+
+    };
+
+
+
+    Response response = await passRepo.updateContact(_allCustomerInfo);
+    print('error is');
+    if (response.statusCode == 200) {
+
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
   Future removeUser() async {
 
     _isLoading = true;

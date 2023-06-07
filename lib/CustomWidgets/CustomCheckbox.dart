@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatefulWidget {
-   bool  fieldController ;
+   bool fieldController ;
   CustomCheckbox({
     Key key,
     this.fieldController,
