@@ -22,6 +22,7 @@ import 'package:six_cash/view/screens/home/widget/animated_card/hero_dialogue_ro
 import '../../../../CustomWidgets/ButtonCustom.dart';
 import '../../../../CustomWidgets/FormLabelText.dart';
 import '../../../../CustomWidgets/InputField.dart';
+import '../../../../CustomWidgets/ListStyleCard.dart';
 import '../../../../CustomWidgets/ProfileBottomSheet.dart';
 
 
@@ -148,8 +149,84 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    Get.toNamed(RouteHelper.getRegistrationRoute());
-                                   // LoginBottomSheet(context, size);
+                                    String type;
+                                    showModalBottomSheet(
+                                      backgroundColor: Colors.white,
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                          height: size.height ,
+                                          width: size.width,
+                                          // color: Colors.white,
+                                          child: Container(
+                                            decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(40),
+                                                  topRight: Radius.circular(40),
+
+                                                ),
+                                                color: Colors.white
+                                            ),
+                                            child:  Column(
+                                              children: [
+                                                Padding(
+                                                    padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                                                    child: Text(
+                                                      "Select User Type",
+                                                      style: TextStyle(fontSize: 24),
+                                                    )),
+                                                Padding(
+                                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                                  child: Text(
+                                                    "Select your type of profile",
+                                                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: (){
+                                                    type = '2';
+                                                    Get.toNamed(RouteHelper.getRegistrationRoute(countryCode :'2'));
+                                                  },
+                                                  child: ListStyleCard(
+                                                    imagePath: "assets/SamplePicture.png",
+                                                    heading: "Resident",
+                                                    subText: "I live in a building or residence",
+                                                  ),
+                                                ),
+                                                // InkWell(
+                                                //   onTap: (){
+                                                //     type = '2';
+                                                //     Get.toNamed(RouteHelper.getRegistrationRoute(countryCode :'2'));
+                                                //   },
+                                                //   child: ListStyleCard(
+                                                //     imagePath: "assets/SamplePicture.png",
+                                                //     heading: "Administrator",
+                                                //     subText: "I administrate the building or residence",
+                                                //   ),
+                                                // ),
+                                                InkWell(
+                                                  onTap: (){
+                                                    type = '3';
+                                                    Get.toNamed(RouteHelper.getRegistrationRoute(countryCode :'3'));
+                                                  },
+                                                  child: ListStyleCard(
+                                                    imagePath: "assets/SamplePicture.png",
+                                                    heading: "Checkpoint",
+                                                    subText: "I work for the building or residence",
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                    // if(type.isEmpty  ){
+                                    //   showCustomSnackBar('enter_fullname_pin'.tr, isError: true);
+                                    // }
+
+
+
                                   },
                                   child: Text(
                                     "Create an account",
@@ -207,33 +284,33 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           //   );
                           // }),
                            SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-                          Row(
-                            children: [
-                              Text('Account'.tr, style: rubikLight.copyWith(color: Theme.of(context).textTheme.bodyText1.color.withOpacity(0.9), fontSize: Dimensions.FONT_SIZE_LARGE)),
-                              Expanded(
-                                child: TextField(
-                                  controller: phoneController,
-                                  focusNode: phoneFocus,
-                                  onSubmitted: (value) {
-                                    FocusScope.of(context).requestFocus(passFocus);
-                                  },
-                                  keyboardType: TextInputType.phone,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: const EdgeInsets.only(top: 14),
-                                      prefixIcon: CustomCountryCodePiker(
-                                        onInit: (code){},
-                                        initSelect: widget.countryCode,
-                                        onChanged: (code){
-                                          print(code);
-                                          setCountryCode(code);
-                                        },
-                                      )
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Text('Account'.tr, style: rubikLight.copyWith(color: Theme.of(context).textTheme.bodyText1.color.withOpacity(0.9), fontSize: Dimensions.FONT_SIZE_LARGE)),
+                          //     Expanded(
+                          //       child: TextField(
+                          //         controller: phoneController,
+                          //         focusNode: phoneFocus,
+                          //         onSubmitted: (value) {
+                          //           FocusScope.of(context).requestFocus(passFocus);
+                          //         },
+                          //         keyboardType: TextInputType.phone,
+                          //         decoration: InputDecoration(
+                          //             border: InputBorder.none,
+                          //             contentPadding: const EdgeInsets.only(top: 14),
+                          //             prefixIcon: CustomCountryCodePiker(
+                          //               onInit: (code){},
+                          //               initSelect: widget.countryCode,
+                          //               onChanged: (code){
+                          //                 print(code);
+                          //                 setCountryCode(code);
+                          //               },
+                          //             )
+                          //         ),
+                          //       ),
+                          //     )
+                          //   ],
+                          // ),
                           Divider(
                             color: Theme.of(context).textTheme.titleLarge.color.withOpacity(0.4),
                             height: 0.5,
@@ -245,18 +322,18 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('4_digit_pin'.tr, style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_LARGE,),),
+                             //   Text('4_digit_pin'.tr, style: rubikMedium.copyWith(color: Theme.of(context).textTheme.titleLarge.color, fontSize: Dimensions.FONT_SIZE_LARGE,),),
                                 const SizedBox(height: Dimensions.PADDING_SIZE_LARGE,),
-                                CustomPasswordField(
-                                  hint: '＊＊＊＊',
-                                  controller: passwordController,
-                                  focusNode: passFocus,
-                                  isShowSuffixIcon: true,
-                                  isPassword: true,
-                                  isIcon: false,
-                                  textAlign: TextAlign.center,
-
-                                ),
+                                // CustomPasswordField(
+                                //   hint: '＊＊＊＊',
+                                //   controller: passwordController,
+                                //   focusNode: passFocus,
+                                //   isShowSuffixIcon: true,
+                                //   isPassword: true,
+                                //   isIcon: false,
+                                //   textAlign: TextAlign.center,
+                                //
+                                // ),
                                 InkWell(
                                   onTap: (){
                                     Get.toNamed(RouteHelper.getForgetPassRoute(countryCode: _countryCode,phoneNumber: phoneController.text.trim()));

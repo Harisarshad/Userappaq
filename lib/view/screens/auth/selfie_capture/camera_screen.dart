@@ -42,11 +42,11 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     Get.find<CameraScreenController>().valueInitialize(widget.fromEditProfile);
-    // Get.find<CameraScreenController>().startLiveFeed(
-    //   isQrCodeScan: widget.isBarCodeScan,
-    //   isHome: widget.isHome,
-    //   transactionType: widget.transactionType,
-    // );
+    Get.find<CameraScreenController>().startLiveFeed(
+      isQrCodeScan: widget.isBarCodeScan,
+      isHome: widget.isHome,
+      transactionType: widget.transactionType,
+    );
 
     super.initState();
   }
@@ -68,7 +68,7 @@ class _CameraScreenState extends State<CameraScreen> {
             flex: 2,
             child: Stack(
               children: [
-              //  CameraView(),
+                CameraView(),
 
                 FractionallySizedBox(
                   child: Align(

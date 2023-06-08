@@ -68,9 +68,9 @@ class EditProfileController extends GetxController implements GetxService{
       if (response.statusCode == 200) {
         responseModel = ResponseModel(true, response.body['message']);
         _isSuccess = true;
-        // if(Get.find<CameraScreenController>().getImage != null) {
-        //   Get.find<CameraScreenController>().removeImage();
-        // }
+        if(Get.find<CameraScreenController>().getImage != null) {
+          Get.find<CameraScreenController>().removeImage();
+        }
         Get.find<ProfileController>().profileData(reload: true, isUpdate: true);
         Get.back();
         print(responseModel.message);

@@ -37,6 +37,7 @@ import 'package:six_cash/data/repository/language_repo.dart';
 import 'package:six_cash/data/repository/notification_repo.dart';
 import 'package:six_cash/data/repository/profile_repo.dart';
 import 'package:six_cash/data/repository/requested_money_repo.dart';
+import 'package:six_cash/data/repository/residents_repo.dart';
 import 'package:six_cash/data/repository/transaction_repo.dart';
 import 'package:six_cash/data/repository/transaction_history_repo.dart';
 import 'package:six_cash/data/repository/websitelink_repo.dart';
@@ -46,8 +47,10 @@ import 'package:six_cash/data/model/response/language_model.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'package:six_cash/view/screens/residents/residents.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
+import '../controller/resident_controller.dart';
 import '../data/repository/kyc_verify_repo.dart';
 import '../data/repository/pass_repo.dart';
 
@@ -91,6 +94,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => ContactsRepo(apiClient: Get.find()));
   Get.lazyPut(() => PassRepo(apiClient: Get.find(), sharedPreferences: null));
   Get.lazyPut(() => KycVerifyRepo(apiClient: Get.find()));
+  Get.lazyPut(() => ResidentsRepo(apiClient: Get.find()));
 
   // Controller
   Get.lazyPut(() => ThemeController(sharedPreferences: Get.find()));
@@ -99,6 +103,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => LanguageController(sharedPreferences: Get.find()));
   Get.lazyPut(() => TransactionMoneyController(transactionRepo: Get.find(), authRepo: Get.find()));
   Get.lazyPut(() => AddMoneyController(addMoneyRepo:Get.find() ));
+  Get.lazyPut(() => ResidentsController(residentsRepo:Get.find() ));
   Get.lazyPut(() => NotificationController(notificationRepo: Get.find()));
   Get.lazyPut(() => ProfileController(profileRepo: Get.find()));
   Get.lazyPut(() => FaqController(faqrepo: Get.find()));

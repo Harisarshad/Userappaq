@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:six_cash/CustomWidgets/ButtonCustom.dart';
+
+import '../auth/selfie_capture/camera_screen.dart';
+import '../transaction_money/widget/scan_button.dart';
 
 class ScanPass extends StatelessWidget {
   const ScanPass({Key key}) : super(key: key);
@@ -92,7 +97,11 @@ class ScanPass extends StatelessWidget {
             child: ButtonCustom(
               buttonText: "Verify Access Pass",
               onPress: () {
-                // Add your logic for button press here
+                Get.to(()=> CameraScreen(
+                  fromEditProfile: false,
+                  isBarCodeScan: true,
+                  transactionType: 'cash_out',
+                )) ;             // Add your logic for button press here
               },
             ),
           ),

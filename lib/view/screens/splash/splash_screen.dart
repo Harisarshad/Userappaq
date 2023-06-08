@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
           else{
           (Get.find<AuthController>().getCustomerName().isNotEmpty && (Get.find<SplashController>().configModel.companyName != null))?
           Get.offNamed(RouteHelper.getLoginRoute(countryCode: Get.find<AuthController>().getCustomerCountryCode(),phoneNumber: Get.find<AuthController>().getCustomerNumber())) :
-          Get.offNamed(RouteHelper.getChoseLoginRegRoute());
+          Get.offNamed(RouteHelper.getLoginRoute());
         }});
 
       });

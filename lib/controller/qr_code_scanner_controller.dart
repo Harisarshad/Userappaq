@@ -62,8 +62,9 @@ class QrCodeScannerController extends GetxController implements GetxService{
               });
             }
             _isDetect = true;
-
+            print('bbbA');
           }else {
+            print('AAA');
             Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
           }
 

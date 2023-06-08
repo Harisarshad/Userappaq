@@ -6,6 +6,8 @@ class SignUpBody {
   String lName;
   String email;
   String phone;
+  String userType;
+  String parentCode;
   String password;
   String otp;
   String gender;
@@ -16,6 +18,8 @@ class SignUpBody {
     @required this.fName,
     @required this.lName,
     @required this.phone,
+    @required this.parentCode,
+    @required this.userType,
     this.email,
     @required this.password,
     this.otp,
@@ -28,7 +32,9 @@ class SignUpBody {
     fName = json['f_name'];
     lName = json['l_name'];
     phone = json['phone'];
+    parentCode = json['parent_code'];
     email = json['email'];
+    userType = json['type'];
     password = json['password'];
     otp = json['otp'];
     gender = json['gender'];
@@ -41,6 +47,8 @@ class SignUpBody {
     data['f_name'] = this.fName;
     data['l_name'] = this.lName;
     data['phone'] = this.phone;
+    data['parent_code'] = this.parentCode;
+    data['type'] = this.userType;
     data['email'] = this.email;
     data['password'] = this.password;
     data['otp'] = this.otp;

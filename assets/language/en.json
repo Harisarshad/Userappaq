@@ -77,6 +77,8 @@
   "female": "Female",
   "other": "Other",
   "first_name_or_last_name": "First name Or last name must not be Empty",
+  "enter_the_code_building": "Building Code must not be Empty",
+  "enter_the_code_correct": "Building Code is not correct",
   "set_your_4_digit": "Set Your 4 Digit PIN For Future Login",
   "set_your_pin": "Set Your PIN",
   "confirm_pin": "Confirm PIN",

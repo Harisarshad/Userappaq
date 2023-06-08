@@ -137,8 +137,44 @@ class _AddContactState extends State<AddContact> {
               ),
             ),
           ),
+          widget.update? Padding(
+            padding:  EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child: Container(
+              margin:  EdgeInsets.fromLTRB(16, 15, 16, 5),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AqcessColors().primary,
+                  foregroundColor: Colors.white,
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                  minimumSize: Size(400, 50),
+                ),
+                onPressed: () {
+
+                  String _customerFullName =  customerFullName.text;
+                  String _customerVisitType =  customerVisitType.text;
+                  String _customerEmail =  customerEmail.text;
+                  String _phone =  customerPhone.text;
+
+
+
+                    Get.find<PassController>().deleteContact(widget.cont.id, context);
+
+
+                },
+                child: Text(
+                  'Delete Contact',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ):SizedBox(),
           Padding(
-            padding:  EdgeInsets.fromLTRB(0, 0, 0, 100),
+            padding:  EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: Container(
               margin:  EdgeInsets.fromLTRB(16, 15, 16, 5),
               child: ElevatedButton(

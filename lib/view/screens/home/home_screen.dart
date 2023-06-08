@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //Get.find<WebsiteLinkController>().getWebsiteList();
     // Get.find<NotificationController>().getNotificationList();
     // Get.find<TransactionMoneyController>().getPurposeList();
-    Get.find<TransactionMoneyController>().fetchContact();
+   // Get.find<TransactionMoneyController>().fetchContact();
     //  Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
     //Get.find<RequestedMoneyController>().getWithdrawHistoryList();
   }

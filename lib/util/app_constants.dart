@@ -19,11 +19,14 @@ class AppConstants {
   static const String CUSTOMER_PHONE_RESEND_OTP_URI = '/api/v1/customer/auth/resend-otp';
   static const String CUSTOMER_PHONE_VERIFY_URI = '/api/v1/customer/auth/verify-phone';
   static const String CUSTOMER_REGISTRATION_URI = '/api/v1/customer/auth/register';
+  static const String CUSTOMER_REGISTRATION_CHECK_URI = '/api/v1/customer/auth/checkreg';
   static const String PASS_REGISTRATION_URI = '/api/v1/customer/reg-pass';
   static const String ADD_CONTACT_URI = '/api/v1/customer/add-contact';
   static const String UPDATE_CONTACT_URI = '/api/v1/customer/update-contact';
   static const String DELETE_CONTACT_URI = '/api/v1/customer/delete-contact';
   static const String LIST_CONTACT_URI = '/api/v1/customer/list-contact';
+  static const String LIST_RESIDENTS_URI = '/api/v1/customer/list-residents';
+  static const String LIST_RESIDENTSP_URI = '/api/v1/customer/list-residents-pending';
   static const String CUSTOMER_UPDATE_PROFILE = '/api/v1/customer/update-profile';
   static const String CUSTOMER_LOGIN_URI = '/api/v1/customer/auth/login';
   static const String CUSTOMER_LOGOUT_URI = '/api/v1/customer/logout';

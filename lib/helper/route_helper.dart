@@ -100,7 +100,10 @@ class RouteHelper {
   static  getLoginRoute({@required String countryCode, @required String phoneNumber}) {
     return '$login_screen?country-code=$countryCode&phone-number=$phoneNumber';
   }
-  static  getRegistrationRoute() => '$create_account_screen';
+  static  getRegistrationRoute({@required String countryCode,}) {
+    return'$create_account_screen?country-code=$countryCode';
+  }
+
   static  getVerifyRoute() => '$verify_screen';
 
   static  getWelcomeRoute({String countryCode,String phoneNumber, String password}) {
@@ -162,7 +165,7 @@ class RouteHelper {
     GetPage(name: add_money_web, page: () => WebScreen()),
 
     GetPage(name: chose_login_or_reg_screen, page: () => ChoiceScreen()),
-    GetPage(name: create_account_screen, page: () => CreateAccountScreen()),
+    GetPage(name: create_account_screen, page: () => CreateAccountScreen( countryCode: Get.parameters['country-code'])),
     GetPage(name: verify_screen, page: () => VerificationScreen()),
     GetPage(name: selfie_screen, page: () => CameraScreen(fromEditProfile: Get.parameters['page'] == 'edit-profile')),
     GetPage(name: other_info_screen, page: () => OtherInfoScreen()),

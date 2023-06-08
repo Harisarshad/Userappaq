@@ -124,7 +124,7 @@ class ChoiceScreen extends StatelessWidget {
                 width: context.width * 0.7,
                 padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_DEFAULT, right: Dimensions.PADDING_SIZE_DEFAULT, bottom: Dimensions.PADDING_SIZE_EXTRA_EXTRA_LARGE),
                 child: CustomSmallButton(
-                  onTap: () => Get.toNamed(RouteHelper.getRegistrationRoute()),
+                  onTap: () => Get.toNamed(RouteHelper.getRegistrationRoute(countryCode: '1')),
                   backgroundColor: Theme.of(context).secondaryHeaderColor,
                   text: 'login_registration'.tr,
                   textColor:Theme.of(context).textTheme.bodyText1.color,

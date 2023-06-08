@@ -26,7 +26,8 @@ import '../../../../data/model/body/signup_body.dart';
 import '../../../../helper/route_helper.dart';
 
 class CreateAccountScreen extends StatefulWidget {
-
+  final String countryCode;
+  const CreateAccountScreen({Key key, this.countryCode, }) : super(key: key);
   @override
   State<CreateAccountScreen> createState() => _CreateAccountScreenState();
 }
@@ -37,6 +38,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
 
    final TextEditingController userFullName =  TextEditingController();
+   final TextEditingController JoingCode =  TextEditingController();
 
    final TextEditingController userEmail=  TextEditingController();
 
@@ -48,13 +50,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
    final TextEditingController numberOfResidents=  TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
+String userType;
   // Overriding them for initializing them
   @override
   void initState() {
-    Get.find<CreateAccountController>().setInitCountryCode(Get.find<SplashController>().getCountryCode());
+   // Get.find<CreateAccountController>().setInitCountryCode(Get.find<SplashController>().getCountryCode());
 
-
+    userType = widget.countryCode;
     super.initState();
   }
 
@@ -64,6 +66,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     userEmail.dispose();
     userPassword.dispose();
     userFullName.dispose();
+    JoingCode.dispose();
     userConfirmPassword.dispose();
     userResidents.dispose();
     numberOfResidents.dispose();
@@ -119,12 +122,20 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     child: Column(
                       children: [
                         const FormLabelText(
+                          labelText: "Building Code",
+                        ),
+                        InputField(
+                          placeholderText: "Enter the Building Code",
+                          fieldController: JoingCode,
+                        ),
+                        const FormLabelText(
                           labelText: "Full Name",
                         ),
                         InputField(
                           placeholderText: "Type your full name",
                           fieldController: userFullName,
                         ),
+
                         const FormLabelText(
                           labelText: "Email",
                         ),
@@ -146,19 +157,19 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           placeholderText: "Confirm password",
                           fieldController: userConfirmPassword,
                         ),
-                        const FormLabelText(
-                          labelText: "Number of residents in your housing complex? ",
-                        ),
-                        Row(
-                          children: [
-                            DropdownInputField(
-                              values: ['100', '200', '300', '400', '500'],
-                              controller: numberOfResidents,
-                              placeholder: "200",
-                              width: 390,
-                            ),
-                          ],
-                        ),
+                        // const FormLabelText(
+                        //   labelText: "Number of residents in your housing complex? ",
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     DropdownInputField(
+                        //       values: ['100', '200', '300', '400', '500'],
+                        //       controller: numberOfResidents,
+                        //       placeholder: "200",
+                        //       width: 390,
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -178,7 +189,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       ),
                       onPressed: ()  {
 
-                        if (userFullName.text == '' || userFullName.text == '') {
+                        if (JoingCode.text == '' || JoingCode.text == '') {
+                          showCustomSnackBar('enter_the_code_building'.tr, isError: true);
+                        }
+                        else if  (userFullName.text == '' || userFullName.text == '') {
                           showCustomSnackBar('first_name_or_last_name'.tr, isError: true);
                         }
                         else {
@@ -188,10 +202,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                               showCustomSnackBar('please_provide_valid_email'.tr, isError: true);
                             }
                             else{
+
                               String _password =  userConfirmPassword.text;
                               String _gender =  'male';
                               String _occupation =  'do n';
                               String _fName =  userFullName.text;
+                              String _JoingCode =  JoingCode.text;
                               String _lName =  userFullName.text;
                               String _email = userEmail.text;
                               String _countryCode = getCountryCode(Get.find<CreateAccountController>().phoneNumber);
@@ -202,46 +218,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                                   fName: _fName,
                                   lName: _lName,
                                   gender: _gender,
+                                  parentCode: _JoingCode,
                                   occupation: _occupation,
                                   email: _email,
                                   phone: '16546546546',
                                   otp: _otp,
                                   password: _password,
-                                  dialCountryCode: _countryCode
+                                  dialCountryCode: _countryCode, userType: userType
                               );
 
                               //MultipartBody multipartBody = MultipartBody('image',_image );
                               //MultipartBody multipartBody = multipartBody();
-                              Get.find<AuthController>().registrationhome(signUpBody);
+                              Get.find<AuthController>().registrationhome(signUpBody,);
                             }
                           }
                           else{
-                            print('without email');
-                            String _password =  userConfirmPassword.text;
-                            String _gender =  'male';
-                            String _occupation =  '';
-                            String _fName =  userFullName.text;
-                            String _lName =  userFullName.text;
-                            String _email = userEmail.text;
-                            String _countryCode = getCountryCode(Get.find<CreateAccountController>().phoneNumber);
-                            String _phoneNumber = Get.find<CreateAccountController>().phoneNumber.replaceAll(_countryCode, '');
-                            String _otp =  Get.find<VerificationController>().otp;
-
-                            SignUpBody signUpBody = SignUpBody(
-                                fName: _fName,
-                                lName: _lName,
-                                gender: _gender,
-                                occupation: _occupation,
-                                email: _email,
-                                phone: _phoneNumber,
-                                otp: _otp,
-                                password: _password,
-                                dialCountryCode: _countryCode
-                            );
-
-                            //MultipartBody multipartBody = MultipartBody('image',_image );
-                            //MultipartBody multipartBody = multipartBody();
-                            Get.find<AuthController>().registrationhome(signUpBody);
+                            showCustomSnackBar('please_provide_valid_email'.tr, isError: true);
                           }
                         }
                       },

@@ -20,7 +20,7 @@ class NoDataFoundScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset( Images.no_data, width: 150, height: 150),
+          Image.asset( Images.no_data, width: 100, height: 100),
 
           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(

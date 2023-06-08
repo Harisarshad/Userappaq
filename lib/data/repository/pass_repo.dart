@@ -41,6 +41,10 @@ class PassRepo extends GetxService{
    Future<Response> updateContact(Map<String,String> customerInfo,) async {
      return await apiClient.postData(AppConstants.UPDATE_CONTACT_URI, customerInfo);
    }
+   Future<Response> deleteContact(String id,) async {
+
+     return await apiClient.getData('${AppConstants.DELETE_CONTACT_URI}/$id');
+   }
    Future<Response> getContactList(int offset) async {
      return await apiClient.getData('${AppConstants.LIST_CONTACT_URI}?limit=1000&offset=$offset');
    }

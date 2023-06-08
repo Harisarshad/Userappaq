@@ -61,7 +61,7 @@ class _OnTapCustomListTileContainerState
           padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
           child: Row(
             children: [
-              CustomCheckbox(),
+              CustomCheckbox(fieldController:true),
               FormLabelText(
                 labelText: "Resident",
                 paddingbottom: 6,
@@ -69,7 +69,7 @@ class _OnTapCustomListTileContainerState
                 paddingright: 0,
               ),
               Spacer(),
-              CustomCheckbox(),
+              CustomCheckbox(fieldController:true),
               FormLabelText(
                 labelText: "Checkpoint",
                 paddingbottom: 6,

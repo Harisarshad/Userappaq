@@ -361,6 +361,35 @@ class PassController extends GetxController implements GetxService {
     update();
     return response;
   }
+  Future<Response> deleteContact(String id, BuildContext context ) async{
+    _isLoading = true;
+    update();
+
+
+
+
+    Response response = await passRepo.deleteContact(id);
+    print('error is');
+    if (response.statusCode == 200) {
+
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
   Future removeUser() async {
 
     _isLoading = true;
