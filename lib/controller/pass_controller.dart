@@ -8,12 +8,14 @@ import 'package:phone_number/phone_number.dart';
 import 'package:six_cash/controller/bootom_slider_controller.dart';
 import 'package:six_cash/controller/profile_screen_controller.dart';
 import 'package:six_cash/controller/camera_screen_controller.dart';
+import 'package:six_cash/controller/screen_shot_widget_controller.dart';
 import 'package:six_cash/controller/splash_controller.dart';
 import 'package:six_cash/controller/verification_controller.dart';
 import 'package:six_cash/data/api/api_checker.dart';
 import 'package:six_cash/data/api/api_client.dart';
 import 'package:six_cash/data/model/body/pass_body.dart';
 import 'package:six_cash/data/model/body/signup_body.dart';
+import 'package:six_cash/data/model/pass_model.dart';
 import 'package:six_cash/data/model/response/response_model.dart';
 import 'package:six_cash/helper/route_helper.dart';
 import 'package:six_cash/util/app_constants.dart';
@@ -41,6 +43,30 @@ class PassController extends GetxController implements GetxService {
     bool get isBiometricSupported => _isBiometricSupported;
 
 
+  bool _isSearching = false;
+  bool _isSearchingPending = false;
+  int _pageSize;
+  int _pageSizePending;
+  Pass _passDetailsModel;
+  Pass get passDetailsModel => _passDetailsModel;
+
+  bool _firstLoading = true;
+  bool _isLoadingPending = false;
+  bool _firstLoadingPending = true;
+  bool get firstLoading => _firstLoading;
+  bool get firstLoadingPending => _firstLoadingPending;
+  int _offset = 1;
+  int get offset =>_offset;
+
+  List<int> _offsetList = [];
+  List<int> _offsetListPending = [];
+  List<int> get offsetList => _offsetList;
+  List<int> get offsetListPending => _offsetListPending;
+  bool _isDetails = false;
+  bool get isDetails =>_isDetails;
+  List<Pass> _passList  = [];
+
+  List<Pass> get passList => _passList;
 
     // Future<void> _callSetting() async {
     //   final LocalAuthentication _bioAuth = LocalAuthentication();
@@ -236,6 +262,66 @@ class PassController extends GetxController implements GetxService {
   //   //   }
   //   // }
   // }
+  Future getContactsData(int offset,{bool reload = false}) async{
+    if(reload) {
+      _offsetList = [];
+      _passList = [];
+
+    }
+    _offset = offset;
+    if(!_offsetList.contains(offset)) {
+      _offsetList.add(offset);
+
+      Response response = await passRepo.getPass(offset);
+      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+        _passList = [];
+
+        response.body['transactions'].forEach((transactionHistory) {
+          Pass history = Pass.fromJson(transactionHistory);
+          _passList.add(history);
+        });
+        _pageSize = PassModel.fromJson(response.body).totalSize;
+      }else{
+        ApiChecker.checkApi(response);
+      }
+    }
+    _isLoading = false;
+    _firstLoading = false;
+    update();
+  }
+  Future<Response> passDetails(String id, BuildContext context ) async{
+
+    update();
+
+    _isDetails = true;
+
+
+
+    Response response = await passRepo.pass(id);
+    print('error is');
+    if (response.statusCode == 200) {
+      _isDetails = false;
+      _passDetailsModel = Pass.fromJson(response.body['pass']);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      _isDetails = false;
+
+      ApiChecker.checkApi(response);
+    }
+    _isDetails = false;
+
+    update();
+    return response;
+  }
   Future<Response> registration(PassBody signUpBody ,BuildContext context ) async{
       _isLoading = true;
       update();
@@ -262,7 +348,15 @@ class PassController extends GetxController implements GetxService {
       if (response.statusCode == 200) {
         //Navigator.pop(context);
         String _countryCode, _nationalNumber;
+        print(response.body);
+        print('harisarshad');
 
+
+        print('harisarshad');
+        String idofpass =response.body['transaction_id'].toString();
+        String qrcode =response.body['qr_code'];
+
+        Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: qrcode, phoneNumber: idofpass,isShare: true);
 
         // Get.offAllNamed(RouteHelper.getWelcomeRoute(
         //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
@@ -390,6 +484,7 @@ class PassController extends GetxController implements GetxService {
     update();
     return response;
   }
+
   Future removeUser() async {
 
     _isLoading = true;

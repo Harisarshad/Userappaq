@@ -32,6 +32,7 @@ import '../../../CustomWidgets/InputField.dart';
 import '../../../CustomWidgets/Tile.dart';
 import '../../../controller/contacts_controller.dart';
 import '../../../controller/pass_controller.dart';
+import '../../../controller/screen_shot_widget_controller.dart';
 import '../../../data/api/api_client.dart';
 import '../../base/contact_view.dart';
 import '../../base/custom_snackbar.dart';
@@ -639,10 +640,20 @@ class _CreatePassState extends State<CreatePass> {
                                 );
 
 
-                                Get.find<PassController>().registration(signUpBody,context);
+                                Get.find<PassController>().registration(signUpBody,context).then((value)
+                                {
+                                  print(value.body);
+                                  print('harisarshad');
+                                  if (value.status  == 200){
 
 
 
+                                  }
+
+                                   });
+
+
+                               // Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: Get.find<ProfileController>().userInfo.qrCode, phoneNumber: Get.find<ProfileController>().userInfo.phone,isShare: true)
 
                           }
                         },

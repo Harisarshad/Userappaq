@@ -8,7 +8,7 @@ class PassVerification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-
+//camera screen
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AqcessColors().secondary,

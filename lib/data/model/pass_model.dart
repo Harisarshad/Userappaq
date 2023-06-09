@@ -1,20 +1,20 @@
-class ResidentModel {
+class PassModel {
   int totalSize;
   int limit;
   int offset;
-  List<Resident> transactions;
+  List<Pass> transactions;
 
-  ResidentModel(
+  PassModel(
       {this.totalSize, this.limit, this.offset, this.transactions});
 
-  ResidentModel.fromJson(Map<String, dynamic> json) {
+  PassModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'];
     offset = json['offset'];
     if (json['transactions'] != null) {
-      transactions = <Resident>[];
+      transactions = <Pass>[];
       json['transactions'].forEach((v) {
-        transactions.add(new Resident.fromJson(v));
+        transactions.add(new Pass.fromJson(v));
       });
     }
   }
@@ -31,37 +31,65 @@ class ResidentModel {
   }
 }
 
-class Resident {
+class Pass {
   String id;
+  String resId;
+  String reason;
+  String fullName;
+  String residence;
+  String address;
+  String save;
+  String permanent;
+  String date;
+  String startDate;
+  String endDate;
+  String qrCode;
+  String image;
 
   UserInfo userInfo;
-  String userName;
-  String phone;
-  String email;
-  int Type;
 
 
-  Resident(
+
+  Pass(
       {
         this.id,
+        this.resId,
+        this.reason,
+        this.fullName,
+        this.residence,
+        this.address,
+        this.save,
+        this.permanent,
+        this.date,
+        this.startDate,
+        this.endDate,
+        this.qrCode,
+        this.image,
 
         this.userInfo,
-        this.userName,
-        this.phone,
-        this.email,
-        this.Type,
+
       });
 
-  Resident.fromJson(Map<String, dynamic> json) {
+  Pass.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
+    resId = json['res_id'].toString();
+    reason = json['reason'].toString();
+    fullName = json['full_name'].toString();
+    residence = json['residence_name'].toString();
+    address = json['address'].toString();
+    save = json['save'].toString();
+    permanent = json['permanent'].toString();
+    date = json['date'].toString();
+    startDate = json['start_date'].toString();
+    endDate = json['end_date'].toString();
+    qrCode = json['qr_code'].toString();
+    image = json['image'].toString();
+
 
     userInfo = json['user_info'] != null
         ? new UserInfo.fromJson(json['user_info'])
         : null;
-    userName = json['user_name'].toString();
-    phone = json['phone'].toString();
-    email = json['email'].toString();
-    Type = int.parse(json['type'].toString());
+
 
   }
 
@@ -69,14 +97,24 @@ class Resident {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     data['id'] = this.id;
+    data['res_id'] = this.resId;
+    data['reason'] = this.reason;
+    data['full_name'] = this.fullName;
+    data['address'] = this.address;
+    data['residence_name'] = this.residence;
+    data['save'] = this.save;
+    data['permanent'] = this.permanent;
+    data['date'] = this.date;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['image'] = this.image;
+    data['qr_code'] = this.qrCode;
+
 
     if (this.userInfo != null) {
       data['user_info'] = this.userInfo.toJson();
     }
-    data['user_name'] = this.userName;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['type'] = this.Type;
+
 
     return data;
   }

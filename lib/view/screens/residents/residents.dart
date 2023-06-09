@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:six_cash/CustomWidgets/CustomListTile.dart';
 import 'package:six_cash/CustomWidgets/InputField.dart';
+import 'package:six_cash/CustomWidgets/InputFieldWithSearch.dart';
 import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
 import 'package:six_cash/CustomWidgets/OnTapCustomListTile.dart';
 
@@ -42,8 +43,8 @@ class _ResidentsState extends State<Residents> {
      // Get.find<NotificationController>().getNotificationList();
      // Get.find<TransactionMoneyController>().getPurposeList();
      //Get.find<ContactsController>().getContactsData(offset);
-     Get.find<ResidentsController>().getContactsData(1, reload: true);
-     Get.find<ResidentsController>().getContactsPending(1, reload: true);
+     Get.find<ResidentsController>().getContactsData(1,'' ,reload: true,);
+     Get.find<ResidentsController>().getContactsPending(1, '',reload: true,);
      //  Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
      //Get.find<RequestedMoneyController>().getWithdrawHistoryList();
    }
@@ -69,10 +70,18 @@ class _ResidentsState extends State<Residents> {
         Column(
           children: [
 
-            InputField(
+            InputFieldWithSearch(
               placeholderText: "Search",
               fieldController: searchString,
               prefixIconImage: "assets/Search.png",
+           onChange: (String text) {
+              // widget.resProvider.setTitle(widget.index, text);
+             if(text.length>2){
+               Get.find<ResidentsController>().getContactsData(1, text,reload: true );
+               Get.find<ResidentsController>().getContactsPending(1,text, reload: true);
+             }
+            },
+
             ),
             GetBuilder<ResidentsController>(builder: (transactionHistory){
               List<Resident> transactionList = transactionHistory.contactListPending;
@@ -101,51 +110,9 @@ class _ResidentsState extends State<Residents> {
                             imagePath: "assets/Person1.png",
                             userName: transactionList[index].userName,
                             subText: transactionList[index].userName,
-                            onTapApprove: () {},
-                            onTapReject: () {},
-                          ),
-                        ),
-                      );
-
-
-                    }),
-              ) : NoDataFoundScreen(fromHome: false): HistoryShimmer();
-
-
-
-
-
-
-            }),
-            GetBuilder<ResidentsController>(builder: (transactionHistory){
-              List<Resident> transactionList = transactionHistory.contactListPending;
-
-
-
-              return !transactionHistory.firstLoadingPending ? transactionList.length != 0 ?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: transactionList.length,
-                    itemBuilder: (ctx,index){
-
-                      return Padding(
-                        padding:  EdgeInsets.fromLTRB(16, 10, 16, 5),
-                        child: Container(
-                          decoration:  BoxDecoration(
-                            color: Color.fromARGB(255, 222, 222, 224),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                          ),
-                          child: OnTapCustomListTileContainer(
-                            imagePath: "assets/Person1.png",
-                            userName: transactionList[index].userName,
-                            subText: transactionList[index].userName,
-                            onTapApprove: () {},
-                            onTapReject: () {},
+                            type: transactionList[index].Type,
+                            onTapApprove: () {Get.find<ResidentsController>().getContactsApprove(transactionList[index].id, reload: true);},
+                            onTapReject: () {Get.find<ResidentsController>().getContactsReject(transactionList[index].id, reload: true);},
                           ),
                         ),
                       );
@@ -160,6 +127,49 @@ class _ResidentsState extends State<Residents> {
 
 
             }),
+            // GetBuilder<ResidentsController>(builder: (transactionHistory){
+            //   List<Resident> transactionList = transactionHistory.contactListPending;
+            //
+            //
+            //
+            //   return !transactionHistory.firstLoadingPending ? transactionList.length != 0 ?
+            //   Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+            //     child: ListView.builder(
+            //         shrinkWrap: true,
+            //         physics: NeverScrollableScrollPhysics(),
+            //         itemCount: transactionList.length,
+            //         itemBuilder: (ctx,index){
+            //
+            //           return Padding(
+            //             padding:  EdgeInsets.fromLTRB(16, 10, 16, 5),
+            //             child: Container(
+            //               decoration:  BoxDecoration(
+            //                 color: Color.fromARGB(255, 222, 222, 224),
+            //                 borderRadius: BorderRadius.all(
+            //                   Radius.circular(8),
+            //                 ),
+            //               ),
+            //               child: OnTapCustomListTileContainer(
+            //                 imagePath: "assets/Person1.png",
+            //                 userName: transactionList[index].userName,
+            //                 subText: transactionList[index].userName,
+            //                 onTapApprove: () {},
+            //                 onTapReject: () {},
+            //               ),
+            //             ),
+            //           );
+            //
+            //
+            //         }),
+            //   ) : SizedBox(): HistoryShimmer();
+            //
+            //
+            //
+            //
+            //
+            //
+            // }),
 
             // Padding(
             //   padding:  EdgeInsets.fromLTRB(16, 10, 16, 5),
@@ -219,7 +229,7 @@ class _ResidentsState extends State<Residents> {
 
 
                     }),
-              ) : NoDataFoundScreen(fromHome: false): HistoryShimmer();
+              ) : SizedBox(): HistoryShimmer();
 
 
 
@@ -227,31 +237,31 @@ class _ResidentsState extends State<Residents> {
 
 
             }),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomListTile(
-                    userName: "John Doe Sharma",
-                    userEmail: "Johndoe@mail.com",
-                    imagePath: "assets/Person1.png",
-                    edit: false,
-                  ),
-                  CustomListTile(
-                    userName: "John Doe Sharma",
-                    userEmail: "Johndoe@mail.com",
-                    imagePath: "assets/Person2.png",
-                    edit: false,
-                  ),
-                  CustomListTile(
-                    userName: "John Doe Sharma",
-                    userEmail: "Johndoe@mail.com",
-                    imagePath: "assets/Person3.png",
-                    edit: false,
-                  ),
-                  
-                ],
-              ),
-            )
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            //       CustomListTile(
+            //         userName: "John Doe Sharma",
+            //         userEmail: "Johndoe@mail.com",
+            //         imagePath: "assets/Person1.png",
+            //         edit: false,
+            //       ),
+            //       CustomListTile(
+            //         userName: "John Doe Sharma",
+            //         userEmail: "Johndoe@mail.com",
+            //         imagePath: "assets/Person2.png",
+            //         edit: false,
+            //       ),
+            //       CustomListTile(
+            //         userName: "John Doe Sharma",
+            //         userEmail: "Johndoe@mail.com",
+            //         imagePath: "assets/Person3.png",
+            //         edit: false,
+            //       ),
+            //
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),

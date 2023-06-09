@@ -55,7 +55,7 @@ class ResidentsController extends GetxController implements GetxService{
   }
 
 
-  Future getContactsData(int offset, {bool reload = false}) async{
+  Future getContactsData(int offset, String text,{bool reload = false}) async{
     if(reload) {
       _offsetList = [];
       _contactList = [];
@@ -65,7 +65,7 @@ class ResidentsController extends GetxController implements GetxService{
     if(!_offsetList.contains(offset)) {
       _offsetList.add(offset);
 
-      Response response = await residentsRepo.getResidents(offset);
+      Response response = await residentsRepo.getResidents(offset,text);
       if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
         _contactList = [];
 
@@ -82,7 +82,39 @@ class ResidentsController extends GetxController implements GetxService{
     _firstLoading = false;
     update();
   }
-  Future getContactsPending(int offset, {bool reload = false}) async{
+  Future getContactsApprove(String offset,  {bool reload = false}) async{
+
+
+
+      Response response = await residentsRepo.getApprove(offset);
+      if(response.statusCode==200){
+        getContactsData(1 ,'', reload: true);
+        getContactsPending(1,'',reload: true);
+
+      }else{
+        ApiChecker.checkApi(response);
+      }
+
+
+    update();
+  }
+  Future getContactsReject(String offset, {bool reload = false}) async{
+
+
+
+    Response response = await residentsRepo.getReject(offset);
+    if(response.statusCode==200){
+      getContactsData(1,'', reload: true);
+      getContactsPending(1,'',reload: true);
+
+    }else{
+      ApiChecker.checkApi(response);
+    }
+
+
+    update();
+  }
+  Future getContactsPending(int offset, String text, {bool reload = false}) async{
     if(reload) {
       _offsetListPending = [];
       _contactListPending = [];
@@ -92,7 +124,7 @@ class ResidentsController extends GetxController implements GetxService{
     if(!_offsetListPending.contains(offset)) {
       _offsetListPending.add(offset);
 
-      Response response = await residentsRepo.getPending(offset);
+      Response response = await residentsRepo.getPending(offset,text);
       if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
         _contactListPending = [];
 

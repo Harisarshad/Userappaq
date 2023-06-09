@@ -3,11 +3,13 @@ import 'package:six_cash/CustomWidgets/FormLabelText.dart';
 import 'package:flutter/material.dart';
 
 import 'ButtonCustom.dart';
+import 'CustomCheckboxReadOnly.dart';
 
 class OnTapCustomListTileContainer extends StatefulWidget {
   final String imagePath;
   final String userName;
   final String subText;
+  final int type;
   final VoidCallback onTapApprove;
   final VoidCallback onTapReject;
 
@@ -16,8 +18,10 @@ class OnTapCustomListTileContainer extends StatefulWidget {
      this.imagePath,
      this.userName,
      this.subText,
+     this.type,
      this.onTapApprove,
      this.onTapReject,
+
   }) : super(key: key);
 
   @override
@@ -61,7 +65,7 @@ class _OnTapCustomListTileContainerState
           padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
           child: Row(
             children: [
-              CustomCheckbox(fieldController:true),
+              CustomCheckboxReadOnly(fieldController:widget.type == 2 ? true :false),
               FormLabelText(
                 labelText: "Resident",
                 paddingbottom: 6,
@@ -69,7 +73,7 @@ class _OnTapCustomListTileContainerState
                 paddingright: 0,
               ),
               Spacer(),
-              CustomCheckbox(fieldController:true),
+              CustomCheckboxReadOnly(fieldController:widget.type == 3 ? true :false),
               FormLabelText(
                 labelText: "Checkpoint",
                 paddingbottom: 6,

@@ -33,7 +33,6 @@ class FormLabelText extends StatelessWidget {
               paddingleft, paddingtop, paddingright, paddingbottom),
           child: Text(
             labelText,
-            maxLines: 2,
             style: TextStyle(
                 fontSize: fontSize, color: TextColor, fontWeight: textWeight),
           ),

@@ -31,8 +31,10 @@ import 'package:six_cash/view/screens/scan_pass/scan_pass.dart';
 
 import '../../../Constants.dart';
 import '../../../CustomWidgets/Tile.dart';
+import '../../../controller/screen_shot_widget_controller.dart';
 import '../../../helper/route_helper.dart';
 import '../../../helper/transaction_type.dart';
+import '../scan_pass/pass_list.dart';
 import '../transaction_money/transaction_money_balance_input.dart';
 import '../transaction_money/transaction_money_screen.dart';
 import 'create_pass.dart';
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? WebSiteShimmer()
                     : Column(
                         children: [
-                          usercontroller.userInfo.type == 2
+                          usercontroller.userInfo.type == 1
                               ? Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -249,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
                                 )
-                              : usercontroller.userInfo.type == 3
+                              : usercontroller.userInfo.type == 2
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -307,29 +309,56 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ],
                                           ),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            //Resident Create Pass
+                                            InkWell(
+                                              onTap: () {
+                                              //  Get.to(CreatePass());
+                                                Get.to(PassList());
+                                              },
+                                              child: Tile(
+                                                primaryColor:
+                                                AqcessColors().primary,
+                                                secondaryColor:
+                                                AqcessColors().secondary,
+                                                imagePath:
+                                                "assets/primary.png",
+                                                text: "Pass List",
+                                                subText:
+                                                "Here you can see a pass\nfor visitors to access",
+                                              ),
+                                            ),
+                                            //Resident Contacts..
+                                            InkWell(
+                                              onTap: () {
+                                                Get.to(BookedAmenities());
+                                              },
+                                              child: Tile(
+                                                primaryColor:
+                                                AqcessColors().secondary,
+                                                secondaryColor: Colors.black,
+                                                imagePath:
+                                                "assets/amenties.png",
+                                                text: "Amenties",
+                                                subText:
+                                                "Here you can view and\nbook amenties",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             children: [
                                               //Residents Amenities
-                                              InkWell(
-                                                onTap: () {
-                                                  Get.to(BookedAmenities());
-                                                },
-                                                child: Tile(
-                                                  primaryColor:
-                                                      AqcessColors().secondary,
-                                                  secondaryColor: Colors.black,
-                                                  imagePath:
-                                                      "assets/Amenities.png",
-                                                  text: "Amenties",
-                                                  subText:
-                                                      "Here you can view and\nbook amenties",
-                                                ),
-                                              ),
+
                                               //Resident Sign Out
                                               InkWell(
-                                                onTap: () {},
+                                                onTap: () => Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: Get.find<ProfileController>().userInfo.qrCode, phoneNumber: Get.find<ProfileController>().userInfo.phone,isShare: true),
+
                                                 child: Tile(
                                                   primaryColor:
                                                       AqcessColors().secondary,
@@ -343,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           )
                                         ])
-                                  : usercontroller.userInfo.type == 1
+                                  : usercontroller.userInfo.type == 3
                                       ? Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
