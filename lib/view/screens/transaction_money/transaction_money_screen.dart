@@ -103,6 +103,7 @@ class _TransactionMoneyScreenState extends State<TransactionMoneyScreen> {
                           ScanButton(onTap: ()=> Get.to(()=> CameraScreen(
                             fromEditProfile: false,
                             isBarCodeScan: true,
+
                             transactionType: widget.transactionType,
                           ))),
 

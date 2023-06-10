@@ -41,7 +41,7 @@ class _CameraScreenState extends State<CameraScreen> {
   }
   @override
   void initState() {
-    Get.find<CameraScreenController>().valueInitialize(widget.fromEditProfile);
+   // Get.find<CameraScreenController>().valueInitialize(widget.fromEditProfile);
     Get.find<CameraScreenController>().startLiveFeed(
       isQrCodeScan: widget.isBarCodeScan,
       isHome: widget.isHome,

@@ -12,6 +12,7 @@ import 'package:six_cash/data/model/pass_model.dart';
 import 'package:six_cash/view/screens/contacts/add_contact.dart';
 
 import '../../../CustomWidgets/PassCustomListTile.dart';
+import '../../../controller/screen_shot_widget_controller.dart';
 import '../../../data/model/contact_model.dart';
 import '../../../util/dimensions.dart';
 import '../../base/no_data_screen.dart';
@@ -74,38 +75,38 @@ class _ContactsState extends State<PassList> {
               children: [
                 FormLabelText(labelText: "My Passes"),
                 Spacer(),
-                Container(
-                  margin: EdgeInsets.fromLTRB(16, 15, 16, 5),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AqcessColors().primary,
-                      foregroundColor: Colors.white,
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
-                    ),
-                    onPressed: () {
-                      Get.to(AddContact(update: false,));
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.add_outlined,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: Text(
-                            "Add New",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.fromLTRB(16, 15, 16, 5),
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: AqcessColors().primary,
+                //       foregroundColor: Colors.white,
+                //       elevation: 8,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.all(
+                //           Radius.circular(8),
+                //         ),
+                //       ),
+                //     ),
+                //     onPressed: () {
+                //       Get.to(AddContact(update: false,));
+                //     },
+                //     child: Row(
+                //       children: [
+                //         Icon(
+                //           Icons.add_outlined,
+                //         ),
+                //         Padding(
+                //           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                //           child: Text(
+                //             "Add New",
+                //             style: TextStyle(fontSize: 18),
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             Padding(
@@ -129,14 +130,14 @@ class _ContactsState extends State<PassList> {
 
             child:  InkWell(
               onTap: (){
-
+                Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: transactionList[index].qrCode, phoneNumber: transactionList[index].id,isShare: true);
               },
               child: PassCustomListTile(
                 cont: transactionList[index],
                   userName: transactionList[index].fullName,
                   userEmail: transactionList[index].date,
                   imagePath: "assets/Person1.png",
-                  edit:true),
+                  edit:false),
             ),
 
 

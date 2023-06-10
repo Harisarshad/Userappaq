@@ -25,6 +25,7 @@ class AppConstants {
   static const String UPDATE_CONTACT_URI = '/api/v1/customer/update-contact';
   static const String DELETE_CONTACT_URI = '/api/v1/customer/delete-contact';
   static const String PASS_GET_URI = '/api/v1/customer/pass-get';
+  static const String PASS_VERIFY_URI = '/api/v1/customer/pass-verify';
   static const String LIST_CONTACT_URI = '/api/v1/customer/list-contact';
   static const String LIST_PASS_URI = '/api/v1/customer/list-pass';
   static const String LIST_RESIDENTS_URI = '/api/v1/customer/list-residents';

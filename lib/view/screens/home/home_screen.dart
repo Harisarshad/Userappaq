@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             primaryColor:
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
-                                            imagePath: "assets/Amenties.png",
+                                            imagePath: "assets/amenty.png",
                                             text: "Amenities",
                                             subText:
                                                 "Here you can view and\nbook amenties",
@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             primaryColor:
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
-                                            imagePath: "assets/Amenties.png",
+                                            imagePath: "assets/amenty.png",
                                             text: "Amenities Admin",
                                             subText:
                                                 "Here you can create, manage\nand delete amenities.",
@@ -321,9 +321,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               },
                                               child: Tile(
                                                 primaryColor:
-                                                AqcessColors().primary,
-                                                secondaryColor:
                                                 AqcessColors().secondary,
+                                                secondaryColor: Colors.black,
                                                 imagePath:
                                                 "assets/primary.png",
                                                 text: "Pass List",
@@ -341,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                                 secondaryColor: Colors.black,
                                                 imagePath:
-                                                "assets/amenties.png",
+                                                "assets/amenty.png",
                                                 text: "Amenties",
                                                 subText:
                                                 "Here you can view and\nbook amenties",
@@ -472,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       secondaryColor:
                                                           Colors.black,
                                                       imagePath:
-                                                          "assets/Amenties.png",
+                                                          "assets/amenty.png",
                                                       text: "Bookings",
                                                       subText:
                                                           "Here you can see booked\namenties",

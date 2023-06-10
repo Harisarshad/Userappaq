@@ -53,6 +53,10 @@ class PassRepo extends GetxService{
 
      return await apiClient.getData('${AppConstants.PASS_GET_URI}/$id');
    }
+   Future<Response> verifyPass(String id,) async {
+
+     return await apiClient.getData('${AppConstants.PASS_VERIFY_URI}/$id');
+   }
    Future<Response> getContactList(int offset) async {
      return await apiClient.getData('${AppConstants.LIST_CONTACT_URI}?limit=1000&offset=$offset');
    }

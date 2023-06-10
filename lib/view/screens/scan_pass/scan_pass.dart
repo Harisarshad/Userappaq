@@ -100,7 +100,8 @@ class ScanPass extends StatelessWidget {
                 Get.to(()=> CameraScreen(
                   fromEditProfile: false,
                   isBarCodeScan: true,
-                  transactionType: 'cash_out',
+                  isHome: true,
+                  //transactionType: 'cash_out',
                 )) ;             // Add your logic for button press here
               },
             ),

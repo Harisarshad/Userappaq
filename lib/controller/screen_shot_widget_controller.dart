@@ -34,25 +34,25 @@ class ScreenShootWidgetController extends GetxController implements GetxService{
   Future<void> qrCodeDownloadAndShare ({@required String qrCode, @required String phoneNumber, @required bool isShare}) async{
     Uint8List _image;
     Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: qrCode,phoneNumber: phoneNumber));
-    Future.delayed(Duration(milliseconds: 100)).then((value) async {
-      _image =  await statementController.capture();
-
-      Navigator.pop(Get.context);
-
-      if(isShare == true){
-        final _directory = await getApplicationDocumentsDirectory();
-        final _imageFile = File('${_directory.path}/share.png');
-        _imageFile.writeAsBytesSync(_image);
-        await Share.shareFiles([_imageFile.path]);
-      }else{
-        final _directory = await getApplicationDocumentsDirectory();
-        final _imageFile = File('${_directory.path}/qr.png');
-        _imageFile.writeAsBytesSync(_image);
-        await GallerySaver.saveImage(_imageFile.path,albumName: '6cash',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
-      }
-
-
-    });
+    // Future.delayed(Duration(milliseconds: 100)).then((value) async {
+    //   _image =  await statementController.capture();
+    //
+    //  // Navigator.pop(Get.context);
+    //
+    //   // if(isShare == true){
+    //   //   final _directory = await getApplicationDocumentsDirectory();
+    //   //   final _imageFile = File('${_directory.path}/share.png');
+    //   //   _imageFile.writeAsBytesSync(_image);
+    //   //   await Share.shareFiles([_imageFile.path]);
+    //   // }else{
+    //   //   final _directory = await getApplicationDocumentsDirectory();
+    //   //   final _imageFile = File('${_directory.path}/qr.png');
+    //   //   _imageFile.writeAsBytesSync(_image);
+    //   //   await GallerySaver.saveImage(_imageFile.path,albumName: 'aqcess',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
+    //   // }
+    //
+    //
+    // });
 
   }
 

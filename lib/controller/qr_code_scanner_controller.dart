@@ -8,6 +8,8 @@ import 'package:six_cash/data/model/response/contact_model.dart';
 import 'package:six_cash/util/dimensions.dart';
 import 'package:six_cash/view/screens/transaction_money/transaction_money_balance_input.dart';
 
+import '../view/screens/scan_pass/verify_pass.dart';
+
 class QrCodeScannerController extends GetxController implements GetxService{
 
   bool _canProcess = true;
@@ -42,31 +44,16 @@ class QrCodeScannerController extends GetxController implements GetxService{
         print('barcode row value : ${barcode.rawValue}');
         _name = jsonDecode(barcode.rawValue)['name'];
         _phone = jsonDecode(barcode.rawValue)['phone'];
-        _type = jsonDecode(barcode.rawValue)['type'];
+       // _type = jsonDecode(barcode.rawValue)['type'];
         _image = jsonDecode(barcode.rawValue)['image'];
-        if(_name != null && _phone != null && _type != null && _image != null) {
-          if(_type == "customer"){
-            _transactionType = transactionType;
-          }else if(_type == "agent"){
-            _transactionType = "cash_out";
-          }
-          if(isHome && _type != "agent"){
-            if(!_isDetect) {
-              Get.defaultDialog(
-                title: 'select_a_transaction'.tr,
-                content: TransactionSelect(contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)),
-                barrierDismissible: false,
-                radius: Dimensions.RADIUS_SIZE_DEFAULT,
-              ).then((value) {
-                _isDetect = false;
-              });
-            }
-            _isDetect = true;
-            print('bbbA');
-          }else {
+        print('AAA');
+        if(_name != null && _phone != null  && _image != null) {
+         // Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: qrCode,phoneNumber: phoneNumber));
             print('AAA');
-            Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
-          }
+            Navigator.pop(Get.context);
+            Get.to(()=>  VerifyPassScreen( qrCode: _image, phoneNumber: _phone,));
+           // Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
+
 
         }
       }

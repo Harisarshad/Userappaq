@@ -1,10 +1,15 @@
 
+import 'dart:typed_data';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 //import 'package:local_auth/local_auth.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:six_cash/controller/bootom_slider_controller.dart';
 import 'package:six_cash/controller/profile_screen_controller.dart';
 import 'package:six_cash/controller/camera_screen_controller.dart';
@@ -20,16 +25,17 @@ import 'package:six_cash/data/model/response/response_model.dart';
 import 'package:six_cash/helper/route_helper.dart';
 import 'package:six_cash/util/app_constants.dart';
 import 'package:six_cash/view/base/custom_snackbar.dart';
+import 'dart:io';
 
 import '../data/repository/pass_repo.dart';
-
+import 'package:share_plus/share_plus.dart';
 class PassController extends GetxController implements GetxService {
   final PassRepo passRepo;
   PassController({@required this.passRepo}) {
     //_biometric = authRepo.isBiometricEnabled();
    // checkBiometricSupport();
   }
-
+  ScreenshotController statementController = ScreenshotController();
     bool _isLoading = false;
     bool _isVerifying = false;
     bool _biometric = true;
@@ -302,6 +308,79 @@ class PassController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       _isDetails = false;
       _passDetailsModel = Pass.fromJson(response.body['pass']);
+      Uint8List _image;
+      Future.delayed(Duration(milliseconds: 100)).then((value) async {
+        _image =  await statementController.capture();
+
+        Navigator.pop(Get.context);
+        bool isShare=true;
+        if(isShare == true){
+          final _directory = await getApplicationDocumentsDirectory();
+          final _imageFile = File('${_directory.path}/share.png');
+          _imageFile.writeAsBytesSync(_image);
+          await Share.shareFiles([_imageFile.path]);
+        }else{
+          final _directory = await getApplicationDocumentsDirectory();
+          final _imageFile = File('${_directory.path}/qr.png');
+          _imageFile.writeAsBytesSync(_image);
+          await GallerySaver.saveImage(_imageFile.path,albumName: 'aqcess',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
+        }
+
+
+      });
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      _isDetails = false;
+
+      ApiChecker.checkApi(response);
+    }
+    _isDetails = false;
+
+    update();
+    return response;
+  }
+  Future<Response> passVerify(String id, BuildContext context ) async{
+
+    update();
+
+    _isDetails = true;
+
+
+
+    Response response = await passRepo.verifyPass(id);
+    print('error is');
+    if (response.statusCode == 200) {
+      _isDetails = false;
+      _passDetailsModel = Pass.fromJson(response.body['pass']);
+      Uint8List _image;
+      Future.delayed(Duration(milliseconds: 100)).then((value) async {
+        _image =  await statementController.capture();
+
+        Navigator.pop(Get.context);
+        bool isShare=true;
+        if(isShare == true){
+          final _directory = await getApplicationDocumentsDirectory();
+          final _imageFile = File('${_directory.path}/share.png');
+          _imageFile.writeAsBytesSync(_image);
+          await Share.shareFiles([_imageFile.path]);
+        }else{
+          final _directory = await getApplicationDocumentsDirectory();
+          final _imageFile = File('${_directory.path}/qr.png');
+          _imageFile.writeAsBytesSync(_image);
+          await GallerySaver.saveImage(_imageFile.path,albumName: 'aqcess',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
+        }
+
+
+      });
 
       // Get.offAllNamed(RouteHelper.getWelcomeRoute(
       //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
