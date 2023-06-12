@@ -167,11 +167,11 @@ class _CreatePassState extends State<CreatePass> {
                 child: Column(
                   children: [
                        Text(
-                      "Create a Pass",
+                      "create_pass".tr,
                       style: TextStyle(fontSize: 30),
                     ),
                        Text(
-                      "Type the visit details. Select an existing\ncontact or type a new one",
+                      "visit_details".tr,
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.grey,
@@ -258,10 +258,10 @@ class _CreatePassState extends State<CreatePass> {
                         ),
                       ),
                     ),
-                       TextWithDividers(text: "Visitor Information"),
+                       TextWithDividers(text: "visitor_info".tr),
                        FormLabelText(labelText: "Full Name"),
                     InputField(
-                      placeholderText: "Type your visitor’s full name",
+                      placeholderText: "visitor_fullname".tr,
                       fieldController: fullName,
                     ),
                     Padding(
@@ -270,13 +270,13 @@ class _CreatePassState extends State<CreatePass> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomCheckbox(fieldController:saveContact),
-                             FormLabelText(labelText: "Save Contact"),
+                             FormLabelText(labelText: "save_contact".tr),
                         ],
                       ),
                     ),
-                       FormLabelText(labelText: "Reason for visit"),
+                       FormLabelText(labelText: "visit_reason".tr),
                     InputField(
-                      placeholderText: "Example: Family visit",
+                      placeholderText: "visit_reason_placeholder".tr,
                       fieldController: visitingReason,
                     ),
                     Padding(
@@ -286,11 +286,11 @@ class _CreatePassState extends State<CreatePass> {
                         children: [
                           CustomCheckbox(fieldController:permanentPass),
                              FormLabelText(
-                              labelText: "Is this a permanent pass ?"),
+                              labelText: "permanent_pass".tr),
                         ],
                       ),
                     ),
-                       FormLabelText(labelText: "Select Date"),
+                       FormLabelText(labelText: "date".tr),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -380,7 +380,7 @@ class _CreatePassState extends State<CreatePass> {
                               width: 200,
                               child: Container(
                                   child:
-                                  FormLabelText(labelText: "Start Time")),
+                                  FormLabelText(labelText: "start_time".tr)),
                             ),
                             Container(
                               width: 175,
@@ -476,7 +476,7 @@ class _CreatePassState extends State<CreatePass> {
                             SizedBox(
                               width: 200,
                               child: Container(
-                                  child: FormLabelText(labelText: "End Time")),
+                                  child: FormLabelText(labelText: "end_time".tr)),
                             ),
                             Container(
                               width: 175,
@@ -658,7 +658,7 @@ class _CreatePassState extends State<CreatePass> {
                           }
                         },
                         child: Text(
-                          "Create Pass",
+                          "create_pass",
                           style: TextStyle(fontSize: 18),
                         ),
                       ),

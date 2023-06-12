@@ -54,7 +54,7 @@ class _AddContactState extends State<AddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyCustomTextAppBar(
-        titleText: "New Contact",
+        titleText: "new_contact".tr,
         backButton: Contacts(),
       ),
       body: Column(
@@ -69,13 +69,13 @@ class _AddContactState extends State<AddContact> {
                       Padding(
                         padding:  EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: Text(
-                          'New Contact',
+                          'new_contact'.tr,
                           style: TextStyle(fontSize: 24),
                         ),
                       ),
                       Center(
                         child: Text(
-                          'Type the details for your new contact',
+                          'new_contact_details'.tr,
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                           textAlign: TextAlign.center,
                         ),
@@ -87,7 +87,7 @@ class _AddContactState extends State<AddContact> {
                     child: Column(
                       children: [
                         FormLabelText(
-                          labelText: 'Full Name',
+                          labelText: 'fullname'.tr,
                         ),
                         InputField(
                           placeholderText: 'Jeronimo Ovejas Ortega',
@@ -98,7 +98,7 @@ class _AddContactState extends State<AddContact> {
                           sufficIconPadding: 15,
                         ),
                         FormLabelText(
-                          labelText: 'Email',
+                          labelText: 'email'.tr,
                         ),
                         InputField(
                           placeholderText: 'jeronimo@aqcess.com',
@@ -109,7 +109,7 @@ class _AddContactState extends State<AddContact> {
                           sufficIconPadding: 15,
                         ),
                         FormLabelText(
-                          labelText: 'Visit Type',
+                          labelText: 'visit_type'.tr,
                         ),
                         InputField(
                           placeholderText: 'Familiar, Servicios, Amigo...',
@@ -120,7 +120,7 @@ class _AddContactState extends State<AddContact> {
                           sufficIconPadding: 15,
                         ),
                         FormLabelText(
-                          labelText: 'Phone',
+                          labelText: 'phone'.tr,
                         ),
                         InputField(
                           placeholderText: '+52 442 6687402',
@@ -167,7 +167,7 @@ class _AddContactState extends State<AddContact> {
 
                 },
                 child: Text(
-                  'Delete Contact',
+                  'delete_contact'.tr,
                   style: TextStyle(fontSize: 18),
                 ),
               ),

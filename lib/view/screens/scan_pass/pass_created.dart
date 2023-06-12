@@ -2,6 +2,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../Constants.dart';
 import '../../../CustomWidgets/FormLabelText.dart';
@@ -65,7 +66,7 @@ class _PassCreatedState extends State<PassCreated> {
                               width: 200,
                               child: Container(
                                   child: FormLabelText(
-                                    labelText: "Visitor",
+                                    labelText: "visitor".tr,
                                     TextColor: AqcessColors().primary,
                                     paddingbottom: 0,
                                     paddingtop: 0,
@@ -92,7 +93,7 @@ class _PassCreatedState extends State<PassCreated> {
                               width: 200,
                               child: Container(
                                   child: FormLabelText(
-                                    labelText: "Resident",
+                                    labelText: "resident".tr,
                                     TextColor: AqcessColors().primary,
                                     paddingbottom: 0,
                                     paddingtop: 0,
@@ -119,7 +120,7 @@ class _PassCreatedState extends State<PassCreated> {
                               width: 200,
                               child: Container(
                                   child: FormLabelText(
-                                    labelText: "Time And Date",
+                                    labelText: "time_and_date".tr,
                                     TextColor: AqcessColors().primary,
                                     paddingbottom: 0,
                                     paddingtop: 0,
@@ -146,7 +147,7 @@ class _PassCreatedState extends State<PassCreated> {
                               width: 200,
                               child: Container(
                                   child: FormLabelText(
-                                    labelText: "Address",
+                                    labelText: "address".tr,
                                     TextColor: AqcessColors().primary,
                                     paddingbottom: 0,
                                     paddingtop: 0,
@@ -175,7 +176,7 @@ class _PassCreatedState extends State<PassCreated> {
                     child: Container(
                       width: 325,
                       child: Text(
-                        "To access, the two-dimensional QR code must be valid in the lane designated for visitors with security personnel.",
+                        "qr_code_access".tr,
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
@@ -186,7 +187,7 @@ class _PassCreatedState extends State<PassCreated> {
                     child: Container(
                       width: 325,
                       child: Text(
-                        "To access, the two-dimensional QR code must be valid in the lane designated for visitors with security personnel.",
+                        "qr_code_access".tr,
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
@@ -210,7 +211,7 @@ class _PassCreatedState extends State<PassCreated> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    "Send Pass",
+                    "sendpass".tr,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
@@ -231,7 +232,7 @@ class _PassCreatedState extends State<PassCreated> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    "Back To Home",
+                    "back_to_home",
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

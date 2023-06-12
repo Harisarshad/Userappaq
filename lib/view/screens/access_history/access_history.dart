@@ -62,7 +62,7 @@ class _AccessHistoryState extends State<AccessHistory> {
                 ),
               ),
                Text(
-                "Back",
+                "back_to_page",
                 style: TextStyle(fontSize: 18),
               ),
             ],
@@ -72,7 +72,7 @@ class _AccessHistoryState extends State<AccessHistory> {
         title:  Center(
             child: Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 65, 0),
-          child: Text("Access History"),
+          child: Text("accessing_history".tr),
         )),
       ),
       body:
@@ -88,7 +88,7 @@ class _AccessHistoryState extends State<AccessHistory> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   FormLabelText(
-                    labelText: "Visitor",
+                    labelText: "visitor".tr,
                     TextColor: Colors.white,
                     paddingtop: 0,
                     paddingbottom: 0,
@@ -96,7 +96,7 @@ class _AccessHistoryState extends State<AccessHistory> {
                     paddingright: 0,
                   ),
                   FormLabelText(
-                    labelText: "Date and Time",
+                    labelText: "dateTime".tr,
                     TextColor: Colors.white,
                     paddingtop: 0,
                     paddingbottom: 0,

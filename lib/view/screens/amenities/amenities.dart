@@ -37,7 +37,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
               child: Row(
                 children: [
                   ButtonCustom(
-                    buttonText: "Bookings",
+                    buttonText: "bookings".tr,
                     onPress: () {},
                     width: MediaQuery.of(context).size.width -
                         17 -
@@ -51,7 +51,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
                     foregroundColor: Colors.white,
                   ),
                   ButtonCustom(
-                    buttonText: "Create Amenity",
+                    buttonText: "create_amenity".tr,
                     onPress: () {
                       Get.to(CreateAmenity());
                     },
@@ -75,7 +75,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
             child: Row(
               children: [
                 FormLabelText(
-                  labelText: "Pool Zone",
+                  labelText: "pool_zone".tr,
                   paddingtop: 0,
                   textWeight: FontWeight.w900,
                   paddingbottom: 0,
@@ -101,7 +101,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
               ),
             ),
           ),
-          FormLabelText(labelText: "Active Bookings"),
+          FormLabelText(labelText: "active_bookings".tr),
           UserReservationsLists(
             name: "John Doe Sharma",
             date: "23/28/26",

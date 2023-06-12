@@ -19,33 +19,39 @@ import 'package:url_strategy/url_strategy.dart';
 
 import 'helper/get_di.dart' as di;
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
- List<CameraDescription> cameras;
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+List<CameraDescription> cameras;
 
 Future<void> main() async {
   setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-   cameras = await availableCameras();
+  cameras = await availableCameras();
 
   Map<String, Map<String, String>> _languages = await di.init();
 
   int _orderID;
   try {
     if (GetPlatform.isMobile) {
-      final NotificationAppLaunchDetails notificationAppLaunchDetails = await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+      final NotificationAppLaunchDetails notificationAppLaunchDetails =
+          await flutterLocalNotificationsPlugin
+              .getNotificationAppLaunchDetails();
       if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-        _orderID = notificationAppLaunchDetails.notificationResponse.payload != null
-            ? int.parse(notificationAppLaunchDetails.notificationResponse.payload) : null;
+        _orderID =
+            notificationAppLaunchDetails.notificationResponse.payload != null
+                ? int.parse(
+                    notificationAppLaunchDetails.notificationResponse.payload)
+                : null;
       }
       await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
-  }catch(e) {}
+  } catch (e) {}
 
   runApp(MyApp(languages: _languages, orderID: _orderID));
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent.withOpacity(0.3)));
-
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent.withOpacity(0.3)));
 }
 
 class MyApp extends StatelessWidget {
@@ -55,26 +61,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ThemeController>(builder: (themeController) {
-      return GetBuilder<LocalizationController>(builder: (localizeController) {
-        return GetMaterialApp(
-          navigatorObservers: [FlutterSmartDialog.observer],
-          builder: FlutterSmartDialog.init(),
-          title: AppConstants.APP_NAME,
-          debugShowCheckedModeBanner: false,
-          navigatorKey: Get.key,
-          theme: themeController.darkTheme ? dark : light,
-          locale: localizeController.locale,
-          translations: Messages(languages: languages),
-          fallbackLocale: Locale(AppConstants.languages[0].languageCode, AppConstants.languages[0].countryCode),
-          initialRoute: RouteHelper.getSplashRoute(),
-          getPages: RouteHelper.routes,
-          defaultTransition: Transition.topLevel,
-          transitionDuration: Duration(milliseconds: 500),
+    return GetBuilder<ThemeController>(
+      builder: (themeController) {
+        return GetBuilder<LocalizationController>(
+          builder: (localizeController) {
+            return GetMaterialApp(
+              navigatorObservers: [FlutterSmartDialog.observer],
+              builder: FlutterSmartDialog.init(),
+              title: AppConstants.APP_NAME,
+              debugShowCheckedModeBanner: false,
+              navigatorKey: Get.key,
+              theme: themeController.darkTheme ? dark : light,
+              locale: localizeController.locale,
+              translations: Messages(languages: languages),
+              fallbackLocale: Locale(AppConstants.languages[0].languageCode,
+                  AppConstants.languages[0].countryCode),
+              initialRoute: RouteHelper.getSplashRoute(),
+              getPages: RouteHelper.routes,
+              defaultTransition: Transition.topLevel,
+              transitionDuration: Duration(milliseconds: 500),
+            );
+          },
         );
       },
-      );
-    },
     );
   }
 }

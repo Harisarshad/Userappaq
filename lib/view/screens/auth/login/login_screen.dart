@@ -125,22 +125,22 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             child: Column(
                               children: [
 
-                                const FormLabelText(
-                                  labelText: "Email",
+                                FormLabelText(
+                                  labelText: "email".tr,
                                 ),
                                 InputField(
-                                  placeholderText: "Type your email",
+                                  placeholderText: "email_placeholder".tr,
                                   fieldController: userEmail,
                                 ),
-                                const FormLabelText(
-                                  labelText: "Password",
+                                FormLabelText(
+                                  labelText: "password".tr,
                                 ),
                                 InputField(
-                                  placeholderText: "Your password",
+                                  placeholderText: "your_pass".tr,
                                   fieldController: userPassword,
                                 ),
                                 ButtonCustom(
-                                  buttonText: "Log In",
+                                  buttonText: "log_in".tr,
                                   width: 400,
                                   height: 50,
                                   onPress: () {
@@ -172,13 +172,13 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                                 Padding(
                                                     padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
                                                     child: Text(
-                                                      "Select User Type",
+                                                      "user_type".tr,
                                                       style: TextStyle(fontSize: 24),
                                                     )),
                                                 Padding(
                                                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                                                   child: Text(
-                                                    "Select your type of profile",
+                                                    "user_profile".tr,
                                                     style: TextStyle(fontSize: 16, color: Colors.grey),
                                                   ),
                                                 ),
@@ -189,8 +189,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                                   },
                                                   child: ListStyleCard(
                                                     imagePath: "assets/SamplePicture.png",
-                                                    heading: "Resident",
-                                                    subText: "I live in a building or residence",
+                                                    heading: "resident".tr,
+                                                    subText: "resident_subtext".tr,
                                                   ),
                                                 ),
                                                 // InkWell(
@@ -211,8 +211,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                                   },
                                                   child: ListStyleCard(
                                                     imagePath: "assets/SamplePicture.png",
-                                                    heading: "Checkpoint",
-                                                    subText: "I work for the building or residence",
+                                                    heading: "checkpoint".tr,
+                                                    subText: "checkpoint_subtext".tr,
                                                   ),
                                                 ),
                                               ],
@@ -229,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
 
                                   },
                                   child: Text(
-                                    "Create an account",
+                                    "create_account".tr,
                                     style: TextStyle(
                                       color: Colors.grey.shade400,
                                     ),

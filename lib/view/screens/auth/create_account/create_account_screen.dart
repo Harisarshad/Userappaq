@@ -77,14 +77,14 @@ String userType;
     return Scaffold(
       backgroundColor: ColorResources.getWhiteAndBlack(),
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
-            "Crea una cuenta",
+            "create_an_account".tr,
             style: TextStyle(fontSize: 20),
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
+          preferredSize:  Size.fromHeight(4.0),
           child: Divider(color: Colors.grey.shade400),
         ),
       ),
@@ -105,12 +105,12 @@ String userType;
                         ),
                       ),
                       Text(
-                        "Welcome To Aqcess",
+                        "welcome".tr,
                         style: TextStyle(fontSize: 24),
                       ),
                       Center(
                         child: Text(
-                          "Create an account and register\nyour apartment or housing complex",
+                          "create_or_register".tr,
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                           textAlign: TextAlign.center,
                         ),
@@ -121,40 +121,40 @@ String userType;
                     key: _formKey,
                     child: Column(
                       children: [
-                        const FormLabelText(
-                          labelText: "Building Code",
+                         FormLabelText(
+                          labelText: "building_code".tr,
                         ),
                         InputField(
-                          placeholderText: "Enter the Building Code",
+                          placeholderText: "building_placeholder".tr,
                           fieldController: JoingCode,
                         ),
-                        const FormLabelText(
-                          labelText: "Full Name",
+                         FormLabelText(
+                          labelText: "fullname".tr,
                         ),
                         InputField(
-                          placeholderText: "Type your full name",
+                          placeholderText: "fullname_placeholder".tr,
                           fieldController: userFullName,
                         ),
 
-                        const FormLabelText(
-                          labelText: "Email",
+                         FormLabelText(
+                          labelText: "email".tr,
                         ),
                         InputField(
-                          placeholderText: "Type your email",
+                          placeholderText: "email_placeholder".tr,
                           fieldController: userEmail,
                         ),
-                        const FormLabelText(
-                          labelText: "Password",
+                         FormLabelText(
+                          labelText: "password".tr,
                         ),
                         InputField(
-                          placeholderText: "Create a password",
+                          placeholderText: "password_placeholder".tr,
                           fieldController: userPassword,
                         ),
-                        const FormLabelText(
-                          labelText: "Confirm Password",
+                         FormLabelText(
+                          labelText: "confirm_pass".tr,
                         ),
                         InputField(
-                          placeholderText: "Confirm password",
+                          placeholderText: "confirm_pass".tr,
                           fieldController: userConfirmPassword,
                         ),
                         // const FormLabelText(
@@ -238,7 +238,7 @@ String userType;
                         }
                       },
                       child: Text(
-                        "Create an account",
+                        "create_an_account".tr,
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
@@ -251,7 +251,7 @@ String userType;
                       ));
                       },
                     child: Text(
-                      "Login",
+                      "login".tr,
                       style: TextStyle(
                         color: Colors.grey.shade400,
                       ),

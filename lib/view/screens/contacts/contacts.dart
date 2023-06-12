@@ -57,19 +57,19 @@ class _ContactsState extends State<Contacts> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyCustomTextAppBar(
-        titleText: "Contacts",
+        titleText: "contact".tr,
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             InputField(
-              placeholderText: "Search",
+              placeholderText: "search".tr,
               fieldController: searchString,
               prefixIconImage: "assets/Search.png",
             ),
             Row(
               children: [
-                FormLabelText(labelText: "My Contacts"),
+                FormLabelText(labelText: "my_contacts".tr),
                 Spacer(),
                 Container(
                   margin: EdgeInsets.fromLTRB(16, 15, 16, 5),
@@ -95,7 +95,7 @@ class _ContactsState extends State<Contacts> {
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                           child: Text(
-                            "Add New",
+                            "add_new".tr,
                             style: TextStyle(fontSize: 18),
                           ),
                         ),

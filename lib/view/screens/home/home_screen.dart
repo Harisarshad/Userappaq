@@ -16,6 +16,7 @@ import 'package:six_cash/view/base/contact_shimmer.dart';
 import 'package:six_cash/view/base/contact_view.dart';
 import 'package:six_cash/view/screens/access_history/access_history.dart';
 import 'package:six_cash/view/screens/amenities/amenities.dart';
+import 'package:six_cash/view/screens/auth/selfie_capture/camera_screen.dart';
 import 'package:six_cash/view/screens/contacts/contacts.dart';
 import 'package:six_cash/view/screens/home/widget/app_bar_base.dart';
 import 'package:six_cash/view/screens/home/widget/bottom_sheet/expandable_contant.dart';
@@ -38,6 +39,7 @@ import '../scan_pass/pass_list.dart';
 import '../transaction_money/transaction_money_balance_input.dart';
 import '../transaction_money/transaction_money_screen.dart';
 import 'create_pass.dart';
+import 'widget/appbar_custom.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -58,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //Get.find<WebsiteLinkController>().getWebsiteList();
     // Get.find<NotificationController>().getNotificationList();
     // Get.find<TransactionMoneyController>().getPurposeList();
-   // Get.find<TransactionMoneyController>().fetchContact();
+    // Get.find<TransactionMoneyController>().fetchContact();
     //  Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
     //Get.find<RequestedMoneyController>().getWithdrawHistoryList();
   }
@@ -74,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
       return Scaffold(
-        appBar: AppBarBase(),
+        appBar: AppBarCustomHome(),
         body: SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
@@ -97,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       color: Colors.black,
                                       alignment: Alignment.center,
                                       child: Text(
-                                        "Administrator",
+                                        'administrator'.tr,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: AqcessColors().secondary,
@@ -120,15 +122,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             secondaryColor:
                                                 AqcessColors().secondary,
                                             imagePath: "assets/primary.png",
-                                            text: "Create a Pass",
-                                            subText:
-                                                "Here you can create a pass\nfor visitors to access",
+                                            text: 'create_pass'.tr,
+                                            subText: 'create_pass_subtext'.tr,
                                           ),
                                         ),
                                         //Contacts
                                         InkWell(
                                           onTap: () {
-                                           // Get.to(Contacts());
+                                            // Get.to(Contacts());
 
                                             Get.to(() => Contacts());
                                           },
@@ -137,9 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/Contact.png",
-                                            text: "Contacts",
-                                            subText:
-                                                "Here you will find your\ncontacts",
+                                            text: "contacts".tr,
+                                            subText: 'contact_subtext'.tr,
                                           ),
                                         ),
                                       ],
@@ -158,9 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/amenty.png",
-                                            text: "Amenities",
-                                            subText:
-                                                "Here you can view and\nbook amenties",
+                                            text: 'amenities'.tr,
+                                            subText: 'amenities_subtext'.tr,
                                           ),
                                         ),
                                         InkWell(
@@ -172,9 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/History.png",
-                                            text: "History",
+                                            text: 'access_history'.tr,
                                             subText:
-                                                "Here you can see the\ncheckpoint’s history.",
+                                                'access_history_subtext'.tr,
                                           ),
                                         ),
                                       ],
@@ -193,9 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/ScanPass.png",
-                                            text: "Scan Pass",
-                                            subText:
-                                                "Here you can scan a pass\nto provide access to a visitor",
+                                            text: 'scanpass'.tr,
+                                            subText: 'scanpass_subtext'.tr,
                                           ),
                                         ),
                                         // Amenities Admin
@@ -208,9 +206,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/amenty.png",
-                                            text: "Amenities Admin",
+                                            text: "amenities_admin".tr,
                                             subText:
-                                                "Here you can create, manage\nand delete amenities.",
+                                                'amenities_admin_subtext'.tr,
                                           ),
                                         ),
                                       ],
@@ -229,9 +227,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/Residents.png",
-                                            text: "Residents",
-                                            subText:
-                                                "Here you will find your\nResidents",
+                                            text: "residents".tr,
+                                            subText: 'residents_subtext'.tr,
                                           ),
                                         ),
                                         //Admin Signout.
@@ -242,9 +239,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 AqcessColors().secondary,
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/SignOut.png",
-                                            text: "Sign Out",
-                                            subText:
-                                                "Here you can sign out of\nyour account",
+                                            text: "signout".tr,
+                                            subText: 'signout_subtext'.tr,
                                           ),
                                         ),
                                       ],
@@ -262,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color: Colors.black,
                                             alignment: Alignment.center,
                                             child: Text(
-                                              "Resident",
+                                              'user_resident'.tr,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color:
@@ -286,9 +282,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       AqcessColors().secondary,
                                                   imagePath:
                                                       "assets/primary.png",
-                                                  text: "Create a Pass",
+                                                  text: 'create_pass'.tr,
                                                   subText:
-                                                      "Here you can create a pass\nfor visitors to access",
+                                                      'create_pass_subtext'.tr,
                                                 ),
                                               ),
                                               //Resident Contacts..
@@ -302,52 +298,52 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   secondaryColor: Colors.black,
                                                   imagePath:
                                                       "assets/Contact.png",
-                                                  text: "Contacts",
+                                                  text: "contacts".tr,
                                                   subText:
-                                                      "Here you will find your\ncontacts",
+                                                      "contacts_subtext".tr,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            //Resident Create Pass
-                                            InkWell(
-                                              onTap: () {
-                                              //  Get.to(CreatePass());
-                                                Get.to(PassList());
-                                              },
-                                              child: Tile(
-                                                primaryColor:
-                                                AqcessColors().secondary,
-                                                secondaryColor: Colors.black,
-                                                imagePath:
-                                                "assets/primary.png",
-                                                text: "Pass List",
-                                                subText:
-                                                "Here you can see a pass\nfor visitors to access",
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              //Resident Create Pass
+                                              InkWell(
+                                                onTap: () {
+                                                  // Get.to(CreatePass());
+                                                  Get.to(PassList());
+                                                },
+                                                child: Tile(
+                                                  primaryColor:
+                                                      AqcessColors().secondary,
+                                                  secondaryColor: Colors.black,
+                                                  imagePath:
+                                                      "assets/primary.png",
+                                                  text: "pass_list".tr,
+                                                  subText:
+                                                      "pass_list_subtext".tr,
+                                                ),
                                               ),
-                                            ),
-                                            //Resident Contacts..
-                                            InkWell(
-                                              onTap: () {
-                                                Get.to(BookedAmenities());
-                                              },
-                                              child: Tile(
-                                                primaryColor:
-                                                AqcessColors().secondary,
-                                                secondaryColor: Colors.black,
-                                                imagePath:
-                                                "assets/amenty.png",
-                                                text: "Amenties",
-                                                subText:
-                                                "Here you can view and\nbook amenties",
+                                              //Resident Contacts..
+                                              InkWell(
+                                                onTap: () {
+                                                  Get.to(BookedAmenities());
+                                                },
+                                                child: Tile(
+                                                  primaryColor:
+                                                      AqcessColors().secondary,
+                                                  secondaryColor: Colors.black,
+                                                  imagePath:
+                                                      "assets/amenty.png",
+                                                  text: "amenities".tr,
+                                                  subText:
+                                                      "amenities_subtext".tr,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
+                                            ],
+                                          ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -356,16 +352,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                               //Resident Sign Out
                                               InkWell(
-                                                onTap: () => Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: Get.find<ProfileController>().userInfo.qrCode, phoneNumber: Get.find<ProfileController>().userInfo.phone,isShare: true),
-
+                                                onTap: () => Get.find<
+                                                        ScreenShootWidgetController>()
+                                                    .qrCodeDownloadAndShare(
+                                                        qrCode: Get.find<
+                                                                ProfileController>()
+                                                            .userInfo
+                                                            .qrCode,
+                                                        phoneNumber: Get.find<
+                                                                ProfileController>()
+                                                            .userInfo
+                                                            .phone,
+                                                        isShare: true),
                                                 child: Tile(
                                                   primaryColor:
                                                       AqcessColors().secondary,
                                                   secondaryColor: Colors.black,
                                                   imagePath:
                                                       "assets/SignOut.png",
-                                                  text: "Sign Out",
-                                                  subText: "SignOut of the app",
+                                                  text: "signout".tr,
+                                                  subText: "signout_subtext".tr,
                                                 ),
                                               ),
                                             ],
@@ -382,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: Colors.black,
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  "Checkpoint",
+                                                  "user_type_checkpoint".tr,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: AqcessColors()
@@ -410,15 +416,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .secondary,
                                                       imagePath:
                                                           "assets/primary.png",
-                                                      text: "Regular Visit",
+                                                      text: "regular_visit".tr,
                                                       subText:
-                                                          "here you can manually\nregister a visit",
+                                                          'regular_visit_subtext'
+                                                              .tr,
                                                     ),
                                                   ),
                                                   //Checkpoint Scan Pass
                                                   InkWell(
                                                     onTap: () {
-                                                      Get.to(ScanPass());
+                                                      Get.to(CameraScreen(
+                                                        fromEditProfile: false,
+                                                        isBarCodeScan: true,
+                                                        isHome: true,
+                                                        //transactionType: 'cash_out',
+                                                      ));
+                                                      // Get.to(ScanPass());
                                                     },
                                                     child: Tile(
                                                       primaryColor:
@@ -428,9 +441,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           Colors.black,
                                                       imagePath:
                                                           "assets/ScanPass.png",
-                                                      text: "Scan Pass",
+                                                      text: "scanpass".tr,
                                                       subText:
-                                                          "Here you can scan a pass to\nprovide access to a vistor",
+                                                          "scanpass_subtext"
+                                                              .tr,
                                                     ),
                                                   ),
                                                 ],
@@ -453,9 +467,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           Colors.black,
                                                       imagePath:
                                                           "assets/History.png",
-                                                      text: "History",
+                                                      text: "access_history".tr,
                                                       subText:
-                                                          "Here you can see the\ncheckpoint's history",
+                                                          "access_history_subtext"
+                                                              .tr,
                                                     ),
                                                   ),
                                                   //Checkpoint Bookings
@@ -472,9 +487,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           Colors.black,
                                                       imagePath:
                                                           "assets/amenty.png",
-                                                      text: "Bookings",
+                                                      text: "bookings".tr,
                                                       subText:
-                                                          "Here you can see booked\namenties",
+                                                          "bookings_subtext".tr,
                                                     ),
                                                   ),
                                                 ],
@@ -494,9 +509,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             Colors.black,
                                                         imagePath:
                                                             "assets/SignOut.png",
-                                                        text: "Sign Out",
+                                                        text: "signout".tr,
                                                         subText:
-                                                            "Here you can sign out of your\naccount")
+                                                            "signout_subtext".tr)
                                                   ],
                                                 ),
                                               )

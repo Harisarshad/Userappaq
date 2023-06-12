@@ -11,8 +11,7 @@ import 'package:six_cash/view/screens/transaction_money/transaction_money_balanc
 
 import '../view/screens/scan_pass/verify_pass.dart';
 
-class QrCodeScannerController extends GetxController implements GetxService{
-
+class QrCodeScannerController extends GetxController implements GetxService {
   bool _canProcess = true;
   bool _isBusy = false;
   bool _isDetect = false;
@@ -29,9 +28,8 @@ class QrCodeScannerController extends GetxController implements GetxService{
   String _transactionType;
   String get transactionType => _transactionType;
 
-
-
-  Future<void> processImage(InputImage inputImage,  bool isHome, String transactionType) async {
+  Future<void> processImage(
+      InputImage inputImage, bool isHome, String transactionType) async {
     print('transaction type : $_transactionType');
     final BarcodeScanner _barcodeScanner = BarcodeScanner();
     if (!_canProcess) return;
@@ -45,26 +43,24 @@ class QrCodeScannerController extends GetxController implements GetxService{
         print('barcode row value : ${barcode.rawValue}');
         _name = jsonDecode(barcode.rawValue)['name'];
         _phone = jsonDecode(barcode.rawValue)['phone'];
-       // _type = jsonDecode(barcode.rawValue)['type'];
+        // _type = jsonDecode(barcode.rawValue)['type'];
         _image = jsonDecode(barcode.rawValue)['image'];
         print('AAA');
-        if(_name != null && _phone != null  && _image != null) {
-         // Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: qrCode,phoneNumber: phoneNumber));
-            print('AAA');
-            Navigator.pop(Get.context);
-            Get.find<PassController>().passVerify(_phone,Get.context);
-            Get.to(()=>  VerifyPassScreen( qrCode: _image, phoneNumber: _phone,));
-           // Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
-
-
+        if (_name != null && _phone != null && _image != null) {
+          // Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: qrCode,phoneNumber: phoneNumber));
+          print('AAA');
+           Navigator.pop(Get.context);
+          // Get.find<PassController>().passVerify(_phone,Get.context);
+          Get.to(() => VerifyPassScreen(
+                qrCode: _image,
+                phoneNumber: _phone,
+              ));
+          // Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
         }
       }
-
-    } else {
-    }
+    } else {}
     _isBusy = false;
   }
-
 }
 
 // class TransactionSelect extends StatelessWidget {
