@@ -102,7 +102,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => LocalizationController(sharedPreferences: Get.find()));
   Get.lazyPut(() => LanguageController(sharedPreferences: Get.find()));
   Get.lazyPut(() => TransactionMoneyController(transactionRepo: Get.find(), authRepo: Get.find()));
-  Get.lazyPut(() => AddMoneyController(addMoneyRepo:Get.find() ));
+ // Get.lazyPut(() => AddMoneyController(addMoneyRepo:Get.find() ));
   Get.lazyPut(() => ResidentsController(residentsRepo:Get.find() ));
   Get.lazyPut(() => NotificationController(notificationRepo: Get.find()));
   Get.lazyPut(() => ProfileController(profileRepo: Get.find()));

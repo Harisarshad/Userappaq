@@ -66,7 +66,7 @@ class RouteHelper {
 
 
   static const String send_money_balance_input = '/send_money_balance_inputsend_money_balance_input';
-  static const String send_money_confirmation = '/transaction_money_confirmation.dart';
+ // static const String send_money_confirmation = '/transaction_money_confirmation.dart';
 
   static const String requestMoney = '/request_money';
   static const String requestMoney_balance_input = '/requestMoney_balance_input';
@@ -77,11 +77,11 @@ class RouteHelper {
   static const String cash_out_confirmation = '/cash_out_confirmation';
 
   static const String add_money = '/add_money';
-  static const String add_money_input = '/add_money_input';
-  static const String bank_select = '/bank_select';
-  static const String bank_list = '/bank_listbank_list';
-  static const String add_money_successful = '/add_money_successful';
-  static const String add_money_web = '/add_money_web';
+ // static const String add_money_input = '/add_money_input';
+ // static const String bank_select = '/bank_select';
+ // static const String bank_list = '/bank_listbank_list';
+ // static const String add_money_successful = '/add_money_successful';
+//  static const String add_money_web = '/add_money_web';
   static const String edit_profile_screen = '/edit_profile_screen';
   static const String faq = '/faq';
   static const String about_us = '/about_us';
@@ -121,14 +121,14 @@ class RouteHelper {
   static  getChoseLoginRegRoute() => '$chose_login_or_reg_screen';
   static  getSendMoneyRoute({String phoneNumber,@required bool fromEdit}) => '$send_money?phone-number=$phoneNumber&from-edit=${fromEdit?'edit-number':'home'}';
   static  getSendMoneyInputRoute({@required String transactionType}) => '$send_money_balance_input?transaction-type=$transactionType';
-  static  getSendMoneyConfirmationRoute({@required String inputBalanceText,@required String transactionType}) => '$send_money_confirmation?input-balance=$inputBalanceText&transaction-type=$transactionType';
+  //static  getSendMoneyConfirmationRoute({@required String inputBalanceText,@required String transactionType}) => '$send_money_confirmation?input-balance=$inputBalanceText&transaction-type=$transactionType';
   static  getChoseLanguageRoute() => '$chose_language_screen';
   static  getCashOutScreenRoute({String phoneNumber,@required bool fromEdit}) => '$cash_out?phone-number=$phoneNumber&from-edit=${fromEdit?'edit-number':'home'}';
   static  getCashOutBalanceInputRoute() => '$cash_out_balance_input';
   static  getFResetPassRoute({@required String phoneNumber}) => '$f_reset_pass_screen?phone-number=$phoneNumber';
   static  getEditProfileRoute() => '$edit_profile_screen';
   static  getChangePinRoute() => '$change_pin_screen';
-  static  getAddMoneyInputRoute() => '$add_money_input';
+ // static  getAddMoneyInputRoute() => '$add_money_input';
   static  getFVeryficationRoute({@required String phoneNumber}) => '$f_verification_screen?phone-number=$phoneNumber';
 
   static getSupportRoute() => '$support';
@@ -150,7 +150,7 @@ class RouteHelper {
     GetPage(name: splash, page: () => SplashScreen()),
     GetPage(name: create_pass, page: () => CreatePass()),
     GetPage(name: home, page: () => HomeScreen()),
-    GetPage(name: navbar, page: () => NavBarScreen()),
+     GetPage(name: navbar, page: () => NavBarScreen()),
     GetPage(name: share_statement, page: () => ShareStatementWidget(amount: Get.parameters['amount'], charge: null, trxId: null,
             transactionType: utf8.decode(base64Url.decode(Get.parameters['transaction-type'].replaceAll(' ', '+'))), contactModel: ContactModel.fromJson(jsonDecode(utf8.decode(base64Url.decode(Get.parameters['contact'])))))),
 
@@ -159,10 +159,10 @@ class RouteHelper {
     // GetPage(name: themeAndLanguage, page: () => ThemeAndLanguage()),
     GetPage(name: profile, page: () => ProfileScreen()),
     GetPage(name: change_pin_screen, page: () => ChangePinScreen()),
-    GetPage(name: send_money, page: () => TransactionMoneyScreen(phoneNumber: Get.parameters['phone-number'],fromEdit: Get.parameters['from-edit']== 'edit-number')),
-    GetPage(name: send_money_balance_input, page: () => TransactionMoneyBalanceInput(transactionType: Get.parameters['transaction-type'])),
-    GetPage(name: send_money_confirmation, page: () => TransactionMoneyConfirmation(inputBalance:double.tryParse(Get.parameters['input-balance']),transactionType: Get.parameters['transaction-type'])),
-    GetPage(name: add_money_web, page: () => WebScreen()),
+   // GetPage(name: send_money, page: () => TransactionMoneyScreen(phoneNumber: Get.parameters['phone-number'],fromEdit: Get.parameters['from-edit']== 'edit-number')),
+    //GetPage(name: send_money_balance_input, page: () => TransactionMoneyBalanceInput(transactionType: Get.parameters['transaction-type'])),
+   // GetPage(name: send_money_confirmation, page: () => TransactionMoneyConfirmation(inputBalance:double.tryParse(Get.parameters['input-balance']),transactionType: Get.parameters['transaction-type'])),
+    // GetPage(name: add_money_web, page: () => WebScreen()),
 
     GetPage(name: chose_login_or_reg_screen, page: () => ChoiceScreen()),
     GetPage(name: create_account_screen, page: () => CreateAccountScreen( countryCode: Get.parameters['country-code'])),

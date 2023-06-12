@@ -44,7 +44,7 @@ class _QrCodeDownloadOrShareScreenState extends State<VerifyPassScreen> {
 
   @override
   void initState() {
-    _loadData(context, false);
+  //  _loadData(context, false);
 
     super.initState();
   }
@@ -56,7 +56,7 @@ class _QrCodeDownloadOrShareScreenState extends State<VerifyPassScreen> {
       child: Screenshot(
         controller: Get.find<ScreenShootWidgetController>().statementController,
         child: GetBuilder<PassController>(builder: (transactionHistory){
-          Pass transactionList = transactionHistory.passDetailsModel;
+          Pass transactionList = transactionHistory.passDetailsModelv;
 
 
 
@@ -242,6 +242,27 @@ class _QrCodeDownloadOrShareScreenState extends State<VerifyPassScreen> {
                           ),
                         ],
                       ),
+                      // Container(
+                      //   margin: const EdgeInsets.fromLTRB(16, 15, 16, 5),
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: Colors.white,
+                      //       foregroundColor: AqcessColors().primary,
+                      //       elevation: 8,
+                      //       shape: const RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.all(
+                      //           Radius.circular(8),
+                      //         ),
+                      //       ),
+                      //       minimumSize: Size(400, 50),
+                      //     ),
+                      //     onPressed: () {},
+                      //     child: Text(
+                      //       "Send Pass",
+                      //       style: TextStyle(fontSize: 18),
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
                         margin: const EdgeInsets.fromLTRB(16, 15, 16, 5),
                         child: ElevatedButton(
@@ -256,28 +277,7 @@ class _QrCodeDownloadOrShareScreenState extends State<VerifyPassScreen> {
                             ),
                             minimumSize: Size(400, 50),
                           ),
-                          onPressed: () {},
-                          child: Text(
-                            "Send Pass",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(16, 15, 16, 5),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: AqcessColors().primary,
-                            elevation: 8,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                            minimumSize: Size(400, 50),
-                          ),
-                          onPressed: () {},
+                          onPressed: () {Navigator.pop(context);},
                           child: Text(
                             "Back To Home",
                             style: TextStyle(fontSize: 18),

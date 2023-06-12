@@ -37,6 +37,7 @@ class PassController extends GetxController implements GetxService {
   }
   ScreenshotController statementController = ScreenshotController();
     bool _isLoading = false;
+    bool _isLoadingHistory = false;
     bool _isVerifying = false;
     bool _biometric = true;
     bool _isBiometricSupported = false;
@@ -44,6 +45,7 @@ class PassController extends GetxController implements GetxService {
     // List<BiometricType> get bioList => _bioList;
 
     bool get isLoading => _isLoading;
+    bool get isLoadingHistory => _isLoadingHistory;
     bool get isVerifying => _isVerifying;
     bool get biometric => _biometric;
     bool get isBiometricSupported => _isBiometricSupported;
@@ -52,14 +54,19 @@ class PassController extends GetxController implements GetxService {
   bool _isSearching = false;
   bool _isSearchingPending = false;
   int _pageSize;
+  int _pageSizeHistory;
   int _pageSizePending;
   Pass _passDetailsModel;
   Pass get passDetailsModel => _passDetailsModel;
+  Pass _passDetailsModelv;
+  Pass get passDetailsModelv => _passDetailsModelv;
 
   bool _firstLoading = true;
+  bool _firstLoadingHistory = true;
   bool _isLoadingPending = false;
   bool _firstLoadingPending = true;
   bool get firstLoading => _firstLoading;
+  bool get firstLoadingHistory => _firstLoadingHistory;
   bool get firstLoadingPending => _firstLoadingPending;
   int _offset = 1;
   int get offset =>_offset;
@@ -67,12 +74,19 @@ class PassController extends GetxController implements GetxService {
   List<int> _offsetList = [];
   List<int> _offsetListPending = [];
   List<int> get offsetList => _offsetList;
+
+  List<int> _offsetListHistory = [];
+  List<int> get offsetListHistory => _offsetListHistory;
   List<int> get offsetListPending => _offsetListPending;
   bool _isDetails = false;
   bool get isDetails =>_isDetails;
+  bool _isDetailsv = false;
+  bool get isDetailsv =>_isDetailsv;
   List<Pass> _passList  = [];
+  List<HistoryData> _passHistory  = [];
 
   List<Pass> get passList => _passList;
+  List<HistoryData> get passHistory => _passHistory;
 
     // Future<void> _callSetting() async {
     //   final LocalAuthentication _bioAuth = LocalAuthentication();
@@ -89,185 +103,12 @@ class PassController extends GetxController implements GetxService {
       await passRepo.writeSecureData(AppConstants.BIOMETRIC_PIN, pin);
     }
 
-  //   bool setBiometric(bool isActive) {
-  //     _callSetting().then((value) {
-  //       _callSetting();
-  //     });
-  //
-  //     final String _pin = Get.find<BottomSliderController>().pin;
-  //     Get.find<ProfileController>().pinVerify(getPin: _pin, isUpdateTwoFactor: false).then((response) async {
-  //       if(response.statusCode == 200 && response.body != null) {
-  //         _biometric = isActive;
-  //         authRepo.setBiometric(isActive && _bioList.isNotEmpty);
-  //         try{
-  //           await authRepo.writeSecureData(AppConstants.BIOMETRIC_PIN, _pin);
-  //         }catch(error) {
-  //         }
-  //         Get.back(closeOverlays: true);
-  //         update();
-  //       }
-  //     });
-  //
-  //   return _biometric;
-  // }
-
-
-
-  // Future<void> authenticateWithBiometric(bool autoLogin, String pin) async {
-  //   final LocalAuthentication _bioAuth = LocalAuthentication();
-  //   _bioList = await _bioAuth.getAvailableBiometrics();
-  //   if((await _bioAuth.canCheckBiometrics || await _bioAuth.isDeviceSupported()) && authRepo.isBiometricEnabled()) {
-  //     final List<BiometricType> _availableBiometrics = await _bioAuth.getAvailableBiometrics();
-  //     if (_availableBiometrics.isNotEmpty && (!autoLogin || await biometricPin() != '')) {
-  //       try {
-  //         final bool _didAuthenticate = await _bioAuth.authenticate(
-  //           localizedReason: autoLogin ? 'please_authenticate_to_login'.tr : 'please_authenticate_to_easy_access_for_next_time'.tr,
-  //           options: AuthenticationOptions(stickyAuth: true, biometricOnly: true),
-  //         );
-  //         if(_didAuthenticate) {
-  //           if(autoLogin) {
-  //             login(code: getCustomerCountryCode(), phone: getCustomerNumber(), password: await biometricPin());
-  //           }else{
-  //             authRepo.writeSecureData(AppConstants.BIOMETRIC_PIN, pin);
-  //           }
-  //         }else{
-  //           if(pin != null) {
-  //             authRepo.setBiometric(false);
-  //           }
-  //         }
-  //       } catch(e) {
-  //       }
-  //     }else{
-  //      // _checkBiometricWithPin();
-  //     }
-  //   }
-  // }
-  // void checkBiometricSupport() async {
-  //   final LocalAuthentication _bioAuth = LocalAuthentication();
-  //   _isBiometricSupported = await _bioAuth.canCheckBiometrics || await _bioAuth.isDeviceSupported();
-  // }
 
 
 
 
 
 
-  // registration ..
-  // Future<Response> registrationhome(SignUpBody signUpBody) async{
-  //   _isLoading = true;
-  //   update();
-  //   Map<String, String> _allCustomerInfo = {
-  //     'f_name': signUpBody.fName,
-  //     'l_name': signUpBody.lName,
-  //     'phone': signUpBody.phone,
-  //     'dial_country_code': signUpBody.dialCountryCode,
-  //     'password': signUpBody.password,
-  //     'gender': signUpBody.gender,
-  //     'occupation': signUpBody.occupation,
-  //   };
-  //   if(signUpBody.otp != null) {
-  //     _allCustomerInfo.addAll({'otp': signUpBody.otp});
-  //   }
-  //   if(signUpBody.email != '') {
-  //     _allCustomerInfo.addAll({'email': signUpBody.email});
-  //   }
-  //
-  //   Response response = await authRepo.registrationhome(_allCustomerInfo);
-  //   print('error is');
-  //   if (response.statusCode == 200) {
-  //     Get.find<CameraScreenController>().removeImage();
-  //     String _countryCode, _nationalNumber;
-  //     try{
-  //       PhoneNumber _phoneNumber = await PhoneNumberUtil().parse(signUpBody.phone);
-  //       _countryCode = '+' + _phoneNumber.countryCode;
-  //       _nationalNumber = _phoneNumber.nationalNumber;
-  //     }catch(e){}
-  //     setCustomerCountryCode(_countryCode);
-  //     setCustomerNumber(_nationalNumber);
-  //     _login(signUpBody.email,signUpBody.password);
-  //     Get.offAllNamed(RouteHelper.getWelcomeRoute(
-  //         countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
-  //     ));
-  //
-  //     // authenticateWithBiometric(false, signUpBody.password).then((value) {
-  //     //   Future.delayed(Duration(seconds: 1)).then((value) {
-  //     //     _callSetting();
-  //     //
-  //     //   });
-  //     // });
-  //   } else {
-  //     ApiChecker.checkApi(response);
-  //   }
-  //   _isLoading = false;
-  //   update();
-  //   return response;
-  // }
-  // Future<void> _login(String phone,String password) async {
-  //
-  //
-  //   String _phone = phone;
-  //   String _password = password;
-  //   String _code ='';
-  //   Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
-  //     if(value.isOk){
-  //       print(value.toString());
-  //       print('value.toString()');
-  //       // Map map = value;
-  //       // String temporaryToken = '';
-  //       // String token = '';
-  //       // String message = '';
-  //       // // String token = map["token"];
-  //       //
-  //       // try{
-  //       //   message = map["message"];
-  //       //
-  //       // }catch(e){
-  //       //
-  //       // }
-  //       // try{
-  //       //   token = map["token"];
-  //       //
-  //       // }catch(e){
-  //       //
-  //       // }
-  //       // try{
-  //       //   temporaryToken = map["temporary_token"];
-  //       //
-  //       // }catch(e){
-  //       //
-  //       // }
-  //       //
-  //       // if(token != null && token.isNotEmpty){
-  //       //   authRepo.saveUserToken(token);
-  //       //   await authRepo.updateToken();
-  //       // }
-  //       await Get.find<ProfileController>().profileData(reload: true);
-  //
-  //     }
-  //   });
-  //   // if (_phone.isEmpty) {
-  //   //   showCustomSnackBar('please_give_your_email_number'.tr,  isError: true);
-  //   // } else if (_password.isEmpty) {
-  //   //   showCustomSnackBar('please_give_your_pass_number'.tr,  isError: true);
-  //   // }
-  //   // else {
-  //   //
-  //   //
-  //   //   try{
-  //   //     //PhoneNumber num = await PhoneNumberUtil().parse(_phoneNumber);
-  //   //     // print('+${num.countryCode}');
-  //   //     // print(num.nationalNumber);
-  //   //     Get.find<AuthController>().login(code: _code,phone: _phone,password: _password).then((value) async{
-  //   //       if(value.isOk){
-  //   //         await Get.find<ProfileController>().profileData(reload: true);
-  //   //       }
-  //   //     });
-  //   //   }catch(e){
-  //   //     print(e);
-  //   //     showCustomSnackBar('please_give_your_email_number'.tr,isError: true);
-  //   //   }
-  //   // }
-  // }
   Future getContactsData(int offset,{bool reload = false}) async{
     if(reload) {
       _offsetList = [];
@@ -286,13 +127,40 @@ class PassController extends GetxController implements GetxService {
           Pass history = Pass.fromJson(transactionHistory);
           _passList.add(history);
         });
-        _pageSize = PassModel.fromJson(response.body).totalSize;
+        _pageSizeHistory = PassModel.fromJson(response.body).totalSize;
       }else{
         ApiChecker.checkApi(response);
       }
     }
     _isLoading = false;
     _firstLoading = false;
+    update();
+  }
+  Future getPassHistory(int offset,{bool reload = false}) async{
+    if(reload) {
+      _offsetListHistory = [];
+      _passHistory = [];
+
+    }
+    _offset = offset;
+    if(!_offsetListHistory.contains(offset)) {
+      _offsetListHistory.add(offset);
+
+      Response response = await passRepo.getHistory(offset);
+      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+        _passHistory = [];
+
+        response.body['transactions'].forEach((transactionHistory) {
+          HistoryData history = HistoryData.fromJson(transactionHistory);
+          _passHistory.add(history);
+        });
+        _pageSizeHistory = PassHistory.fromJson(response.body).totalSize;
+      }else{
+        ApiChecker.checkApi(response);
+      }
+    }
+    _isLoadingHistory = false;
+    _firstLoadingHistory = false;
     update();
   }
   Future<Response> passDetails(String id, BuildContext context ) async{
@@ -309,25 +177,25 @@ class PassController extends GetxController implements GetxService {
       _isDetails = false;
       _passDetailsModel = Pass.fromJson(response.body['pass']);
       Uint8List _image;
-      Future.delayed(Duration(milliseconds: 100)).then((value) async {
-        _image =  await statementController.capture();
-
-        Navigator.pop(Get.context);
-        bool isShare=true;
-        if(isShare == true){
-          final _directory = await getApplicationDocumentsDirectory();
-          final _imageFile = File('${_directory.path}/share.png');
-          _imageFile.writeAsBytesSync(_image);
-          await Share.shareFiles([_imageFile.path]);
-        }else{
-          final _directory = await getApplicationDocumentsDirectory();
-          final _imageFile = File('${_directory.path}/qr.png');
-          _imageFile.writeAsBytesSync(_image);
-          await GallerySaver.saveImage(_imageFile.path,albumName: 'aqcess',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
-        }
-
-
-      });
+      // Future.delayed(Duration(milliseconds: 100)).then((value) async {
+      //   _image =  await statementController.capture();
+      //
+      //   Navigator.pop(Get.context);
+      //   bool isShare=true;
+      //   if(isShare == true){
+      //     final _directory = await getApplicationDocumentsDirectory();
+      //     final _imageFile = File('${_directory.path}/share.png');
+      //     _imageFile.writeAsBytesSync(_image);
+      //     await Share.shareFiles([_imageFile.path]);
+      //   }else{
+      //     final _directory = await getApplicationDocumentsDirectory();
+      //     final _imageFile = File('${_directory.path}/qr.png');
+      //     _imageFile.writeAsBytesSync(_image);
+      //     await GallerySaver.saveImage(_imageFile.path,albumName: 'aqcess',).then((value) => showCustomSnackBar('QR code save to your Gallery',isError: false));
+      //   }
+      //
+      //
+      // });
 
       // Get.offAllNamed(RouteHelper.getWelcomeRoute(
       //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
@@ -352,15 +220,15 @@ class PassController extends GetxController implements GetxService {
 
     update();
 
-    _isDetails = true;
+    _isDetailsv = true;
 
 
 
     Response response = await passRepo.verifyPass(id);
     print('error is');
     if (response.statusCode == 200) {
-      _isDetails = false;
-      _passDetailsModel = Pass.fromJson(response.body['pass']);
+      _isDetailsv = false;
+      _passDetailsModelv = Pass.fromJson(response.body['pass']);
       Uint8List _image;
       Future.delayed(Duration(milliseconds: 100)).then((value) async {
         _image =  await statementController.capture();
@@ -392,11 +260,11 @@ class PassController extends GetxController implements GetxService {
       //   });
       // });
     } else {
-      _isDetails = false;
+      _isDetailsv = false;
 
       ApiChecker.checkApi(response);
     }
-    _isDetails = false;
+    _isDetailsv = false;
 
     update();
     return response;

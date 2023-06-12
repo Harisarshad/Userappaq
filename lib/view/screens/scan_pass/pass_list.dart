@@ -14,9 +14,11 @@ import 'package:six_cash/view/screens/contacts/add_contact.dart';
 import '../../../CustomWidgets/PassCustomListTile.dart';
 import '../../../controller/screen_shot_widget_controller.dart';
 import '../../../data/model/contact_model.dart';
+import '../../../helper/route_helper.dart';
 import '../../../util/dimensions.dart';
 import '../../base/no_data_screen.dart';
 import '../history/widget/history_shimmer.dart';
+import '../profile/widget/qr_code_download_or_share.dart';
 
 class PassList extends StatefulWidget {
   PassList({Key key}) : super(key: key);
@@ -61,7 +63,7 @@ class _ContactsState extends State<PassList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyCustomTextAppBar(
-        titleText: "Contacts",
+        titleText: "My Passes",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -130,7 +132,12 @@ class _ContactsState extends State<PassList> {
 
             child:  InkWell(
               onTap: (){
-                Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: transactionList[index].qrCode, phoneNumber: transactionList[index].id,isShare: true);
+               // Navigator.pop(context);
+                //QrCodeDownloadOrShareScreen
+
+                Get.to(()=>  QrCodeDownloadOrShareScreen( qrCode: transactionList[index].qrCode, phoneNumber: transactionList[index].id, passData:transactionList[index]));
+              //  Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: transactionList[index].qrCode,phoneNumber: transactionList[index].id));
+               // Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: transactionList[index].qrCode, phoneNumber: transactionList[index].qrCode,isShare: true);
               },
               child: PassCustomListTile(
                 cont: transactionList[index],

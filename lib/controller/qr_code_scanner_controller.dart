@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
+import 'package:six_cash/controller/pass_controller.dart';
 import 'package:six_cash/data/model/response/contact_model.dart';
 import 'package:six_cash/util/dimensions.dart';
 import 'package:six_cash/view/screens/transaction_money/transaction_money_balance_input.dart';
@@ -51,6 +52,7 @@ class QrCodeScannerController extends GetxController implements GetxService{
          // Get.toNamed(RouteHelper.getQrCodeDownloadOrShareRoute(qrCode: qrCode,phoneNumber: phoneNumber));
             print('AAA');
             Navigator.pop(Get.context);
+            Get.find<PassController>().passVerify(_phone,Get.context);
             Get.to(()=>  VerifyPassScreen( qrCode: _image, phoneNumber: _phone,));
            // Get.to(()=>  TransactionMoneyBalanceInput(transactionType: _transactionType,contactModel: ContactModel(phoneNumber: _phone, name: _name,avatarImage: _image)));
 
@@ -65,22 +67,22 @@ class QrCodeScannerController extends GetxController implements GetxService{
 
 }
 
-class TransactionSelect extends StatelessWidget {
-  final ContactModel contactModel;
-  const TransactionSelect({Key key, this.contactModel}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ListTile(title: Text('send_money'.tr), minVerticalPadding: 0,
-          onTap: () =>  Get.off(()=>  TransactionMoneyBalanceInput(transactionType: 'send_money',contactModel: contactModel))),
-
-        ListTile(title: Text('request_money'.tr), minVerticalPadding: 0,
-          onTap: () =>  Get.off(()=>  TransactionMoneyBalanceInput(transactionType: 'request_money',contactModel: contactModel))),
-      ],
-    );
-  }
-}
+// class TransactionSelect extends StatelessWidget {
+//   final ContactModel contactModel;
+//   const TransactionSelect({Key key, this.contactModel}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisSize: MainAxisSize.min,
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         ListTile(title: Text('send_money'.tr), minVerticalPadding: 0,
+//           onTap: () =>  Get.off(()=>  TransactionMoneyBalanceInput(transactionType: 'send_money',contactModel: contactModel))),
+//
+//         ListTile(title: Text('request_money'.tr), minVerticalPadding: 0,
+//           onTap: () =>  Get.off(()=>  TransactionMoneyBalanceInput(transactionType: 'request_money',contactModel: contactModel))),
+//       ],
+//     );
+//   }
+// }

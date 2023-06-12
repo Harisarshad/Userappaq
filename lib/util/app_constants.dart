@@ -28,6 +28,7 @@ class AppConstants {
   static const String PASS_VERIFY_URI = '/api/v1/customer/pass-verify';
   static const String LIST_CONTACT_URI = '/api/v1/customer/list-contact';
   static const String LIST_PASS_URI = '/api/v1/customer/list-pass';
+  static const String HISTORY_PASS_URI = '/api/v1/customer/pass-history';
   static const String LIST_RESIDENTS_URI = '/api/v1/customer/list-residents';
   static const String LIST_RESIDENTSP_URI = '/api/v1/customer/list-residents-pending';
 

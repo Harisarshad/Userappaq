@@ -330,71 +330,71 @@ class TransactionMoneyController extends GetxController implements GetxService {
     _contact = contactModel;
   }
 
-  void  contactOnTap(int index, String transactionType){
-    String phoneNumber = filterdContacts[index].contact.phones.first.number.trim();
-    print(filterdContacts[index].contact.name.first);
-    if(phoneNumber.contains('-')){
-      phoneNumber = phoneNumber.replaceAll('-', '');
-    }
-    if(!phoneNumber.contains('+')){
-      phoneNumber = Get.find<AuthController>().getCustomerCountryCode()+phoneNumber.substring(1).trim();
-    }
-    if(phoneNumber.contains(' ')){
-      phoneNumber = phoneNumber.replaceAll(' ', '');
-    }
-    if(transactionType == "cash_out"){
-      Get.find<TransactionMoneyController>().checkAgentNumber(phoneNumber: phoneNumber).then((value) {
-        if(value.isOk){
-          String _agentName = value.body['data']['name'];
-          String _agentImage = value.body['data']['image'];
+  // void  contactOnTap(int index, String transactionType){
+  //   String phoneNumber = filterdContacts[index].contact.phones.first.number.trim();
+  //   print(filterdContacts[index].contact.name.first);
+  //   if(phoneNumber.contains('-')){
+  //     phoneNumber = phoneNumber.replaceAll('-', '');
+  //   }
+  //   if(!phoneNumber.contains('+')){
+  //     phoneNumber = Get.find<AuthController>().getCustomerCountryCode()+phoneNumber.substring(1).trim();
+  //   }
+  //   if(phoneNumber.contains(' ')){
+  //     phoneNumber = phoneNumber.replaceAll(' ', '');
+  //   }
+  //   if(transactionType == "cash_out"){
+  //     Get.find<TransactionMoneyController>().checkAgentNumber(phoneNumber: phoneNumber).then((value) {
+  //       if(value.isOk){
+  //         String _agentName = value.body['data']['name'];
+  //         String _agentImage = value.body['data']['image'];
+  //
+  //         print('phone number contact ---- $phoneNumber');
+  //         Get.to(()=> TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: ContactModel(phoneNumber: phoneNumber,name: _agentName,avatarImage: _agentImage)));
+  //       }
+  //     });
+  //   }else{
+  //     Get.find<TransactionMoneyController>().checkCustomerNumber(phoneNumber: phoneNumber).then((value) {
+  //       print('phone number contact ---- $phoneNumber');
+  //       if(value.isOk){
+  //         String _customerName = value.body['data']['name'];
+  //         String _customerImage = value.body['data']['image'];
+  //         Get.to(()=> TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: ContactModel(phoneNumber: phoneNumber,name: _customerName,avatarImage: _customerImage)));
+  //       }
+  //     });
+  //   }
+  // }
+  //
+  // void suggestOnTap(int index, String transactionType){
+  //   if(transactionType == 'send_money'){
+  //     setContactModel(ContactModel(
+  //         phoneNumber: _sendMoneySuggestList[index].phoneNumber,
+  //         avatarImage: _sendMoneySuggestList[index].avatarImage,
+  //         name: _sendMoneySuggestList[index].name
+  //     ));
+  //   }
+  //   else if(transactionType == 'request_money'){
+  //     setContactModel(ContactModel(
+  //         phoneNumber: _requestMoneySuggestList[index].phoneNumber,
+  //         avatarImage: _requestMoneySuggestList[index].avatarImage,
+  //         name: _requestMoneySuggestList[index].name
+  //     ));
+  //   }
+  //   else if(transactionType == 'cash_out'){
+  //     setContactModel(ContactModel(
+  //         phoneNumber: _cashOutSuggestList[index].phoneNumber,
+  //         avatarImage: _cashOutSuggestList[index].avatarImage,
+  //         name: _cashOutSuggestList[index].name
+  //     ));
+  //   }
+  //
+  //   Get.to(()=>TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: _contact));
+  //
+  //   }
 
-          print('phone number contact ---- $phoneNumber');
-          Get.to(()=> TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: ContactModel(phoneNumber: phoneNumber,name: _agentName,avatarImage: _agentImage)));
-        }
-      });
-    }else{
-      Get.find<TransactionMoneyController>().checkCustomerNumber(phoneNumber: phoneNumber).then((value) {
-        print('phone number contact ---- $phoneNumber');
-        if(value.isOk){
-          String _customerName = value.body['data']['name'];
-          String _customerImage = value.body['data']['image'];
-          Get.to(()=> TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: ContactModel(phoneNumber: phoneNumber,name: _customerName,avatarImage: _customerImage)));
-        }
-      });
-    }
-  }
-
-  void suggestOnTap(int index, String transactionType){
-    if(transactionType == 'send_money'){
-      setContactModel(ContactModel(
-          phoneNumber: _sendMoneySuggestList[index].phoneNumber,
-          avatarImage: _sendMoneySuggestList[index].avatarImage,
-          name: _sendMoneySuggestList[index].name
-      ));
-    }
-    else if(transactionType == 'request_money'){
-      setContactModel(ContactModel(
-          phoneNumber: _requestMoneySuggestList[index].phoneNumber,
-          avatarImage: _requestMoneySuggestList[index].avatarImage,
-          name: _requestMoneySuggestList[index].name
-      ));
-    }
-    else if(transactionType == 'cash_out'){
-      setContactModel(ContactModel(
-          phoneNumber: _cashOutSuggestList[index].phoneNumber,
-          avatarImage: _cashOutSuggestList[index].avatarImage,
-          name: _cashOutSuggestList[index].name
-      ));
-    }
-
-    Get.to(()=>TransactionMoneyBalanceInput(transactionType: transactionType,contactModel: _contact));
-
-    }
-
-  void balanceConfirmationOnTap({double amount, String transactionType, String purpose, ContactModel contactModel}) {
-    Get.to(()=> TransactionMoneyConfirmation(
-        inputBalance: amount, transactionType: transactionType, purpose: purpose,contactModel: contactModel));
-  }
+  // void balanceConfirmationOnTap({double amount, String transactionType, String purpose, ContactModel contactModel}) {
+  //   Get.to(()=> TransactionMoneyConfirmation(
+  //       inputBalance: amount, transactionType: transactionType, purpose: purpose,contactModel: contactModel));
+  // }
 
 
 

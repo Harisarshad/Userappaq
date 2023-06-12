@@ -26,24 +26,30 @@ class MyCustomTextAppBar extends StatelessWidget
       // leadingWidth: 120,
       leading: SizedBox(
         width: 200,
-        child: Row(
-          children: [
-            Expanded(
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.chevron_left_outlined,
+        child: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: IconButton(
+                  onPressed: () {      Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.chevron_left_outlined,
+                  ),
                 ),
               ),
-            ),
-            FormLabelText(
-              labelText: iconText,
-              paddingbottom: 0,
-              paddingtop: 0,
-              paddingleft: 0,
-              paddingright: 0,
-            )
-          ],
+              FormLabelText(
+                labelText: iconText,
+                paddingbottom: 0,
+                paddingtop: 0,
+                paddingleft: 0,
+                paddingright: 0,
+              )
+            ],
+          ),
         ),
       ),
       centerTitle: true,

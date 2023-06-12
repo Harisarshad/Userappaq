@@ -74,19 +74,19 @@ class AppBarBase extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   const SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
-                  Get.find<SplashController>().configModel.themeIndex == '1'
-                      ? ShowName()
-                      : ShowBalance(profileController:profileController),
+                  // Get.find<SplashController>().configModel.themeIndex == '1'
+                  //     ? ShowName()
+                  //     : ShowBalance(profileController:profileController),
                 ],),
 
                 // const Spacer(),
 
                 Row(children: [
-                  AnimatedButtonView(
-                    onTap: ()=> Get.to(()=> TransactionMoneyBalanceInput(
-                    transactionType: TransactionType.WITHDRAW_REQUEST,
-                    )),
-                  ),
+                  // AnimatedButtonView(
+                  //   onTap: ()=> Get.to(()=> TransactionMoneyBalanceInput(
+                  //   transactionType: TransactionType.WITHDRAW_REQUEST,
+                  //   )),
+                  // ),
 
                   SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
 

@@ -245,25 +245,7 @@ class _ContactsState extends State<Contacts> {
               ),
             )
 
-            // ListView(
-            //   children: const <Widget>[
-            //     ListTile(
-            //       leading: CircleAvatar(child: Text('A')),
-            //       title: Text('Headline'),
-            //       subtitle: Text('Supporting text'),
-            //       trailing: Icon(Icons.favorite_rounded),
-            //     ),
-            //     Divider(height: 0),
-            //     ListTile(
-            //       leading: CircleAvatar(child: Text('B')),
-            //       title: Text('Headline'),
-            //       subtitle: Text(
-            //           'Longer supporting text to demonstrate how the text wraps and how the leading and trailing widgets are centered vertically with the text.'),
-            //       trailing: Icon(Icons.favorite_rounded),
-            //     ),
-            //     Divider(height: 0),
-            //   ],
-            // ),
+
           ],
         ),
       ),

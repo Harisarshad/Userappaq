@@ -87,11 +87,11 @@ class ContactView extends StatelessWidget{
               ),
             ),
 
-            CustomInkWell(
-              highlightColor: Theme.of(context).textTheme.titleLarge.color.withOpacity(0.3),
-              onTap:() => contactController.contactOnTap(index, transactionType),
-              child: ContactTile(transactionMoneyController: contactController, index: index),
-            ),
+            // CustomInkWell(
+            //   highlightColor: Theme.of(context).textTheme.titleLarge.color.withOpacity(0.3),
+            //   onTap:() => contactController.contactOnTap(index, transactionType),
+            //   child: ContactTile(transactionMoneyController: contactController, index: index),
+            // ),
 
             Padding(
               padding: const EdgeInsets.only(left: Dimensions.CONTACT_TILE_LEFT_PADDING,right:  Dimensions.CONTACT_TILE_RIGHT_PADDING),

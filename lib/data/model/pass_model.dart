@@ -119,6 +119,102 @@ class Pass {
     return data;
   }
 }
+class PassHistory {
+  int totalSize;
+  int limit;
+  int offset;
+  List<HistoryData> transactions;
+
+  PassHistory(
+      {this.totalSize, this.limit, this.offset, this.transactions});
+
+  PassHistory.fromJson(Map<String, dynamic> json) {
+    totalSize = json['total_size'];
+    limit = json['limit'];
+    offset = json['offset'];
+    if (json['transactions'] != null) {
+      transactions = <HistoryData>[];
+      json['transactions'].forEach((v) {
+        transactions.add(new HistoryData.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total_size'] = this.totalSize;
+    data['limit'] = this.limit;
+    data['offset'] = this.offset;
+    if (this.transactions != null) {
+      data['transactions'] = this.transactions.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class HistoryData {
+  String id;
+  String resId;
+  String reason;
+  String fullName;
+
+  String date;
+  String startDate;
+  String endDate;
+
+
+
+
+
+
+  HistoryData(
+      {
+        this.id,
+        this.resId,
+        this.reason,
+        this.fullName,
+
+        this.date,
+        this.startDate,
+        this.endDate,
+
+
+      });
+
+  HistoryData.fromJson(Map<String, dynamic> json) {
+    id = json['id'].toString();
+    resId = json['res_id'].toString();
+    reason = json['reason'].toString();
+    fullName = json['full_name'].toString();
+
+    date = json['date'].toString();
+    startDate = json['start_date'].toString();
+    endDate = json['end_date'].toString();
+
+
+
+
+
+
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+
+    data['id'] = this.id;
+    data['res_id'] = this.resId;
+    data['reason'] = this.reason;
+    data['full_name'] = this.fullName;
+
+    data['date'] = this.date;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+
+
+
+    return data;
+  }
+}
 
 class UserInfo {
   String phone;
