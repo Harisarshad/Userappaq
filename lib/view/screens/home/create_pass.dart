@@ -2,39 +2,21 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:six_cash/controller/auth_controller.dart';
-import 'package:six_cash/controller/banner_controller.dart';
-import 'package:six_cash/controller/home_controller.dart';
-import 'package:six_cash/controller/notification_controller.dart';
-import 'package:six_cash/controller/profile_screen_controller.dart';
-import 'package:six_cash/controller/requested_money_controller.dart';
-import 'package:six_cash/controller/splash_controller.dart';
-import 'package:six_cash/controller/transaction_controller.dart';
-import 'package:six_cash/controller/transaction_history_controller.dart';
-import 'package:six_cash/controller/websitelink_controller.dart';
+
 import 'package:six_cash/data/model/body/pass_body.dart';
-import 'package:six_cash/util/dimensions.dart';
-import 'package:six_cash/view/screens/home/widget/app_bar_base.dart';
-import 'package:six_cash/view/screens/home/widget/bottom_sheet/expandable_contant.dart';
-import 'package:six_cash/view/screens/home/widget/bottom_sheet/persistent_header.dart';
-import 'package:six_cash/view/screens/home/widget/first_card_portion.dart';
-import 'package:six_cash/view/screens/home/widget/linked_website.dart';
-import 'package:six_cash/view/screens/home/widget/secend_card_portion.dart';
-import 'package:six_cash/view/screens/home/widget/shimmer/web_site_shimmer.dart';
-import 'package:six_cash/view/screens/home/widget/third_card_portion.dart';
+
+
 
 import '../../../Constants.dart';
 import '../../../CustomWidgets/CustomCheckbox.dart';
 import '../../../CustomWidgets/CustomListTile.dart';
-import '../../../CustomWidgets/DropDownInputField.dart';
+
 import '../../../CustomWidgets/FormLabelText.dart';
 import '../../../CustomWidgets/InputField.dart';
-import '../../../CustomWidgets/Tile.dart';
+
 import '../../../controller/contacts_controller.dart';
 import '../../../controller/pass_controller.dart';
-import '../../../controller/screen_shot_widget_controller.dart';
-import '../../../data/api/api_client.dart';
-import '../../base/contact_view.dart';
+
 import '../../base/custom_snackbar.dart';
 
 class CreatePass extends StatefulWidget {

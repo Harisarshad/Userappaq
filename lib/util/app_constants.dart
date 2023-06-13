@@ -35,6 +35,8 @@ class AppConstants {
   static const String UPDATE_RESIDENTS_URI = '/api/v1/customer/list-residents-update';
 
   static const String CUSTOMER_UPDATE_PROFILE = '/api/v1/customer/update-profile';
+  static const String CUSTOMER_AMINITIES_PROFILE = '/api/v1/customer/update-amenties';
+
   static const String CUSTOMER_LOGIN_URI = '/api/v1/customer/auth/login';
   static const String CUSTOMER_LOGOUT_URI = '/api/v1/customer/logout';
   static const String CUSTOMER_FORGET_PASS_OTP_URI = '/api/v1/customer/auth/forgot-password';

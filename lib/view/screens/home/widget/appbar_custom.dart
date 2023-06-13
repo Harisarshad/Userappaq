@@ -12,6 +12,9 @@ import 'package:six_cash/controller/splash_controller.dart';
 import 'package:six_cash/util/dimensions.dart';
 import 'package:six_cash/util/images.dart';
 import 'package:six_cash/view/base/custom_image.dart';
+import 'package:six_cash/view/screens/profile/profile_screen.dart';
+
+import '../../../../helper/route_helper.dart';
 
 class AppBarCustomHome extends StatefulWidget implements PreferredSizeWidget {
   const AppBarCustomHome({Key key}) : super(key: key);
@@ -53,8 +56,8 @@ class _AppBarCustomHomeState extends State<AppBarCustomHome> {
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
               child: GestureDetector(
-                onTap: () =>
-                    Get.find<CustomMenuController>().selectProfilePage(),
+                onTap: () =>  Get.to(ProfileScreen()),
+                   // Get.find<CustomMenuController>().selectProfilePage(),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

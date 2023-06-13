@@ -73,84 +73,84 @@ class UserInfo extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: Text(
-                            '${profileController.userInfo.phone}',
-                            style: rubikMedium.copyWith(
-                              color: Theme.of(context).textTheme.bodyText1.color.withOpacity(Get.isDarkMode ? 0.8 :0.5),
-                              fontSize: Dimensions.FONT_SIZE_LARGE,
-                            ),
-                            textAlign: TextAlign.start, maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.5,
+                        //   child: Text(
+                        //     '${profileController.userInfo.phone}',
+                        //     style: rubikMedium.copyWith(
+                        //       color: Theme.of(context).textTheme.bodyText1.color.withOpacity(Get.isDarkMode ? 0.8 :0.5),
+                        //       fontSize: Dimensions.FONT_SIZE_LARGE,
+                        //     ),
+                        //     textAlign: TextAlign.start, maxLines: 1,
+                        //     overflow: TextOverflow.ellipsis,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ],
                 ):SizedBox(),
 
-                InkWell(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    isDismissible: false,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(Dimensions.RADIUS_SIZE_LARGE)),
-                    ),
-                    builder: (context) => ProfileQRCodeBottomSheet(),
-                  ),
-                  child: GetBuilder<ProfileController>(builder: (controller) {
-                    return Container(
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).secondaryHeaderColor),
-                      padding: EdgeInsets.all(10.0),
-                      child: SvgPicture.string(controller.userInfo.qrCode, height: 24, width: 24,),
-                    );
-                  }),
-                )
+                // InkWell(
+                //   onTap: () => showModalBottomSheet(
+                //     context: context,
+                //     isScrollControlled: true,
+                //     isDismissible: false,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.vertical(top: Radius.circular(Dimensions.RADIUS_SIZE_LARGE)),
+                //     ),
+                //     builder: (context) => ProfileQRCodeBottomSheet(),
+                //   ),
+                //   child: GetBuilder<ProfileController>(builder: (controller) {
+                //     return Container(
+                //       decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).secondaryHeaderColor),
+                //       padding: EdgeInsets.all(10.0),
+                //       child: SvgPicture.string(controller.userInfo.qrCode, height: 24, width: 24,),
+                //     );
+                //   }),
+                // )
               ],
             ),
 
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-            if(profileController.userInfo.kycStatus != KycVerification.APPROVE) Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(
-                    profileController.userInfo.kycStatus == KycVerification.NEED_APPLY ?
-                    'kyc_verification_is_not'.tr : profileController.userInfo.kycStatus == KycVerification.PENDING ?
-                    'your_verification_request_is'.tr : 'your_verification_is_denied'.tr,
-                    style: rubikRegular.copyWith(
-                      color: Theme.of(context).errorColor,
-                    ),
-                    maxLines: 2,
-
-                  ),
-                ),
-                SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
-
-                CustomInkWell(
-                  onTap: () => Get.to(()=> KycVerifyScreen()),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Dimensions.PADDING_SIZE_DEFAULT,
-                      vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                      color: Theme.of(context).errorColor.withOpacity(0.8),
-                    ),
-                    child: Text(
-                      profileController.userInfo.kycStatus == KycVerification.NEED_APPLY ?
-                      'click_to_verify'.tr : profileController.userInfo.kycStatus == KycVerification.PENDING ?
-                      'edit'.tr : 're_apply'.tr,
-                      style: rubikMedium.copyWith(color: Theme.of(context).cardColor),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // if(profileController.userInfo.kycStatus != KycVerification.APPROVE) Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Flexible(
+            //       child: Text(
+            //         profileController.userInfo.kycStatus == KycVerification.NEED_APPLY ?
+            //         'kyc_verification_is_not'.tr : profileController.userInfo.kycStatus == KycVerification.PENDING ?
+            //         'your_verification_request_is'.tr : 'your_verification_is_denied'.tr,
+            //         style: rubikRegular.copyWith(
+            //           color: Theme.of(context).errorColor,
+            //         ),
+            //         maxLines: 2,
+            //
+            //       ),
+            //     ),
+            //     SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
+            //
+            //     CustomInkWell(
+            //       onTap: () => Get.to(()=> KycVerifyScreen()),
+            //       child: Container(
+            //         padding: EdgeInsets.symmetric(
+            //           horizontal: Dimensions.PADDING_SIZE_DEFAULT,
+            //           vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+            //         ),
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+            //           color: Theme.of(context).errorColor.withOpacity(0.8),
+            //         ),
+            //         child: Text(
+            //           profileController.userInfo.kycStatus == KycVerification.NEED_APPLY ?
+            //           'click_to_verify'.tr : profileController.userInfo.kycStatus == KycVerification.PENDING ?
+            //           'edit'.tr : 're_apply'.tr,
+            //           style: rubikMedium.copyWith(color: Theme.of(context).cardColor),
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

@@ -150,7 +150,8 @@ class RouteHelper {
     GetPage(name: splash, page: () => SplashScreen()),
     GetPage(name: create_pass, page: () => CreatePass()),
     GetPage(name: home, page: () => HomeScreen()),
-     GetPage(name: navbar, page: () => NavBarScreen()),
+     GetPage(name: navbar, page: () => HomeScreen()),
+    // GetPage(name: navbar, page: () => NavBarScreen()),
     GetPage(name: share_statement, page: () => ShareStatementWidget(amount: Get.parameters['amount'], charge: null, trxId: null,
             transactionType: utf8.decode(base64Url.decode(Get.parameters['transaction-type'].replaceAll(' ', '+'))), contactModel: ContactModel.fromJson(jsonDecode(utf8.decode(base64Url.decode(Get.parameters['contact'])))))),
 

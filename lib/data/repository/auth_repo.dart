@@ -124,6 +124,11 @@ class AuthRepo extends GetxService {
     return await apiClient.postMultipartData(
         AppConstants.CUSTOMER_UPDATE_PROFILE, profileInfo, multipartBody);
   }
+  Future<Response> updateAmenties(Map<String, String> profileInfo,
+      List<MultipartBody> multipartBody) async {
+    return await apiClient.postMultipartData(
+        AppConstants.CUSTOMER_AMINITIES_PROFILE, profileInfo, multipartBody);
+  }
 
   Future<Response> changePinApi(
       {@required String oldPin,
