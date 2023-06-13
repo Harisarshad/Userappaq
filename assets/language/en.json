@@ -360,6 +360,13 @@
   "time_and_date": "Time And Date",
   "address": "Address",
   "qr_code_access": "To access, the two-dimensional QR code must be valid in the lane designated for visitors with security personnel.",
-  "sendpass": "Send Pass"
-  
+  "sendpass": "Send Pass",
+  "current_pass_placeholder": "Type Your Current Password"
+  ,"current_pass": "Current Password",
+  "billing_cycle": "Next Billing Cycle: ",
+  "payment_method" : "Payment Method",
+  "add_image": "Click here to add ",
+  "an_image": "an Image"
+  ,"change_logo": "Change your company logo",
+  "account_name": "Account Name"
 }

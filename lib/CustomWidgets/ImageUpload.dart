@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:six_cash/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../controller/camera_screen_controller.dart';
 
 class ImageUploadWidget extends StatefulWidget {
   final String imagePath;
@@ -21,8 +24,8 @@ class ImageUploadWidget extends StatefulWidget {
       this.backgroundColor = Colors.white,
       this.borderColor = Colors.grey,
       this.textColor = Colors.grey,
-       this.plainText,
-       this.coloredText,
+      this.plainText,
+      this.coloredText,
       this.inLineTextColor = Colors.blue})
       : super(key: key);
   @override
@@ -39,6 +42,7 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
     if (pickedImage != null) {
       setState(() {
         _pickedImage = File(pickedImage.path);
+        Get.find<CameraScreenController>().setImage(_pickedImage);
       });
     }
   }
@@ -63,8 +67,6 @@ class _ImageUploadWidgetState extends State<ImageUploadWidget> {
         child: _pickedImage != null
             ? Image.file(
                 _pickedImage,
-                width: 100,
-                height: 100,
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
