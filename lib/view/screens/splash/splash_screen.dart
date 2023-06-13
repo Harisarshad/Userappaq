@@ -87,7 +87,11 @@ class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(Images.logo, height: 175),
+            Image.asset("assets/Aqcess-Logo.png", height: 175),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text("Welcome To Aqcess!",style: TextStyle(fontSize: 24),),
+            )
           ],
         ),
       ),

@@ -7,22 +7,14 @@ import 'package:six_cash/CustomWidgets/ButtonCustom.dart';
 import 'package:six_cash/CustomWidgets/FormLabelText.dart';
 import 'package:six_cash/CustomWidgets/ImageUpload.dart';
 import 'package:six_cash/CustomWidgets/InputField.dart';
-import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
-import 'package:six_cash/controller/auth_controller.dart';
 import 'package:six_cash/controller/edit_profile_controller.dart';
 import 'package:six_cash/controller/profile_screen_controller.dart';
 import 'package:six_cash/controller/camera_screen_controller.dart';
-import 'package:six_cash/controller/splash_controller.dart';
 import 'package:six_cash/data/api/api_client.dart';
 import 'package:six_cash/data/model/body/edit_profile_body.dart';
-import 'package:six_cash/util/color_resources.dart';
 import 'package:six_cash/util/dimensions.dart';
-import 'package:six_cash/util/images.dart';
 import 'package:six_cash/view/base/custom_app_bar.dart';
-import 'package:six_cash/view/base/custom_image.dart';
 import 'package:six_cash/view/base/custom_small_button.dart';
-import 'package:six_cash/view/screens/auth/other_info/widget/gender_view.dart';
-import 'package:six_cash/view/screens/auth/other_info/widget/input_section.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key key}) : super(key: key);
@@ -429,91 +421,3 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 }
 
-class AdminAccount extends StatefulWidget {
-  // AdminAccount({super.key});
-
-  @override
-  State<AdminAccount> createState() => _AdminAccountState();
-}
-
-class _AdminAccountState extends State<AdminAccount> {
-  final _formKey = GlobalKey<FormState>();
-  // Overriding them for initializing them
-  @override
-  void initState() {
-    super.initState();
-  }
-
-// Dont forget to Dispose !!
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MyCustomTextAppBar(
-        titleText: "Profile",
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 10, 16, 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ButtonCustom(
-                        buttonText: "Details",
-                        onPress: () {},
-                        width: MediaQuery.of(context).size.width -
-                            17 -
-                            MediaQuery.of(context).size.width / 2,
-                        paddingRight: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 0,
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        foregroundColor: AqcessColors().primary,
-                      ),
-                      ButtonCustom(
-                        buttonText: "Account",
-                        onPress: () {},
-                        width: MediaQuery.of(context).size.width -
-                            17 -
-                            MediaQuery.of(context).size.width / 2,
-                        paddingRight: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 0,
-                        elevation: 0,
-                        backgroundColor: AqcessColors().primary,
-                        foregroundColor: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              ButtonCustom(
-                paddingTop: 275,
-                buttonText: "Save changes",
-                onPress: () {},
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

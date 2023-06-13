@@ -1,31 +1,13 @@
-import 'package:expandable_bottom_sheet/expandable_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:six_cash/controller/auth_controller.dart';
-import 'package:six_cash/controller/banner_controller.dart';
 import 'package:six_cash/controller/home_controller.dart';
-import 'package:six_cash/controller/notification_controller.dart';
 import 'package:six_cash/controller/profile_screen_controller.dart';
-import 'package:six_cash/controller/requested_money_controller.dart';
-import 'package:six_cash/controller/splash_controller.dart';
-import 'package:six_cash/controller/transaction_controller.dart';
-import 'package:six_cash/controller/transaction_history_controller.dart';
-import 'package:six_cash/controller/websitelink_controller.dart';
 import 'package:six_cash/util/dimensions.dart';
-import 'package:six_cash/view/base/contact_shimmer.dart';
-import 'package:six_cash/view/base/contact_view.dart';
 import 'package:six_cash/view/screens/access_history/access_history.dart';
 import 'package:six_cash/view/screens/amenities/amenities.dart';
 import 'package:six_cash/view/screens/auth/selfie_capture/camera_screen.dart';
 import 'package:six_cash/view/screens/contacts/contacts.dart';
-import 'package:six_cash/view/screens/home/widget/app_bar_base.dart';
-import 'package:six_cash/view/screens/home/widget/bottom_sheet/expandable_contant.dart';
-import 'package:six_cash/view/screens/home/widget/bottom_sheet/persistent_header.dart';
-import 'package:six_cash/view/screens/home/widget/first_card_portion.dart';
-import 'package:six_cash/view/screens/home/widget/linked_website.dart';
-import 'package:six_cash/view/screens/home/widget/secend_card_portion.dart';
 import 'package:six_cash/view/screens/home/widget/shimmer/web_site_shimmer.dart';
-import 'package:six_cash/view/screens/home/widget/third_card_portion.dart';
 import 'package:six_cash/view/screens/regular_visit/regular_visit.dart';
 import 'package:six_cash/view/screens/residents/residents.dart';
 import 'package:six_cash/view/screens/scan_pass/scan_pass.dart';
@@ -33,11 +15,7 @@ import 'package:six_cash/view/screens/scan_pass/scan_pass.dart';
 import '../../../Constants.dart';
 import '../../../CustomWidgets/Tile.dart';
 import '../../../controller/screen_shot_widget_controller.dart';
-import '../../../helper/route_helper.dart';
-import '../../../helper/transaction_type.dart';
 import '../scan_pass/pass_list.dart';
-import '../transaction_money/transaction_money_balance_input.dart';
-import '../transaction_money/transaction_money_screen.dart';
 import 'create_pass.dart';
 import 'widget/appbar_custom.dart';
 
@@ -139,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             secondaryColor: Colors.black,
                                             imagePath: "assets/Contact.png",
                                             text: "contacts".tr,
-                                            subText: 'contact_subtext'.tr,
+                                            subText: 'contacts_subtext'.tr,
                                           ),
                                         ),
                                       ],

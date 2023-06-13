@@ -77,7 +77,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
                 FormLabelText(
                   labelText: "pool_zone".tr,
                   paddingtop: 0,
-                  textWeight: FontWeight.w900,
+                  textWeight: FontWeight.w700,
                   paddingbottom: 0,
                 ),
                 Spacer(),
@@ -101,7 +101,7 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
               ),
             ),
           ),
-          FormLabelText(labelText: "active_bookings".tr),
+          FormLabelText(labelText: "active_bookings".tr,textWeight: FontWeight.w700),
           UserReservationsLists(
             name: "John Doe Sharma",
             date: "23/28/26",
