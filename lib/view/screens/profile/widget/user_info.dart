@@ -72,19 +72,20 @@ class UserInfo extends StatelessWidget {
                             maxLines: 1, overflow: TextOverflow.ellipsis,
                           ),
                         ),
-
-                        // SizedBox(
-                        //   width: MediaQuery.of(context).size.width * 0.5,
-                        //   child: Text(
-                        //     '${profileController.userInfo.phone}',
-                        //     style: rubikMedium.copyWith(
-                        //       color: Theme.of(context).textTheme.bodyText1.color.withOpacity(Get.isDarkMode ? 0.8 :0.5),
-                        //       fontSize: Dimensions.FONT_SIZE_LARGE,
-                        //     ),
-                        //     textAlign: TextAlign.start, maxLines: 1,
-                        //     overflow: TextOverflow.ellipsis,
-                        //   ),
-                        // ),
+                        profileController.userInfo.type == 1 ?
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            ' Building Code: ${profileController.userInfo.uniqueId}',
+                            style: rubikMedium.copyWith(
+                              color: Theme.of(context).textTheme.bodyText1.color.withOpacity(Get.isDarkMode ? 0.8 :0.5),
+                              fontSize: Dimensions.FONT_SIZE_LARGE,
+                            ),
+                            textAlign: TextAlign.start, maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ):SizedBox()
+                        
                       ],
                     ),
                   ],

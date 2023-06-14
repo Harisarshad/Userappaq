@@ -268,9 +268,9 @@ class AuthController extends GetxController implements GetxService {
         setCustomerCountryCode(_countryCode);
         setCustomerNumber(_nationalNumber);
         _login(signUpBody.email,signUpBody.password);
-        Get.offAllNamed(RouteHelper.getWelcomeRoute(
-            countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
-        ));
+        // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+        //     countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+        // ));
 
         // authenticateWithBiometric(false, signUpBody.password).then((value) {
         //   Future.delayed(Duration(seconds: 1)).then((value) {

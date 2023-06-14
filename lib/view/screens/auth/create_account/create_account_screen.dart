@@ -149,6 +149,7 @@ String userType;
                         InputField(
                           placeholderText: "password_placeholder".tr,
                           fieldController: userPassword,
+                          obscureText: true,
                         ),
                          FormLabelText(
                           labelText: "confirm_pass".tr,
@@ -156,6 +157,7 @@ String userType;
                         InputField(
                           placeholderText: "confirm_pass".tr,
                           fieldController: userConfirmPassword,
+                          obscureText: true,
                         ),
                         // const FormLabelText(
                         //   labelText: "Number of residents in your housing complex? ",
