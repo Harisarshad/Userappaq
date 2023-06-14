@@ -17,6 +17,7 @@ class BookedAmenities extends StatefulWidget {
 }
 
 class _BookedAmenitiesState extends State<BookedAmenities> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,9 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
                 children: [
                   ButtonCustom(
                     buttonText: "bookings".tr,
-                    onPress: () {},
+                    onPress: () {
+
+                    },
                     width: MediaQuery.of(context).size.width -
                         17 -
                         MediaQuery.of(context).size.width / 2,
@@ -156,3 +159,5 @@ class _BookedAmenitiesState extends State<BookedAmenities> {
     );
   }
 }
+
+
