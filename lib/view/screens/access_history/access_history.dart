@@ -1,12 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:six_cash/Constants.dart';
 import 'package:six_cash/CustomWidgets/AccessHistoryLists.dart';
 import 'package:six_cash/CustomWidgets/FormLabelText.dart';
+import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
 import 'package:six_cash/controller/pass_controller.dart';
+import 'package:six_cash/view/screens/home/home_screen.dart';
 
 import '../../../data/model/pass_model.dart';
 import '../../../util/dimensions.dart';
@@ -20,11 +20,8 @@ class AccessHistory extends StatefulWidget {
   State<AccessHistory> createState() => _AccessHistoryState();
 }
 
-
 class _AccessHistoryState extends State<AccessHistory> {
-
   Future<void> _loadData(BuildContext context, bool reload) async {
-
     //Get.find<BannerController>().getBannerList(reload);
     // Get.find<RequestedMoneyController>().getRequestedMoneyList(1 ,reload: reload );
     // Get.find<RequestedMoneyController>().getOwnRequestedMoneyList(1 ,reload: reload );
@@ -37,6 +34,7 @@ class _AccessHistoryState extends State<AccessHistory> {
     //  Get.find<TransactionMoneyController>().getWithdrawMethods(isReload: reload);
     //Get.find<RequestedMoneyController>().getWithdrawHistoryList();
   }
+
   @override
   void initState() {
     _loadData(context, false);
@@ -47,38 +45,11 @@ class _AccessHistoryState extends State<AccessHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: SizedBox(
-          width: 200,
-          child: Row(
-            children: [
-              Expanded(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.chevron_left_outlined,
-                  ),
-                ),
-              ),
-               Text(
-                "back_to_page",
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-        centerTitle: true,
-        title:  Center(
-            child: Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 65, 0),
-          child: Text("accessing_history".tr),
-        )),
+      appBar: MyCustomTextAppBar(
+        titleText: "access_history".tr,
+        backButton: HomeScreen(),
       ),
-      body:
-
-
-      SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
@@ -107,51 +78,57 @@ class _AccessHistoryState extends State<AccessHistory> {
               ),
             ),
             Padding(
-
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal:50, vertical: 10),
               child: SingleChildScrollView(
-                child:  GetBuilder<PassController>(builder: (transactionHistory){
-                  List<HistoryData> transactionList = transactionHistory.passHistory;
+                child:
+                    GetBuilder<PassController>(builder: (transactionHistory) {
+                  List<HistoryData> transactionList =
+                      transactionHistory.passHistory;
 
-
-
-                  return  Column(children: [!transactionHistory.firstLoadingHistory ? transactionList.length != 0 ?
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: transactionList.length,
-                        itemBuilder: (ctx,index){
-                          return Column(
-                            children: [
-                              Container(
-
-                                child:  AccessHistoryLists(
-                                    name: transactionList[index].fullName,
-                                    date: transactionList[index].date,
-                                    time:transactionList[index].startDate),
-
-
-                              ),Divider(),
-                            ],
-                          );
-
-                        }),
-                  ) : NoDataFoundScreen(fromHome: false): HistoryShimmer(),
-
-                    transactionHistory.isLoadingHistory ? Center(child: Padding(
-                      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-                      child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-                    )) : SizedBox.shrink(),
-                  ],);
-
-
-
+                  return Column(
+                    children: [
+                      !transactionHistory.firstLoadingHistory
+                          ? transactionList.length != 0
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal:
+                                          Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: transactionList.length,
+                                      itemBuilder: (ctx, index) {
+                                        return Column(
+                                          children: [
+                                            Container(
+                                              child: AccessHistoryLists(
+                                                  name: transactionList[index]
+                                                      .fullName,
+                                                  date: transactionList[index]
+                                                      .date,
+                                                  time: transactionList[index]
+                                                      .startDate),
+                                            ),
+                                            Divider(),
+                                          ],
+                                        );
+                                      }),
+                                )
+                              : NoDataFoundScreen(fromHome: false)
+                          : HistoryShimmer(),
+                      transactionHistory.isLoadingHistory
+                          ? Center(
+                              child: Padding(
+                              padding: EdgeInsets.all(
+                                  Dimensions.PADDING_SIZE_DEFAULT),
+                              child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Theme.of(context).primaryColor)),
+                            ))
+                          : SizedBox.shrink(),
+                    ],
+                  );
                 }),
-
-
-
               ),
             ),
             // Padding(

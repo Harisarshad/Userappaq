@@ -44,6 +44,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
 
     super.dispose();
   }
+
   String imagePath = "assets/Upload.png";
   Future<void> _openGallery(BuildContext context) async {
     final picker = ImagePicker();
@@ -56,6 +57,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
       });
     }
   }
+
   _saveProfile() {
     String _Name = newAmenity.text;
     String _startTime = startTime.text;
@@ -67,9 +69,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
 
     if (_image != null) {
       _multipartBody = [MultipartBody('image', _image)];
-    }
-
-    else {
+    } else {
       _multipartBody = [];
     }
 
@@ -77,16 +77,17 @@ class _CreateAmenityState extends State<CreateAmenity> {
       name: _Name,
       start: _startTime,
       end: _endTime,
-
     );
-    Get.find<EditProfileController>().
-    updateAmentiesData(editProfileBody, _multipartBody).then((value) {
+    Get.find<EditProfileController>()
+        .updateAmentiesData(editProfileBody, _multipartBody)
+        .then((value) {
       if (value) {
         Get.back();
         //Get.find<ProfileController>().profileData();
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,8 +105,8 @@ class _CreateAmenityState extends State<CreateAmenity> {
               fieldController: newAmenity,
             ),
             Padding(
-              padding:  EdgeInsets.fromLTRB(16, 20, 16, 0),
-              child:   Container(
+              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: Container(
                 decoration: BoxDecoration(
                   color: Colors.black26,
                   borderRadius: BorderRadius.all(
@@ -126,7 +127,8 @@ class _CreateAmenityState extends State<CreateAmenity> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 29, 113, 247),
-                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
@@ -153,7 +155,8 @@ class _CreateAmenityState extends State<CreateAmenity> {
                                   TextSpan(
                                     text: 'Image',
                                     style: TextStyle(
-                                        color: Colors.black26 // Replace with your desired color
+                                        color: Colors
+                                            .black26 // Replace with your desired color
                                         ),
                                   ),
                                 ],
@@ -176,21 +179,17 @@ class _CreateAmenityState extends State<CreateAmenity> {
             ),
             FormLabelText(labelText: "Availability"),
             Padding(
-              padding:  EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
-
-              width: 100,
-                //height: widget.height,
+                      width: 100,
+                      //height: widget.height,
                       child: TextFormField(
-
-
-                        onTap:  ( )  async {
+                        onTap: () async {
                           TimeOfDay initialTime = TimeOfDay.now();
                           TimeOfDay pickedTime = await showTimePicker(
                             context: context,
@@ -207,7 +206,6 @@ class _CreateAmenityState extends State<CreateAmenity> {
                             TimeOfDay selectedTime = pickedTime;
                             startTime.text = selectedTime.format(context);
                           });
-
 
                           // showModalBottomSheet(
                           //   context: context,
@@ -263,19 +261,15 @@ class _CreateAmenityState extends State<CreateAmenity> {
                           hintStyle: TextStyle(
                             color: Colors.grey.shade400,
                           ),
-
                         ),
                       ),
                     ),
                   ),
                   Container(
-
                     width: 100,
                     //height: widget.height,
                     child: TextFormField(
-
-
-                      onTap:  ( )  async {
+                      onTap: () async {
                         TimeOfDay initialTime = TimeOfDay.now();
                         TimeOfDay pickedTime = await showTimePicker(
                           context: context,
@@ -292,7 +286,6 @@ class _CreateAmenityState extends State<CreateAmenity> {
                           TimeOfDay selectedTime = pickedTime;
                           endTime.text = selectedTime.format(context);
                         });
-
 
                         // showModalBottomSheet(
                         //   context: context,
@@ -348,7 +341,6 @@ class _CreateAmenityState extends State<CreateAmenity> {
                         hintStyle: TextStyle(
                           color: Colors.grey.shade400,
                         ),
-
                       ),
                     ),
                   ),
@@ -369,12 +361,11 @@ class _CreateAmenityState extends State<CreateAmenity> {
                 ],
               ),
             ),
-
             Padding(
               padding: EdgeInsets.fromLTRB(16, 20, 0, 100),
               child: Row(
                 children: [
-                  CustomCheckbox(fieldController:false),
+                  CustomCheckbox(fieldController: false),
                   FormLabelText(
                     labelText: "Publish Amenity",
                     paddingleft: 10,

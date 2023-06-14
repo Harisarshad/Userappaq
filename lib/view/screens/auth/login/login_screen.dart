@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
           centerTitle: true,
           title: Text(
             "Login to",
-            style: TextStyle(fontSize: 18,color: AqcessColors().black),
+            style: TextStyle(fontSize: 18, color: AqcessColors().black),
           ),
           elevation: 0,
           bottom: PreferredSize(
@@ -151,24 +151,20 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                         ),
                         // const Padding(padding: EdgeInsets.only(top: 25)),
-                        SizedBox(height: 100,),
+                        SizedBox(
+                          height: 100,
+                        ),
                         Form(
                           key: _formKey,
                           child: Column(
                             children: [
-                              FormLabelText(
-                                labelText: "fullname".tr,
-                              ),
-                              InputField(
-                                placeholderText: "fullname".tr,
-                                fieldController: userFullName,
-                              ),
                               FormLabelText(
                                 labelText: "email".tr,
                               ),
                               InputField(
                                 placeholderText: "email_placeholder".tr,
                                 fieldController: userEmail,
+                                keyboardType: TextInputType.emailAddress,
                               ),
                               FormLabelText(
                                 labelText: "password".tr,
@@ -176,6 +172,8 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                               InputField(
                                 placeholderText: "your_pass".tr,
                                 fieldController: userPassword,
+                                obscureText: true,
+                                keyboardType: TextInputType.visiblePassword,
                               ),
                               ButtonCustom(
                                 buttonText: "log_in".tr,

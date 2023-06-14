@@ -103,6 +103,7 @@ class _CreatePassState extends State<CreatePass> {
     // String date = DateTime(now.year, now.month, now.day);K
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         leading: SizedBox(
           width: 200,
@@ -278,77 +279,80 @@ class _CreatePassState extends State<CreatePass> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: TextFormField(
-
-                            onTap:  ( )  async {
-                              var results = await showCalendarDatePicker2Dialog(
-                                context: context,
-                                config: CalendarDatePicker2WithActionButtonsConfig(),
-                                dialogSize: const Size(325, 400),
-                                value: _singleDatePickerValueWithDefaultValue,
-                                borderRadius: BorderRadius.circular(15),
-                              );
-                              print(results);
-                              passDate.text = results.isNotEmpty
-                                  ? results
-                                  .map((v) => v.toString().replaceAll('00:00:00.000', ''))
-                                  .join(', ')
-                                  : 'null';
-                              print(passDate.text);
-
-                              // showModalBottomSheet(
-                              //   context: context,
-                              //   builder: (context) {
-                              //     return CalendarDatePicker2(
-                              //
-                              //       config: CalendarDatePicker2Config(),
-                              //       value: _singleDatePickerValueWithDefaultValue,
-                              //       onValueChanged: (dates) => {
-                              //         _singleDatePickerValueWithDefaultValue = dates,
-                              //         print(dates),
-                              //
-                              //         passDate.text = dates.isNotEmpty
-                              //             ? dates
-                              //             .map((v) => v.toString().replaceAll('00:00:00.000', ''))
-                              //             .join(', ')
-                              //             : 'null',
-                              //       }
-                              //       //passDate.text =dates.da
-                              //       ,
-                              //     );
-                              //   },
-                              // ),
-                            },
-                            readOnly: true,
-                            style: TextStyle(),
-                            controller: passDate,
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return 'This is a required field.';
-                            //   } else {
-                            //     return null;
-                            //   }
-                            // },
-                            cursorColor: Colors.black,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                            child: TextFormField(
+                          
+                              onTap:  ( )  async {
+                                var results = await showCalendarDatePicker2Dialog(
+                                  context: context,
+                                  config: CalendarDatePicker2WithActionButtonsConfig(),
+                                  dialogSize: const Size(325, 400),
+                                  value: _singleDatePickerValueWithDefaultValue,
+                                  borderRadius: BorderRadius.circular(15),
+                                );
+                                print(results);
+                                passDate.text = results.isNotEmpty
+                                    ? results
+                                    .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                                    .join(', ')
+                                    : 'null';
+                                print(passDate.text);
+                          
+                                // showModalBottomSheet(
+                                //   context: context,
+                                //   builder: (context) {
+                                //     return CalendarDatePicker2(
+                                //
+                                //       config: CalendarDatePicker2Config(),
+                                //       value: _singleDatePickerValueWithDefaultValue,
+                                //       onValueChanged: (dates) => {
+                                //         _singleDatePickerValueWithDefaultValue = dates,
+                                //         print(dates),
+                                //
+                                //         passDate.text = dates.isNotEmpty
+                                //             ? dates
+                                //             .map((v) => v.toString().replaceAll('00:00:00.000', ''))
+                                //             .join(', ')
+                                //             : 'null',
+                                //       }
+                                //       //passDate.text =dates.da
+                                //       ,
+                                //     );
+                                //   },
+                                // ),
+                              },
+                              readOnly: true,
+                              style: TextStyle(),
+                              controller: passDate,
+                              // validator: (value) {
+                              //   if (value == null || value.isEmpty) {
+                              //     return 'This is a required field.';
+                              //   } else {
+                              //     return null;
+                              //   }
+                              // },
+                              cursorColor: Colors.black,
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
                                 ),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
                                 ),
+                                fillColor: Colors.white,
+                                hintText: 'Date',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey.shade400,
+                                ),
+                          
                               ),
-                              fillColor: Colors.white,
-                              hintText: 'Date',
-                              hintStyle: TextStyle(
-                                color: Colors.grey.shade400,
-                              ),
-
                             ),
                           ),
                         )
@@ -640,7 +644,7 @@ class _CreatePassState extends State<CreatePass> {
                           }
                         },
                         child: Text(
-                          "create_pass",
+                          "create_pass".tr,
                           style: TextStyle(fontSize: 18),
                         ),
                       ),

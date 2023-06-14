@@ -23,6 +23,7 @@ class MyCustomTextAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      elevation: 0,
       // leadingWidth: 120,
       leading: SizedBox(
         width: 200,

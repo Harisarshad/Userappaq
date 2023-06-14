@@ -211,7 +211,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         //Admin Signout.
                                         InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Get.find<ProfileController>()
+                                                .logOut(context);
+                                          },
                                           child: Tile(
                                             primaryColor:
                                                 AqcessColors().secondary,
@@ -330,18 +333,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                               //Resident Sign Out
                                               InkWell(
-                                                onTap: () => Get.find<
-                                                        ScreenShootWidgetController>()
-                                                    .qrCodeDownloadAndShare(
-                                                        qrCode: Get.find<
-                                                                ProfileController>()
-                                                            .userInfo
-                                                            .qrCode,
-                                                        phoneNumber: Get.find<
-                                                                ProfileController>()
-                                                            .userInfo
-                                                            .phone,
-                                                        isShare: true),
+                                                onTap: () => Get.find<ProfileController>()
+                                                .logOut(context),
                                                 child: Tile(
                                                   primaryColor:
                                                       AqcessColors().secondary,
@@ -421,8 +414,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           "assets/ScanPass.png",
                                                       text: "scanpass".tr,
                                                       subText:
-                                                          "scanpass_subtext"
-                                                              .tr,
+                                                          "scanpass_subtext".tr,
                                                     ),
                                                   ),
                                                 ],
@@ -479,17 +471,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-                                                    Tile(
-                                                        primaryColor:
-                                                            AqcessColors()
-                                                                .secondary,
-                                                        secondaryColor:
-                                                            Colors.black,
-                                                        imagePath:
-                                                            "assets/SignOut.png",
-                                                        text: "signout".tr,
-                                                        subText:
-                                                            "signout_subtext".tr)
+                                                    InkWell(
+                                                      onTap: () => Get.find<ProfileController>()
+                                                .logOut(context),
+                                                      child: Tile(
+                                                          primaryColor:
+                                                              AqcessColors()
+                                                                  .secondary,
+                                                          secondaryColor:
+                                                              Colors.black,
+                                                          imagePath:
+                                                              "assets/SignOut.png",
+                                                          text: "signout".tr,
+                                                          subText:
+                                                              "signout_subtext"
+                                                                  .tr),
+                                                    )
                                                   ],
                                                 ),
                                               )

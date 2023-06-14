@@ -49,6 +49,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
+      elevation: 0,
       title: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold),

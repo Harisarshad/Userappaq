@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class InputField extends StatefulWidget {
   final String placeholderText;
-   final TextEditingController fieldController;
+  final TextEditingController fieldController;
   final double width;
   final double height;
   final double fieldPaddingleft;
@@ -12,21 +12,24 @@ class InputField extends StatefulWidget {
   final double sufficIconPadding;
   final String suffixIconImage;
   final String prefixIconImage;
+  final bool obscureText;
+  final TextInputType keyboardType;
 
-  InputField({
-    Key key,
-     this.placeholderText,
-     this.fieldController,
-    this.width = double.infinity,
-    this.fieldPaddingleft = 16,
-    this.fieldPaddingright = 16,
-    this.suffixIconImage,
-    this.height = 60,
-    this.prefixIconImage,
-    this.suffixIconImageHeight = 20,
-    this.suffixIconImageWidth = 30,
-    this.sufficIconPadding = 8,
-  });
+  InputField(
+      {Key key,
+      this.placeholderText,
+      this.fieldController,
+      this.width = double.infinity,
+      this.fieldPaddingleft = 16,
+      this.fieldPaddingright = 16,
+      this.suffixIconImage,
+      this.height = 60,
+      this.prefixIconImage,
+      this.suffixIconImageHeight = 20,
+      this.suffixIconImageWidth = 30,
+      this.sufficIconPadding = 8,
+      this.obscureText = false,
+      this.keyboardType = TextInputType.text});
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -101,6 +104,8 @@ class _InputFieldState extends State<InputField> {
             suffixIcon: suffixIcon,
             prefixIcon: prefixIcon,
           ),
+          keyboardType: widget.keyboardType,
+          obscureText: widget.obscureText, // Hides entered characters
         ),
       ),
     );

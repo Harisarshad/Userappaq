@@ -369,5 +369,10 @@
   "an_image": "an Image",
   "back": "Back",
   "change_logo": "Change your company logo",
-  "account_name": "Account Name"
+  "account_name": "Account Name",
+  "enter_fullname_pin": "Full Name required.",
+  "enter_reason_pin": "Reason for visit is required.",
+  "enter_passDate_pin": "Please select the date.",
+  "enter_passStartTime_pin": "Start Time is required.",
+  "enter_passEndTime_pin": "End Time is required."
 }

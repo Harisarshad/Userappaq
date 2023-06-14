@@ -96,6 +96,7 @@ class _AddContactState extends State<AddContact> {
                           suffixIconImageWidth: 5,
                           suffixIconImageHeight: 5,
                           sufficIconPadding: 15,
+                          
                         ),
                         FormLabelText(
                           labelText: 'email'.tr,
