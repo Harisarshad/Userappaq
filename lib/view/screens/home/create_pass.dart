@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 
 import 'package:six_cash/data/model/body/pass_body.dart';
 
-
-
 import '../../../Constants.dart';
 import '../../../CustomWidgets/CustomCheckbox.dart';
 import '../../../CustomWidgets/CustomListTile.dart';
@@ -27,15 +25,15 @@ class CreatePass extends StatefulWidget {
 }
 
 class _CreatePassState extends State<CreatePass> {
-   final TextEditingController Contacts= TextEditingController();
-   final bool saveContact = false;
-   final bool permanentPass = false;
-   String user_id ='0';
-   final TextEditingController fullName= TextEditingController();
-   final TextEditingController visitingReason= TextEditingController();
-   final TextEditingController passDate= TextEditingController();
-   final TextEditingController passStartTime= TextEditingController();
-   final TextEditingController passEndTime= TextEditingController();
+  final TextEditingController Contacts = TextEditingController();
+  final bool saveContact = false;
+  final bool permanentPass = false;
+  String user_id = '0';
+  final TextEditingController fullName = TextEditingController();
+  final TextEditingController visitingReason = TextEditingController();
+  final TextEditingController passDate = TextEditingController();
+  final TextEditingController passStartTime = TextEditingController();
+  final TextEditingController passEndTime = TextEditingController();
 
   // Overriding them for initializing them
   @override
@@ -49,34 +47,35 @@ class _CreatePassState extends State<CreatePass> {
     Get.find<ContactsController>().getContactsData(1, reload: true);
     super.initState();
   }
-   List<DateTime> _singleDatePickerValueWithDefaultValue = [
-     DateTime.now(),
-   ];
-   final config = CalendarDatePicker2Config(
-       selectedDayHighlightColor: Colors.amber[900],
-       weekdayLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-       weekdayLabelTextStyle: const TextStyle(
-         color: Colors.black87,
-         fontWeight: FontWeight.bold,
-       ),
-     firstDayOfWeek: 1,
-     controlsHeight: 50,
-     controlsTextStyle: const TextStyle(
-       color: Colors.black,
-       fontSize: 15,
-       fontWeight: FontWeight.bold,
-     ),
-     dayTextStyle: const TextStyle(
-       color: Colors.amber,
-       fontWeight: FontWeight.bold,
-     ),
-     disabledDayTextStyle: const TextStyle(
-       color: Colors.grey,
-     ),
-     selectableDayPredicate: (day) => !day
-         .difference(DateTime.now().subtract(const Duration(days: 3)))
-         .isNegative,
-   );
+
+  List<DateTime> _singleDatePickerValueWithDefaultValue = [
+    DateTime.now(),
+  ];
+  final config = CalendarDatePicker2Config(
+    selectedDayHighlightColor: Colors.amber[900],
+    weekdayLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekdayLabelTextStyle: const TextStyle(
+      color: Colors.black87,
+      fontWeight: FontWeight.bold,
+    ),
+    firstDayOfWeek: 1,
+    controlsHeight: 50,
+    controlsTextStyle: const TextStyle(
+      color: Colors.black,
+      fontSize: 15,
+      fontWeight: FontWeight.bold,
+    ),
+    dayTextStyle: const TextStyle(
+      color: Colors.amber,
+      fontWeight: FontWeight.bold,
+    ),
+    disabledDayTextStyle: const TextStyle(
+      color: Colors.grey,
+    ),
+    selectableDayPredicate: (day) => !day
+        .difference(DateTime.now().subtract(const Duration(days: 3)))
+        .isNegative,
+  );
 
 // Dont forget to Dispose !!
   @override
@@ -94,11 +93,11 @@ class _CreatePassState extends State<CreatePass> {
   Widget build(BuildContext context) {
     //fetching today's date
     DateTime now = DateTime.now();
-    String date = now.year.toString() +
-        "/" +
-        now.month.toString() +
-        "/" +
-        now.day.toString();
+    // String date = now.year.toString() +
+    //     "/" +
+    //     now.month.toString() +
+    //     "/" +
+    //     now.day.toString();
 
     // String date = DateTime(now.year, now.month, now.day);K
     return Scaffold(
@@ -112,12 +111,12 @@ class _CreatePassState extends State<CreatePass> {
               Expanded(
                 child: IconButton(
                   onPressed: () {},
-                  icon:    Icon(
+                  icon: Icon(
                     Icons.chevron_left_outlined,
                   ),
                 ),
               ),
-                 Text(
+              Text(
                 "Back",
                 style: TextStyle(fontSize: 18),
               ),
@@ -127,7 +126,7 @@ class _CreatePassState extends State<CreatePass> {
         centerTitle: true,
         title: Center(
           child: Padding(
-            padding:    EdgeInsets.fromLTRB(0, 0, 75, 0),
+            padding: EdgeInsets.fromLTRB(0, 0, 75, 0),
             child: Image.asset(
               "assets/navbar-logo.png",
               width: 100,
@@ -135,7 +134,7 @@ class _CreatePassState extends State<CreatePass> {
             ),
           ),
         ),
-        bottom:    PreferredSize(
+        bottom: PreferredSize(
           preferredSize: Size.fromHeight(4.0),
           child: Divider(color: Colors.grey),
         ),
@@ -145,15 +144,15 @@ class _CreatePassState extends State<CreatePass> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:    EdgeInsets.fromLTRB(0, 20, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Center(
                 child: Column(
                   children: [
-                       Text(
+                    Text(
                       "create_pass".tr,
                       style: TextStyle(fontSize: 30),
                     ),
-                       Text(
+                    Text(
                       "visit_details".tr,
                       style: TextStyle(
                         fontSize: 20,
@@ -161,15 +160,15 @@ class _CreatePassState extends State<CreatePass> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                     FormLabelText(labelText: "Select from My Contacts"),
+                    FormLabelText(labelText: "Select from My Contacts"),
                     Container(
-                      margin:    EdgeInsets.fromLTRB(16, 15, 16, 5),
+                      margin: EdgeInsets.fromLTRB(16, 15, 16, 5),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AqcessColors().primary,
                           foregroundColor: Colors.white,
                           elevation: 8,
-                          shape:    RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(8),
                             ),
@@ -184,38 +183,49 @@ class _CreatePassState extends State<CreatePass> {
                             builder: (context) {
                               return GetBuilder<ContactsController>(
                                   builder: (contactController) {
-                                    return ConstrainedBox(
-                                        constraints: contactController.contactList.length > 0 ?
-                                        BoxConstraints(maxHeight: contactController.contactList.length.toDouble() * 100) :
-                                        BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.6),
-
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            itemCount: contactController.contactList.length,
-                                            itemBuilder: (ctx,index){
-                                            return InkWell(
-                                              onTap: (){
-                                                fullName.text=contactController.contactList[index].userName;
-                                                user_id =contactController.contactList[index].id;
-                                                Navigator.pop(context);
-                                              },
-                                              child: CustomListTile(
-                                                  cont: contactController.contactList[index],
-                                                  userName: contactController.contactList[index].userName,
-                                                  userEmail: contactController.contactList[index].email,
-                                                  imagePath: "assets/Person1.png",
-                                                  edit:false),
-                                            );
-                                          }
-                                        ),);
-                                       // child: ContactView(transactionType: 'cash_outs', contactController: contactController));
-                                  }
-                              );
+                                return ConstrainedBox(
+                                  constraints:
+                                      contactController.contactList.length > 0
+                                          ? BoxConstraints(
+                                              maxHeight: contactController
+                                                      .contactList.length
+                                                      .toDouble() *
+                                                  100)
+                                          : BoxConstraints(
+                                              maxHeight: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.6),
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                          contactController.contactList.length,
+                                      itemBuilder: (ctx, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            fullName.text = contactController
+                                                .contactList[index].userName;
+                                            user_id = contactController
+                                                .contactList[index].id;
+                                            Navigator.pop(context);
+                                          },
+                                          child: CustomListTile(
+                                              cont: contactController
+                                                  .contactList[index],
+                                              userName: contactController
+                                                  .contactList[index].userName,
+                                              userEmail: contactController
+                                                  .contactList[index].email,
+                                              imagePath: "assets/Person1.png",
+                                              edit: false),
+                                        );
+                                      }),
+                                );
+                                // child: ContactView(transactionType: 'cash_outs', contactController: contactController));
+                              });
                             },
                           );
-
-
                         },
                         child: Row(
                           children: [
@@ -227,9 +237,11 @@ class _CreatePassState extends State<CreatePass> {
                             Container(
                               width: 40,
                               height: 40,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.white),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white),
                               child: Padding(
-                                padding:    EdgeInsets.all(7.0),
+                                padding: EdgeInsets.all(7.0),
                                 child: Image.asset(
                                   'assets/Contact-Pass.png',
                                   height: 24,
@@ -241,40 +253,38 @@ class _CreatePassState extends State<CreatePass> {
                         ),
                       ),
                     ),
-                       TextWithDividers(text: "visitor_info".tr),
-                       FormLabelText(labelText: "Full Name"),
+                    TextWithDividers(text: "visitor_info".tr),
+                    FormLabelText(labelText: "Full Name"),
                     InputField(
                       placeholderText: "visitor_fullname".tr,
                       fieldController: fullName,
                     ),
                     Padding(
-                      padding:    EdgeInsets.fromLTRB(16, 5, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 5, 0, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomCheckbox(fieldController:saveContact),
-                             FormLabelText(labelText: "save_contact".tr),
+                          CustomCheckbox(fieldController: saveContact),
+                          FormLabelText(labelText: "save_contact".tr),
                         ],
                       ),
                     ),
-                       FormLabelText(labelText: "visit_reason".tr),
+                    FormLabelText(labelText: "visit_reason".tr),
                     InputField(
                       placeholderText: "visit_reason_placeholder".tr,
                       fieldController: visitingReason,
                     ),
                     Padding(
-                      padding:    EdgeInsets.fromLTRB(16, 5, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 5, 0, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomCheckbox(fieldController:permanentPass),
-                             FormLabelText(
-                              labelText: "permanent_pass".tr),
+                          CustomCheckbox(fieldController: permanentPass),
+                          FormLabelText(labelText: "permanent_pass".tr),
                         ],
                       ),
                     ),
-                       FormLabelText(labelText: "date".tr),
-
+                    FormLabelText(labelText: "date".tr),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -282,11 +292,12 @@ class _CreatePassState extends State<CreatePass> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                             child: TextFormField(
-                          
-                              onTap:  ( )  async {
-                                var results = await showCalendarDatePicker2Dialog(
+                              onTap: () async {
+                                var results =
+                                    await showCalendarDatePicker2Dialog(
                                   context: context,
-                                  config: CalendarDatePicker2WithActionButtonsConfig(),
+                                  config:
+                                      CalendarDatePicker2WithActionButtonsConfig(),
                                   dialogSize: const Size(325, 400),
                                   value: _singleDatePickerValueWithDefaultValue,
                                   borderRadius: BorderRadius.circular(15),
@@ -294,11 +305,13 @@ class _CreatePassState extends State<CreatePass> {
                                 print(results);
                                 passDate.text = results.isNotEmpty
                                     ? results
-                                    .map((v) => v.toString().replaceAll('00:00:00.000', ''))
-                                    .join(', ')
+                                        .map((v) => v
+                                            .toString()
+                                            .replaceAll('00:00:00.000', ''))
+                                        .join(', ')
                                     : 'null';
                                 print(passDate.text);
-                          
+
                                 // showModalBottomSheet(
                                 //   context: context,
                                 //   builder: (context) {
@@ -351,7 +364,6 @@ class _CreatePassState extends State<CreatePass> {
                                 hintStyle: TextStyle(
                                   color: Colors.grey.shade400,
                                 ),
-                          
                               ),
                             ),
                           ),
@@ -365,32 +377,30 @@ class _CreatePassState extends State<CreatePass> {
                             SizedBox(
                               width: 200,
                               child: Container(
-                                  child:
-                                  FormLabelText(labelText: "start_time".tr)),
+                                  child: FormLabelText(
+                                      labelText: "start_time".tr)),
                             ),
                             Container(
                               width: 175,
                               child: TextFormField(
-
-
-                                onTap:  ( )  async {
+                                onTap: () async {
                                   TimeOfDay initialTime = TimeOfDay.now();
                                   TimeOfDay pickedTime = await showTimePicker(
                                     context: context,
                                     initialTime: initialTime,
                                   );
-                              //   var results = await showCalendarDatePicker2Dialog(
-                              //   context: context,
-                              //   config: CalendarDatePicker2WithActionButtonsConfig(),
-                              //   dialogSize: const Size(325, 400),
-                              //   value: _singleDatePickerValueWithDefaultValue,
-                              //   borderRadius: BorderRadius.circular(15),
-                              // );
+                                  //   var results = await showCalendarDatePicker2Dialog(
+                                  //   context: context,
+                                  //   config: CalendarDatePicker2WithActionButtonsConfig(),
+                                  //   dialogSize: const Size(325, 400),
+                                  //   value: _singleDatePickerValueWithDefaultValue,
+                                  //   borderRadius: BorderRadius.circular(15),
+                                  // );
                                   setState(() {
                                     TimeOfDay selectedTime = pickedTime;
-                                    passStartTime.text = selectedTime.format(context);
+                                    passStartTime.text =
+                                        selectedTime.format(context);
                                   });
-
 
                                   // showModalBottomSheet(
                                   //   context: context,
@@ -445,7 +455,6 @@ class _CreatePassState extends State<CreatePass> {
                                   hintStyle: TextStyle(
                                     color: Colors.grey.shade400,
                                   ),
-
                                 ),
                               ),
                             ),
@@ -462,14 +471,13 @@ class _CreatePassState extends State<CreatePass> {
                             SizedBox(
                               width: 200,
                               child: Container(
-                                  child: FormLabelText(labelText: "end_time".tr)),
+                                  child:
+                                      FormLabelText(labelText: "end_time".tr)),
                             ),
                             Container(
                               width: 175,
                               child: TextFormField(
-
-
-                                onTap:  ( )  async {
+                                onTap: () async {
                                   TimeOfDay initialTime = TimeOfDay.now();
                                   TimeOfDay pickedTime = await showTimePicker(
                                     context: context,
@@ -485,9 +493,9 @@ class _CreatePassState extends State<CreatePass> {
 
                                   setState(() {
                                     TimeOfDay selectedTime = pickedTime;
-                                    passEndTime.text = selectedTime.format(context);
+                                    passEndTime.text =
+                                        selectedTime.format(context);
                                   });
-
 
                                   // showModalBottomSheet(
                                   //   context: context,
@@ -542,7 +550,6 @@ class _CreatePassState extends State<CreatePass> {
                                   hintStyle: TextStyle(
                                     color: Colors.grey.shade400,
                                   ),
-
                                 ),
                               ),
                             ),
@@ -557,13 +564,13 @@ class _CreatePassState extends State<CreatePass> {
                       ],
                     ),
                     Container(
-                      margin:    EdgeInsets.fromLTRB(16, 15, 16, 5),
+                      margin: EdgeInsets.fromLTRB(16, 15, 16, 5),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AqcessColors().primary,
                           foregroundColor: Colors.white,
                           elevation: 8,
-                          shape:    RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
                               Radius.circular(8),
                             ),
@@ -580,67 +587,59 @@ class _CreatePassState extends State<CreatePass> {
                           // if(Contacts.text.isEmpty  || Contacts.text.isEmpty){
                           //   showCustomSnackBar('enter_contact_pin'.tr, isError: true);
                           // }
-                           if(fullName.text.isEmpty  || fullName.text.isEmpty){
-                            showCustomSnackBar('enter_fullname_pin'.tr, isError: true);
-                          }
-                          else if(visitingReason.text.isEmpty  || visitingReason.text.isEmpty){
-                            showCustomSnackBar('enter_reason_pin'.tr, isError: true);
-                          }
-                          else if(passDate.text.isEmpty  || passDate.text.isEmpty){
-                            showCustomSnackBar('enter_passDate_pin'.tr, isError: true);
-                          }
-                          else if(passStartTime.text.isEmpty  || passStartTime.text.isEmpty){
-                            showCustomSnackBar('enter_passStartTime_pin'.tr, isError: true);
-                          }
-                          else if(passEndTime.text.isEmpty  || passEndTime.text.isEmpty){
-                            showCustomSnackBar('enter_passEndTime_pin'.tr, isError: true);
-                          }
-                          else{
+                          if (fullName.text.isEmpty || fullName.text.isEmpty) {
+                            showCustomSnackBar('enter_fullname_pin'.tr,
+                                isError: true);
+                          } else if (visitingReason.text.isEmpty ||
+                              visitingReason.text.isEmpty) {
+                            showCustomSnackBar('enter_reason_pin'.tr,
+                                isError: true);
+                          } else if (passDate.text.isEmpty ||
+                              passDate.text.isEmpty) {
+                            showCustomSnackBar('enter_passDate_pin'.tr,
+                                isError: true);
+                          } else if (passStartTime.text.isEmpty ||
+                              passStartTime.text.isEmpty) {
+                            showCustomSnackBar('enter_passStartTime_pin'.tr,
+                                isError: true);
+                          } else if (passEndTime.text.isEmpty ||
+                              passEndTime.text.isEmpty) {
+                            showCustomSnackBar('enter_passEndTime_pin'.tr,
+                                isError: true);
+                          } else {
+                            String _passEndTime = passEndTime.text;
+                            String _Contacts = Contacts.text;
+                            String _passStartTime = passStartTime.text;
+                            String _fullName = fullName.text;
+                            int _saveContact = saveContact == true ? 1 : 0;
+                            int _permanent = permanentPass == true ? 1 : 0;
+                            String _visitingReason = visitingReason.text;
+                            String _passDate = passDate.text;
 
+                            print(_passDate);
+                            print('_passDate');
+                            print(_passDate);
+                            PassBody signUpBody = PassBody(
+                              fullName: _fullName,
+                              reason: _visitingReason,
+                              permanent: _permanent,
+                              save: _saveContact,
+                              userId: user_id,
+                              date: _passDate,
+                              phone: _Contacts,
+                              startDate: _passStartTime,
+                              endDate: _passEndTime,
+                            );
 
+                            Get.find<PassController>()
+                                .registration(signUpBody, context)
+                                .then((value) {
+                              print(value.body);
+                              print('harisarshad');
+                              if (value.status == 200) {}
+                            });
 
-                                String _passEndTime =  passEndTime.text;
-                                String _Contacts =  Contacts.text;
-                                String _passStartTime =  passStartTime.text;
-                                String _fullName =  fullName.text;
-                                int _saveContact =  saveContact == true? 1:0 ;
-                                int _permanent =  permanentPass == true? 1:0 ;
-                                String _visitingReason =  visitingReason.text;
-                                String _passDate =  passDate.text;
-
-                                            print(_passDate);
-                                            print('_passDate');
-                                            print(_passDate);
-                                PassBody signUpBody = PassBody(
-
-                                  fullName: _fullName,
-                                    reason: _visitingReason,
-                                    permanent: _permanent,
-                                    save: _saveContact,
-                                    userId: user_id,
-                                    date: _passDate,
-                                    phone: _Contacts,
-                                    startDate: _passStartTime,
-                                    endDate: _passEndTime,
-
-                                );
-
-
-                                Get.find<PassController>().registration(signUpBody,context).then((value)
-                                {
-                                  print(value.body);
-                                  print('harisarshad');
-                                  if (value.status  == 200){
-
-
-
-                                  }
-
-                                   });
-
-
-                               // Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: Get.find<ProfileController>().userInfo.qrCode, phoneNumber: Get.find<ProfileController>().userInfo.phone,isShare: true)
-
+                            // Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(qrCode: Get.find<ProfileController>().userInfo.qrCode, phoneNumber: Get.find<ProfileController>().userInfo.phone,isShare: true)
                           }
                         },
                         child: Text(
@@ -666,9 +665,9 @@ class TextWithDividers extends StatelessWidget {
   final Color dividerColor;
   final TextStyle textStyle;
 
-     TextWithDividers({
+  TextWithDividers({
     Key key,
-     this.text,
+    this.text,
     this.dividerThickness = 1.0,
     this.dividerColor = Colors.grey,
     this.textStyle = const TextStyle(),

@@ -96,7 +96,8 @@ class _AddContactState extends State<AddContact> {
                           suffixIconImageWidth: 5,
                           suffixIconImageHeight: 5,
                           sufficIconPadding: 15,
-                          
+                          keyboardType: TextInputType.name,
+
                         ),
                         FormLabelText(
                           labelText: 'email'.tr,
@@ -108,6 +109,7 @@ class _AddContactState extends State<AddContact> {
                           suffixIconImageWidth: 5,
                           suffixIconImageHeight: 5,
                           sufficIconPadding: 15,
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         FormLabelText(
                           labelText: 'visit_type'.tr,
@@ -119,6 +121,7 @@ class _AddContactState extends State<AddContact> {
                           suffixIconImageWidth: 5,
                           suffixIconImageHeight: 5,
                           sufficIconPadding: 15,
+                          keyboardType: TextInputType.text,
                         ),
                         FormLabelText(
                           labelText: 'phone'.tr,
@@ -130,6 +133,7 @@ class _AddContactState extends State<AddContact> {
                           suffixIconImageWidth: 5,
                           suffixIconImageHeight: 5,
                           sufficIconPadding: 15,
+                          keyboardType: TextInputType.numberWithOptions(decimal: false,),
                         ),
                       ],
                     ),

@@ -66,6 +66,7 @@ class _ContactsState extends State<Contacts> {
               placeholderText: "search".tr,
               fieldController: searchString,
               prefixIconImage: "assets/Search.png",
+              keyboardType: TextInputType.text,
             ),
             Row(
               children: [
@@ -124,17 +125,12 @@ class _ContactsState extends State<Contacts> {
             itemBuilder: (ctx,index){
             return Container(
 
-            child:  InkWell(
-              onTap: (){
-
-              },
-              child: CustomListTile(
-                cont: transactionList[index],
-                  userName: transactionList[index].userName,
-                  userEmail: transactionList[index].email,
-                  imagePath: "assets/Person1.png",
-                  edit:true),
-            ),
+            child:  CustomListTile(
+              cont: transactionList[index],
+                userName: transactionList[index].userName,
+                userEmail: transactionList[index].email,
+                imagePath: "assets/Person1.png",
+                edit:true),
 
 
             );

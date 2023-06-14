@@ -287,7 +287,8 @@ class PassController extends GetxController implements GetxService {
 
       print('harisarshad');
       String idofpass = response.body['transaction_id'].toString();
-      String qrcode = response.body['qr_code'];
+      // String qrcode = response.body['qr_code'];
+      String qrcode = "hello world";
 
       Get.find<ScreenShootWidgetController>().qrCodeDownloadAndShare(
           qrCode: qrcode, phoneNumber: idofpass, isShare: true);

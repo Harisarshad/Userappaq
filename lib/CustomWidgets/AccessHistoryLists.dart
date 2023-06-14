@@ -23,7 +23,7 @@ class AccessHistoryLists extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 60, 0),
+            padding: EdgeInsets.fromLTRB(0, 0, 85, 0),
             child: FormLabelText(
               labelText: name,
               paddingbottom: 0,

@@ -58,27 +58,38 @@ class _AccessHistoryState extends State<AccessHistory> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FormLabelText(
-                    labelText: "visitor".tr,
-                    TextColor: Colors.white,
-                    paddingtop: 0,
-                    paddingbottom: 0,
-                    paddingleft: 0,
-                    paddingright: 0,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      FormLabelText(
+                        labelText: "visitor".tr,
+                        TextColor: Colors.white,
+                        paddingtop: 0,
+                        paddingbottom: 0,
+                        paddingleft: 0,
+                        paddingright: 0,
+                      ),
+                    ],
                   ),
-                  FormLabelText(
-                    labelText: "dateTime".tr,
-                    TextColor: Colors.white,
-                    paddingtop: 0,
-                    paddingbottom: 0,
-                    paddingleft: 20,
-                    paddingright: 0,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FormLabelText(
+                        labelText: "dateTime".tr,
+                        TextColor: Colors.white,
+                        paddingtop: 0,
+                        paddingbottom: 0,
+                        paddingleft: 20,
+                        paddingright: 0,
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal:50, vertical: 10),
+              padding: EdgeInsets.only(left: 50,right :50),
               child: SingleChildScrollView(
                 child:
                     GetBuilder<PassController>(builder: (transactionHistory) {
@@ -86,6 +97,7 @@ class _AccessHistoryState extends State<AccessHistory> {
                       transactionHistory.passHistory;
 
                   return Column(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       !transactionHistory.firstLoadingHistory
                           ? transactionList.length != 0

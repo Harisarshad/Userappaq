@@ -153,7 +153,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Image',
+                                    text: '',
                                     style: TextStyle(
                                         color: Colors
                                             .black26 // Replace with your desired color
