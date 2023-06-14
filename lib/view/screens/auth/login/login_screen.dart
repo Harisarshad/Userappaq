@@ -187,87 +187,83 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                 onPressed: () {
                                   String type;
                                   showModalBottomSheet(
-                                    backgroundColor: Colors.white,
+                                  backgroundColor: Colors.transparent,
+                                    
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Container(
-                                        height: size.height,
-                                        width: size.width,
-                                        // color: Colors.white,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(40),
-                                                topRight: Radius.circular(40),
-                                              ),
-                                              color: Colors.white),
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      0, 50, 0, 0),
-                                                  child: Text(
-                                                    "user_type".tr,
-                                                    style:
-                                                        TextStyle(fontSize: 24),
-                                                  )),
-                                              Padding(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(40),
+                                              topRight: Radius.circular(40),
+                                            ),
+                                            color: Colors.white),
+                                        child: Column(
+                                          children: [
+                                            Padding(
                                                 padding: EdgeInsets.fromLTRB(
-                                                    0, 0, 0, 10),
+                                                    0, 50, 0, 0),
                                                 child: Text(
-                                                  "user_profile".tr,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.grey),
-                                                ),
+                                                  "user_type".tr,
+                                                  style:
+                                                      TextStyle(fontSize: 24),
+                                                )),
+                                            Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 0, 10),
+                                              child: Text(
+                                                "user_profile".tr,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.grey),
                                               ),
-                                              InkWell(
-                                                onTap: () {
-                                                  type = '2';
-                                                  Get.toNamed(RouteHelper
-                                                      .getRegistrationRoute(
-                                                          countryCode: '2'));
-                                                },
-                                                child: ListStyleCard(
-                                                  imagePath:
-                                                      "assets/SamplePicture.png",
-                                                  heading: "resident".tr,
-                                                  subText:
-                                                      "resident_subtext".tr,
-                                                ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                type = '2';
+                                                Get.toNamed(RouteHelper
+                                                    .getRegistrationRoute(
+                                                        countryCode: '2'));
+                                              },
+                                              child: ListStyleCard(
+                                                imagePath:
+                                                    "assets/SamplePicture.png",
+                                                heading: "resident".tr,
+                                                subText:
+                                                    "resident_subtext".tr,
                                               ),
-                                              InkWell(
-                                                onTap: () {
-                                                  type = '1';
-                                                  Get.toNamed(RouteHelper
-                                                      .getRegistrationRoute(
-                                                          countryCode: '2'));
-                                                },
-                                                child: ListStyleCard(
-                                                  imagePath:
-                                                      "assets/SamplePicture.png",
-                                                  heading: "Administrator",
-                                                  subText:
-                                                      "I administrate the building or residence",
-                                                ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                type = '1';
+                                                Get.toNamed(RouteHelper
+                                                    .getRegistrationRoute(
+                                                        countryCode: '2'));
+                                              },
+                                              child: ListStyleCard(
+                                                imagePath:
+                                                    "assets/SamplePicture.png",
+                                                heading: "Administrator",
+                                                subText:
+                                                    "I administrate the building or residence",
                                               ),
-                                              InkWell(
-                                                onTap: () {
-                                                  type = '3';
-                                                  Get.toNamed(RouteHelper
-                                                      .getRegistrationRoute(
-                                                          countryCode: '3'));
-                                                },
-                                                child: ListStyleCard(
-                                                  imagePath:
-                                                      "assets/SamplePicture.png",
-                                                  heading: "checkpoint".tr,
-                                                  subText:
-                                                      "checkpoint_subtext".tr,
-                                                ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                type = '3';
+                                                Get.toNamed(RouteHelper
+                                                    .getRegistrationRoute(
+                                                        countryCode: '3'));
+                                              },
+                                              child: ListStyleCard(
+                                                imagePath:
+                                                    "assets/SamplePicture.png",
+                                                heading: "checkpoint".tr,
+                                                subText:
+                                                    "checkpoint_subtext".tr,
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       );
                                     },
