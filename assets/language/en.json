@@ -176,7 +176,7 @@
   "share_statement": "Share Statement",
   "no_notification_found": "No Notification Found",
   "accept": "Accept",
-  "clear_logout": "Clear & Logout",
+  "clear_logout": "Logout",
   "deny": "Deny",
   "no_provided": "No provided",
   "view_all": "View All",
@@ -366,7 +366,8 @@
   "billing_cycle": "Next Billing Cycle: ",
   "payment_method" : "Payment Method",
   "add_image": "Click here to add ",
-  "an_image": "an Image"
-  ,"change_logo": "Change your company logo",
+  "an_image": "an Image",
+  "back": "Back",
+  "change_logo": "Change your company logo",
   "account_name": "Account Name"
 }

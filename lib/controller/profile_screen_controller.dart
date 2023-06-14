@@ -168,7 +168,7 @@ class ProfileController extends GetxController implements GetxService {
           title: 'logout'.tr,
           description: 'are_you_sure_you_want_to_logout'.tr,
           onTapFalseText: 'clear_logout'.tr,
-          onTapTrueText: 'logout'.tr,
+          onTapTrueText: 'cancel'.tr,
           isFailed: true,
           onTapFalse: (){
             Get.find<AuthController>().removeBiometricPin().then((value) {
@@ -180,7 +180,7 @@ class ProfileController extends GetxController implements GetxService {
 
           },
           onTapTrue: (){
-            Get.find<AuthController>().logout();
+
             Navigator.of(context).pop(true);
           },
         ),

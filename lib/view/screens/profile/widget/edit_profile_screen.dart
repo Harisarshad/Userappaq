@@ -46,8 +46,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     lastNameController.text = profileController.userInfo.lName ?? '';
     emailController.text = profileController.userInfo.email ?? '';
     phoneController.text = profileController.userInfo.phone ?? '';
+    accountNameController.text = profileController.userInfo.lName ?? '';
     fullNameController.text =
-        "${profileController.userInfo.fName} ${profileController.userInfo.lName}" ??
+        "${profileController.userInfo.fName}" ??
             '';
     oldPassController.text = '';
     newPassController.text = '';
@@ -253,42 +254,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       inLineTextColor: Colors.grey,
                                     ),
                                   ),
-                                  FormLabelText(
-                                    labelText: "payment_method".tr,
-                                  ),
-                                  InputField(
-                                    placeholderText: "XXXX XXXX XXXX 8895",
-                                    fieldController: paymentcardController,
-                                    suffixIconImage: 'assets/Visa.png',
-                                  ),
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(16, 5, 0, 0),
-                                        child: RichText(
-                                          textAlign: TextAlign.left,
-                                          text: TextSpan(
-                                            text: 'billing_cycle'.tr,
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            children: [
-                                              TextSpan(
-                                                text: 'May 15th 2023',
-                                                style: TextStyle(
-                                                  color: Colors
-                                                      .blue, // Replace with your desired color
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // FormLabelText(
+                                  //   labelText: "payment_method".tr,
+                                  // ),
+                                  // InputField(
+                                  //   placeholderText: "XXXX XXXX XXXX 8895",
+                                  //   fieldController: paymentcardController,
+                                  //   suffixIconImage: 'assets/Visa.png',
+                                  // ),
+                                  // Row(
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding:
+                                  //           EdgeInsets.fromLTRB(16, 5, 0, 0),
+                                  //       child: RichText(
+                                  //         textAlign: TextAlign.left,
+                                  //         text: TextSpan(
+                                  //           text: 'billing_cycle'.tr,
+                                  //           style: TextStyle(
+                                  //             color: Colors.grey,
+                                  //             fontSize: 16,
+                                  //             fontWeight: FontWeight.bold,
+                                  //           ),
+                                  //           children: [
+                                  //             TextSpan(
+                                  //               text: 'May 15th 2023',
+                                  //               style: TextStyle(
+                                  //                 color: Colors
+                                  //                     .blue, // Replace with your desired color
+                                  //               ),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ],
                               )
                             : Column(
@@ -386,22 +387,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   _saveProfile(EditProfileController controller) {
     String _fName = firstNameController.text;
-    String _lName = lastNameController.text;
+    String _lName = accountNameController.text;
     String _email = emailController.text;
     String _gender = controller.gender;
     String _occupation = occupationTextController.text;
     File _image = Get.find<CameraScreenController>().getImage;
 
     List<MultipartBody> _multipartBody;
+    if (oldPassController.text != null && newPassController.text != null) {
+      controller.changePin(
+          oldPassword: oldPassController.text,
+          confirmPassword: newPassController.text,
+          newPassword: newPassController.text);
+    }
     if (_image != null) {
       _multipartBody = [MultipartBody('image', _image)];
     }
-    // if (oldPassController.text != null || newPassController.text != null) {
-    //   controller.changePin(
-    //       oldPassword: oldPassController.text,
-    //       confirmPassword: newPassController.text,
-    //       newPassword: newPassController.text);
-    // }
+
     else {
       _multipartBody = [];
     }

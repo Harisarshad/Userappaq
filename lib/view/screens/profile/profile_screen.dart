@@ -18,6 +18,8 @@ import 'package:six_cash/view/screens/profile/widget/status_menu.dart';
 import 'package:six_cash/view/screens/profile/widget/user_info.dart';
 import 'package:six_cash/view/screens/requested_money/requested_money_list_screen.dart';
 
+import '../../../CustomWidgets/MyCustomTextAppBar.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({ Key key }) : super(key: key);
 
@@ -31,7 +33,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final splashController = Get.find<SplashController>();
     return Scaffold(
       backgroundColor: Theme.of(context).cardColor,
-      appBar: AppbarHomeElement(title: 'profile'.tr),
+      appBar: MyCustomTextAppBar(
+        titleText:  'profile'.tr,
+      ),
       body: GetBuilder<AuthController>(builder: (authController){
         return ModalProgressHUD(
           inAsyncCall: authController.isLoading,
@@ -50,44 +54,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap:() => Get.toNamed(RouteHelper.getEditProfileRoute()),
                   ),
 
-                  CustomInkWell(
-                    child: widget.MenuItem(image: Images.withdraw,title: 'withdraw_history'.tr),
-                    onTap: () => Get.to(()=> RequestedMoneyListScreen(requestType: RequestType.WITHDRAW)),
-                  ),
 
 
-                  CustomInkWell(
-                    child: widget.MenuItem(image: Images.request_list_image2,title: 'requests'.tr),
-                    onTap: () => Get.to(()=> RequestedMoneyListScreen(requestType: RequestType.REQUEST)),
-                  ),
 
-                  CustomInkWell(
-                    child: widget.MenuItem(image: Images.my_requested_list_image,title: 'send_requests'.tr),
-                    onTap: () => Get.to(()=> RequestedMoneyListScreen(requestType: RequestType.SEND_REQUEST)),
-                  ),
 
-                  CustomInkWell(
-                    child: widget.MenuItem(image: Images.pinChange_logo,title: 'change_pin'.tr),
-                    onTap:()=> Get.toNamed(RouteHelper.getChangePinRoute()),
-                  ),
 
-                  CustomInkWell(
-                    child: widget.MenuItem(image: Images.language_logo, title: 'change_language'.tr),
-                    onTap:()=> Get.toNamed(RouteHelper.getChoseLanguageRoute()),
-                  ),
 
-                  if(Get.find<SplashController>().configModel.twoFactor)
-                    GetBuilder<ProfileController>(builder: (profileController){
-                      return profileController.isLoading ? TwoFactorShimmer() :
-                      StatusMenu(
-                        title: 'two_factor_authentication'.tr,
-                        leading: Image.asset(Images.two_factor_authentication,width: 28.0),
-                      );
-                    }),
 
-                  if(authController.isBiometricSupported) StatusMenu(
-                    title: 'biometric_login'.tr, leading: SizedBox(width: 25,child: Image.asset(Images.fingerprint)), isAuth: true,
-                  ),
+
 
                   CustomInkWell(
                     child: widget.MenuItem(
