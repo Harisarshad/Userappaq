@@ -33,7 +33,6 @@ class ProfileController extends GetxController implements GetxService {
     _userInfo = value;
   }
 
-
   Future<void> profileData({bool reload = false, bool isUpdate = false}) async {
     if(reload || _userInfo == null) {
       _userInfo = null;
@@ -107,6 +106,7 @@ class ProfileController extends GetxController implements GetxService {
     update();
     return response;
   }
+
 
   Future<void> updateTwoFactor() async {
     _isLoading = true;

@@ -66,7 +66,8 @@ class PassVerification extends StatelessWidget {
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Align text to the left
                             children: [
                               FormLabelText(
                                 labelText: "Visitor",
@@ -85,7 +86,6 @@ class PassVerification extends StatelessWidget {
                                 paddingright: 0,
                                 paddingtop: 0,
                                 fontSize: 22,
-                                
                               ),
                             ],
                           )
@@ -99,7 +99,8 @@ class PassVerification extends StatelessWidget {
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Align text to the left
                             children: [
                               FormLabelText(
                                 labelText: "Resident",
@@ -130,7 +131,8 @@ class PassVerification extends StatelessWidget {
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+                            crossAxisAlignment: CrossAxisAlignment
+                                .start, // Align text to the left
                             children: [
                               FormLabelText(
                                 labelText: "Date and time",
@@ -155,8 +157,13 @@ class PassVerification extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 100, 16,0 ),
-                      child: ButtonCustom(buttonText: "Home", onPress: (){},backgroundColor: Colors.white,foregroundColor: Color.fromARGB(255, 29, 113, 247),),
+                      padding: const EdgeInsets.fromLTRB(16, 100, 16, 0),
+                      child: ButtonCustom(
+                        buttonText: "Home",
+                        onPress: () {},
+                        backgroundColor: Colors.white,
+                        foregroundColor: Color.fromARGB(255, 29, 113, 247),
+                      ),
                     )
                   ],
                 ),
