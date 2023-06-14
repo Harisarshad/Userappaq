@@ -14,6 +14,7 @@ import 'package:six_cash/view/base/custom_large_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:six_cash/view/base/custom_snackbar.dart';
+import 'package:six_cash/view/screens/auth/login/login_screen.dart';
 
 import '../../../../Constants.dart';
 import '../../../../CustomWidgets/DropDownInputField.dart';
@@ -77,14 +78,16 @@ String userType;
     return Scaffold(
       backgroundColor: ColorResources.getWhiteAndBlack(),
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            "create_an_account".tr,
-            style: TextStyle(fontSize: 20),
-          ),
+        
+         backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          "create_an_account".tr,
+          style: TextStyle(fontSize: 20,color: Colors.black),
         ),
+        centerTitle: true,
         bottom: PreferredSize(
-          preferredSize:  Size.fromHeight(4.0),
+          preferredSize:  Size.fromHeight(0),
           child: Divider(color: Colors.grey.shade400),
         ),
       ),
