@@ -14,6 +14,7 @@ import '../../../data/model/amenity_model.dart';
 import '../../../util/dimensions.dart';
 import '../../base/no_data_screen.dart';
 import '../history/widget/history_shimmer.dart';
+import 'booking_modalSheet.dart';
 
 class UserReservations extends StatefulWidget {
   UserReservations({Key key}) : super(key: key);
@@ -31,18 +32,17 @@ class _UserReservationsState extends State<UserReservations> {
 
   @override
   void initState() {
-    _loadData(context,false);
+    _loadData(context, false);
     super.initState();
 
     switchButton = false;
   }
+
   Future<void> _loadData(BuildContext context, bool reload) async {
-
-
     Get.find<AmenitiesController>().getAmenitiesforMe(1, reload: true);
     Get.find<AmenitiesController>().getAmenitiesBookingforME(1, reload: true);
-
   }
+
   @override
   void dispose() {
     bookingDate.dispose();
@@ -53,6 +53,7 @@ class _UserReservationsState extends State<UserReservations> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: MyCustomTextAppBar(
         titleText: "My Bookings",
@@ -116,200 +117,172 @@ class _UserReservationsState extends State<UserReservations> {
                 ),
               ),
             ),
-            switchButton ? Column(
-              children: [
+            switchButton
+                ? Column(
+                    children: [
+                      FormLabelText(
+                        labelText: "Select the amenity you wish to book",
+                        fontSize: 16,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 50, right: 50),
+                        child: SingleChildScrollView(
+                          child: GetBuilder<AmenitiesController>(
+                              builder: (transactionHistory) {
+                            List<AmenityData> transactionList =
+                                transactionHistory.contactList;
 
-            FormLabelText(
-              labelText: "Select the amenity you wish to book",
-              fontSize: 16,
-            ),
-                Padding(
-                  padding: EdgeInsets.only(left: 50,right :50),
-                  child: SingleChildScrollView(
-                    child:
-                    GetBuilder<AmenitiesController>(builder: (transactionHistory) {
-                      List<AmenityData> transactionList =
-                          transactionHistory.contactList;
-
-                      return Column(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          !transactionHistory.firstLoading
-                              ? transactionList.length != 0
-                              ? Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal:
-                                Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: transactionList.length,
-                                itemBuilder: (ctx, index) {
-                                  return Column(
-                                    children: [
-                                      FormLabelText(
-                                        labelText: transactionList[index]
-                                            .name,
-                                        paddingtop: 0,
-                                        textWeight: FontWeight.w700,
-                                        paddingbottom: 0,
-                                      ),
-
-
-                                      Padding(
-                                        padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(16),
-                                          child: Image.network(
-                                            '${Get.find<SplashController>().configModel.baseUrls.amenityImageUrl}/${transactionList[index]
-                                                .image == null ? '' : transactionList[index]
-                                                .image}',
-                                            width: MediaQuery.of(context).size.width,
-                                            height: 150,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      // Form(
-                                      //   key: _formKey,
-                                      //   child: Column(
-                                      //     children: [
-                                      //       FormLabelText(labelText: "Booking date"),
-                                      //       Row(
-                                      //         mainAxisAlignment: MainAxisAlignment.start,
-                                      //         children: [
-                                      //           DropdownInputField(
-                                      //             values: ["12-02-2023", "01-01-05"],
-                                      //             controller: bookingDate,
-                                      //             placeholder: "02-01-2023",
-                                      //           ),
-                                      //         ],
-                                      //       ),
-                                      //       Row(
-                                      //         children: [
-                                      //           Column(
-                                      //             children: [
-                                      //               SizedBox(
-                                      //                 width: 200,
-                                      //                 child: Container(
-                                      //                   child: FormLabelText(labelText: "Start time"),
-                                      //                 ),
-                                      //               ),
-                                      //               DropdownInputField(
-                                      //                 placeholder: "12:00 PM",
-                                      //                 controller: startTime,
-                                      //                 width: 175,
-                                      //                 values: ['12:00', '12:00', '12:00', '12:00'],
-                                      //               ),
-                                      //             ],
-                                      //           ),
-                                      //           Column(
-                                      //             children: [
-                                      //               SizedBox(
-                                      //                 width: 200,
-                                      //                 child: Container(
-                                      //                   child: FormLabelText(labelText: "End time"),
-                                      //                 ),
-                                      //               ),
-                                      //               DropdownInputField(
-                                      //                 placeholder: "12:00 PM",
-                                      //                 controller: endTime,
-                                      //                 width: 175,
-                                      //                 values: ["1200", "12:00", "12:00", "12:00"],
-                                      //               ),
-                                      //             ],
-                                      //           )
-                                      //         ],
-                                      //       ),
-                                      //       ButtonCustom(buttonText: "Book Now", onPress: () {})
-                                      //     ],
-                                      //   ),
-                                      // ),
-
-                                      Divider(),
-                                    ],
-                                  );
-                                }),
-                          )
-                              : NoDataFoundScreen(fromHome: false)
-                              : HistoryShimmer(),
-                          transactionHistory.isLoading
-                              ? Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(
-                                    Dimensions.PADDING_SIZE_DEFAULT),
-                                child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Theme.of(context).primaryColor)),
-                              ))
-                              : SizedBox.shrink(),
-                        ],
-                      );
-                    }),
+                            return Column(
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                !transactionHistory.firstLoading
+                                    ? transactionList.length != 0
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: Dimensions
+                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                            child: ListView.builder(
+                                                shrinkWrap: true,
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                itemCount:
+                                                    transactionList.length,
+                                                itemBuilder: (ctx, index) {
+                                                  return Column(
+                                                    children: [
+                                                      FormLabelText(
+                                                        labelText:
+                                                            transactionList[
+                                                                    index]
+                                                                .name,
+                                                        paddingtop: 0,
+                                                        textWeight:
+                                                            FontWeight.w700,
+                                                        paddingbottom: 0,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          print(
+                                                              "Amenity Tapped");
+                                                          print(transactionList[
+                                                                  index]
+                                                              .id);
+                                                          bookingBottomSheet(
+                                                            context: context,
+                                                            id: transactionList[
+                                                                    index]
+                                                                .id,
+                                                          );
+                                                        },
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .fromLTRB(16, 10,
+                                                                  16, 10),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16),
+                                                            child:
+                                                                Image.network(
+                                                              '${Get.find<SplashController>().configModel.baseUrls.amenityImageUrl}/${transactionList[index].image == null ? '' : transactionList[index].image}',
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              height: 150,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Divider(),
+                                                    ],
+                                                  );
+                                                }),
+                                          )
+                                        : NoDataFoundScreen(fromHome: false)
+                                    : HistoryShimmer(),
+                                transactionHistory.isLoading
+                                    ? Center(
+                                        child: Padding(
+                                        padding: EdgeInsets.all(
+                                            Dimensions.PADDING_SIZE_DEFAULT),
+                                        child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Theme.of(context)
+                                                        .primaryColor)),
+                                      ))
+                                    : SizedBox.shrink(),
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        height: 50,
+                        color: AqcessColors().primary,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(30, 0, 80, 0),
+                              child: FormLabelText(
+                                labelText: "Amenity Name",
+                                TextColor: Colors.white,
+                                paddingtop: 0,
+                                paddingbottom: 0,
+                                paddingleft: 0,
+                                paddingright: 0,
+                              ),
+                            ),
+                            FormLabelText(
+                              labelText: "Date and Time",
+                              TextColor: Colors.white,
+                              paddingtop: 0,
+                              paddingbottom: 0,
+                              paddingleft: 20,
+                              paddingright: 0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      UserReservationsLists(
+                        name: "John Doe Sharma",
+                        date: "23/28/26",
+                        time: "10:25 Am",
+                        wholePadding: 12,
+                      ),
+                      Divider(),
+                      UserReservationsLists(
+                        name: "John Doe Sharma",
+                        date: "23/28/26",
+                        time: "10:25 Am",
+                        wholePadding: 12,
+                      ),
+                      Divider(),
+                      UserReservationsLists(
+                        name: "John Doe Sharma",
+                        date: "23/28/26",
+                        time: "10:25 Am",
+                        wholePadding: 12,
+                      ),
+                      Divider(),
+                      UserReservationsLists(
+                        name: "John Doe Sharma",
+                        date: "23/28/26",
+                        time: "10:25 Am",
+                        wholePadding: 12,
+                      ),
+                      Divider(),
+                    ],
                   ),
-                ),
-
-              ],
-            ): Column(
-              children: [
-                Container(
-              height: 50,
-              color: AqcessColors().primary,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30, 0, 80, 0),
-                    child: FormLabelText(
-                      labelText: "Amenity Name",
-                      TextColor: Colors.white,
-                      paddingtop: 0,
-                      paddingbottom: 0,
-                      paddingleft: 0,
-                      paddingright: 0,
-                    ),
-                  ),
-                  FormLabelText(
-                    labelText: "Date and Time",
-                    TextColor: Colors.white,
-                    paddingtop: 0,
-                    paddingbottom: 0,
-                    paddingleft: 20,
-                    paddingright: 0,
-                  ),
-                ],
-              ),
-            ),
-            UserReservationsLists(
-              name: "John Doe Sharma",
-              date: "23/28/26",
-              time: "10:25 Am",
-              wholePadding: 12,
-            ),
-            Divider(),
-            UserReservationsLists(
-              name: "John Doe Sharma",
-              date: "23/28/26",
-              time: "10:25 Am",
-              wholePadding: 12,
-            ),
-            Divider(),
-            UserReservationsLists(
-              name: "John Doe Sharma",
-              date: "23/28/26",
-              time: "10:25 Am",
-              wholePadding: 12,
-            ),
-            Divider(),
-            UserReservationsLists(
-              name: "John Doe Sharma",
-              date: "23/28/26",
-              time: "10:25 Am",
-              wholePadding: 12,
-            ),
-            Divider(),
-              ],
-            ) ,
           ],
         ),
       ),
@@ -377,15 +350,9 @@ class _BookAreasState extends State<BookAreas> {
                 ),
               ),
             ),
-            
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-

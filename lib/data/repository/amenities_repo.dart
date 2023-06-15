@@ -12,6 +12,7 @@ class AmenitiesRepo {
     return await apiClient
         .getData('${AppConstants.LIST_CONTACT_URI}?limit=1000&offset=$offset');
   }
+
   ///admin start
   Future<Response> getmyAmenity(int offset) async {
     return await apiClient
@@ -19,28 +20,23 @@ class AmenitiesRepo {
   }
 
   Future<Response> getAmenityBooking(int offset) async {
-    return await apiClient
-        .getData('${AppConstants.LIST_AMIENITY_BOOKING_URI}?limit=1000&offset=$offset');
+    return await apiClient.getData(
+        '${AppConstants.LIST_AMIENITY_BOOKING_URI}?limit=1000&offset=$offset');
   }
 
   //admin end
 
   //gaurd start /
 
-
-
   Future<Response> getAmenityForME(int offset) async {
     return await apiClient
         .getData('${AppConstants.LIST_AMIENITY_URI}?limit=1000&offset=$offset');
   }
 
-
   Future<Response> getAmenityBookingForMe(int offset) async {
     return await apiClient
         .getData('${AppConstants.LIST_AMIENITY_URI}?limit=1000&offset=$offset');
   }
-
-
 
   //gaurd end
   Future<Response> updateAmenties(Map<String, String> profileInfo,
@@ -48,6 +44,7 @@ class AmenitiesRepo {
     return await apiClient.postMultipartData(
         AppConstants.CUSTOMER_AMINITIES_PROFILE, profileInfo, multipartBody);
   }
+
   Future<Response> addContact(
     Map<String, String> customerInfo,
   ) async {
@@ -65,5 +62,12 @@ class AmenitiesRepo {
   ) async {
     return await apiClient.postData(
         AppConstants.UPDATE_CONTACT_URI, customerInfo);
+  }
+
+  Future<Response> bookAmenity(
+    Map<String, String> customerInfo,
+  ) async {
+    return await apiClient.postData(
+        AppConstants.BOOK_AMENITY_URI, customerInfo);
   }
 }

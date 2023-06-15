@@ -15,10 +15,9 @@ import '../data/model/response/response_model.dart';
 import '../data/repository/amenities_repo.dart';
 import '../data/repository/contacts_repo.dart';
 
-class AmenitiesController extends GetxController implements GetxService{
+class AmenitiesController extends GetxController implements GetxService {
   final AmenitiesRepo transactionHistoryRepo;
   AmenitiesController({@required this.transactionHistoryRepo});
-
 
   bool _isSearching = false;
   int _pageSize;
@@ -32,23 +31,19 @@ class AmenitiesController extends GetxController implements GetxService{
   bool get firstLoadingbooking => _firstLoadingbooking;
   int _offset = 1;
   int _offsetbooking = 1;
-  int get offset =>_offset;
-  int get offsetbooking =>_offsetbooking;
+  int get offset => _offset;
+  int get offsetbooking => _offsetbooking;
 
   List<int> _offsetList = [];
   List<int> get offsetList => _offsetList;
 
-  List<AmenityData> _amenityList  = [];
+  List<AmenityData> _amenityList = [];
   List<AmenityData> get contactList => _amenityList;
- List<int> _offsetListbooking = [];
+  List<int> _offsetListbooking = [];
   List<int> get offsetListbooking => _offsetListbooking;
 
-  List<AmenityData> _amenityListbooking  = [];
+  List<AmenityData> _amenityListbooking = [];
   List<AmenityData> get contactListbooking => _amenityListbooking;
-
-
-
-
 
   bool get isSearching => _isSearching;
   int get pageSizebooking => _pageSizebooking;
@@ -58,9 +53,7 @@ class AmenitiesController extends GetxController implements GetxService{
   ScrollController scrollController = ScrollController();
   bool isMoreDataAvailable = true;
 
-  
   Future<bool> updateAmentiesData(EditAmenityBody editProfileBody,
-
       List<MultipartBody> multipartBody) async {
     _isLoading = true;
     bool _emailValidation = true;
@@ -75,10 +68,9 @@ class AmenitiesController extends GetxController implements GetxService{
       '_method': 'put',
     };
 
-
-      {
-      Response response =
-      await transactionHistoryRepo.updateAmenties(_allProfileInfo, multipartBody);
+    {
+      Response response = await transactionHistoryRepo.updateAmenties(
+          _allProfileInfo, multipartBody);
       ResponseModel responseModel;
       if (response.statusCode == 200) {
         responseModel = ResponseModel(true, response.body['message']);
@@ -99,30 +91,24 @@ class AmenitiesController extends GetxController implements GetxService{
     return _isSuccess;
   }
 
-
-
-
-
   void showBottomLoader() {
     _isLoading = true;
     update();
   }
 
-
-
-  Future<Response> updateContact(String name, String email, String type,
-      String phone, String id, BuildContext context) async {
+  Future<Response> bookAmenity(String id, String date, String start, String end,
+      BuildContext context) async {
     _isLoading = true;
     update();
     Map<String, String> _allCustomerInfo = {
       'id': id,
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'type': type,
+      'date': date,
+      'start': start,
+      'end': end,
     };
 
-    Response response = await transactionHistoryRepo.updateContact(_allCustomerInfo);
+    Response response =
+        await transactionHistoryRepo.bookAmenity(_allCustomerInfo);
     print('error is');
     if (response.statusCode == 200) {
       Navigator.pop(context);
@@ -170,19 +156,19 @@ class AmenitiesController extends GetxController implements GetxService{
     return response;
   }
 
- 
-  Future getmyAmenities(int offset, {bool reload = false}) async{
-    if(reload) {
+  Future getmyAmenities(int offset, {bool reload = false}) async {
+    if (reload) {
       _offsetList = [];
       _amenityList = [];
-
     }
     _offset = offset;
-    if(!_offsetList.contains(offset)) {
+    if (!_offsetList.contains(offset)) {
       _offsetList.add(offset);
 
       Response response = await transactionHistoryRepo.getmyAmenity(offset);
-      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+      if (response.body['transactions'] != null &&
+          response.body['transactions'] != {} &&
+          response.statusCode == 200) {
         _amenityList = [];
 
         response.body['transactions'].forEach((transactionHistory) {
@@ -190,7 +176,7 @@ class AmenitiesController extends GetxController implements GetxService{
           _amenityList.add(history);
         });
         _pageSize = AmenityModel.fromJson(response.body).totalSize;
-      }else{
+      } else {
         ApiChecker.checkApi(response);
       }
     }
@@ -199,18 +185,19 @@ class AmenitiesController extends GetxController implements GetxService{
     update();
   }
 
-  Future getAmenitiesBooking(int offset, {bool reload = false}) async{
-    if(reload) {
+  Future getAmenitiesBooking(int offset, {bool reload = false}) async {
+    if (reload) {
       _offsetListbooking = [];
       _amenityListbooking = [];
-
     }
     _offset = offset;
-    if(!_offsetList.contains(offset)) {
+    if (!_offsetList.contains(offset)) {
       _offsetList.add(offset);
 
       Response response = await transactionHistoryRepo.getmyAmenity(offset);
-      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+      if (response.body['transactions'] != null &&
+          response.body['transactions'] != {} &&
+          response.statusCode == 200) {
         _amenityListbooking = [];
 
         response.body['transactions'].forEach((transactionHistory) {
@@ -218,27 +205,28 @@ class AmenitiesController extends GetxController implements GetxService{
           _amenityListbooking.add(history);
         });
         _pageSizebooking = AmenityModel.fromJson(response.body).totalSize;
-      }else{
+      } else {
         ApiChecker.checkApi(response);
       }
     }
-    _isLoadingbooking= false;
+    _isLoadingbooking = false;
     _firstLoadingbooking = false;
     update();
   }
 
-  Future getAmenitiesforMe(int offset, {bool reload = false}) async{
-    if(reload) {
+  Future getAmenitiesforMe(int offset, {bool reload = false}) async {
+    if (reload) {
       _offsetList = [];
       _amenityList = [];
-
     }
     _offset = offset;
-    if(!_offsetList.contains(offset)) {
+    if (!_offsetList.contains(offset)) {
       _offsetList.add(offset);
 
       Response response = await transactionHistoryRepo.getAmenityForME(offset);
-      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+      if (response.body['transactions'] != null &&
+          response.body['transactions'] != {} &&
+          response.statusCode == 200) {
         _amenityList = [];
 
         response.body['transactions'].forEach((transactionHistory) {
@@ -246,7 +234,7 @@ class AmenitiesController extends GetxController implements GetxService{
           _amenityList.add(history);
         });
         _pageSize = AmenityModel.fromJson(response.body).totalSize;
-      }else{
+      } else {
         ApiChecker.checkApi(response);
       }
     }
@@ -255,18 +243,19 @@ class AmenitiesController extends GetxController implements GetxService{
     update();
   }
 
-  Future getAmenitiesBookingforME(int offset, {bool reload = false}) async{
-    if(reload) {
+  Future getAmenitiesBookingforME(int offset, {bool reload = false}) async {
+    if (reload) {
       _offsetListbooking = [];
       _amenityListbooking = [];
-
     }
     _offset = offset;
-    if(!_offsetList.contains(offset)) {
+    if (!_offsetList.contains(offset)) {
       _offsetList.add(offset);
 
       Response response = await transactionHistoryRepo.getmyAmenity(offset);
-      if(response.body['transactions'] != null && response.body['transactions'] != {} && response.statusCode==200){
+      if (response.body['transactions'] != null &&
+          response.body['transactions'] != {} &&
+          response.statusCode == 200) {
         _amenityListbooking = [];
 
         response.body['transactions'].forEach((transactionHistory) {
@@ -274,16 +263,14 @@ class AmenitiesController extends GetxController implements GetxService{
           _amenityListbooking.add(history);
         });
         _pageSizebooking = AmenityModel.fromJson(response.body).totalSize;
-      }else{
+      } else {
         ApiChecker.checkApi(response);
       }
     }
-    _isLoadingbooking= false;
+    _isLoadingbooking = false;
     _firstLoadingbooking = false;
     update();
   }
-
-
 
   int _transactionTypeIndex = 0;
   int get transactionTypeIndex => _transactionTypeIndex;
@@ -292,5 +279,4 @@ class AmenitiesController extends GetxController implements GetxService{
     _transactionTypeIndex = index;
     update();
   }
-
 }

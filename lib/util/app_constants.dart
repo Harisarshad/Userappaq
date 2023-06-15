@@ -23,6 +23,8 @@ class AppConstants {
   static const String PASS_REGISTRATION_URI = '/api/v1/customer/reg-pass';
   static const String ADD_CONTACT_URI = '/api/v1/customer/add-contact';
   static const String UPDATE_CONTACT_URI = '/api/v1/customer/update-contact';
+
+   static const String BOOK_AMENITY_URI = '/api/v1/customer/book-amenity';
   static const String DELETE_CONTACT_URI = '/api/v1/customer/delete-contact';
   static const String PASS_GET_URI = '/api/v1/customer/pass-get';
   static const String PASS_VERIFY_URI = '/api/v1/customer/pass-verify';
