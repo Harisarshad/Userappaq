@@ -41,7 +41,101 @@ class ContactsController extends GetxController implements GetxService{
     update();
   }
 
+Future<Response> addContact(String name, String email, String type,
+      String phone, BuildContext context) async {
+    _isLoading = true;
+    update();
+    Map<String, String> _allCustomerInfo = {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'type': type,
+    };
 
+    Response response = await transactionHistoryRepo.addContact(_allCustomerInfo);
+    print('error is');
+    if (response.statusCode == 200) {
+      await getContactsData(1, reload: true);
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
+
+  Future<Response> updateContact(String name, String email, String type,
+      String phone, String id, BuildContext context) async {
+    _isLoading = true;
+    update();
+    Map<String, String> _allCustomerInfo = {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'type': type,
+    };
+
+    Response response = await transactionHistoryRepo.updateContact(_allCustomerInfo);
+    print('error is');
+    if (response.statusCode == 200) {
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
+
+  Future<Response> deleteContact(String id, BuildContext context) async {
+    _isLoading = true;
+    update();
+
+    Response response = await transactionHistoryRepo.deleteContact(id);
+    print('error is');
+    if (response.statusCode == 200) {
+      Navigator.pop(context);
+
+      // Get.offAllNamed(RouteHelper.getWelcomeRoute(
+      //   countryCode: getCustomerCountryCode(),phoneNumber: getCustomerNumber(), password: signUpBody.password
+      // ));
+      // authenticateWithBiometric(false, signUpBody.password).then((value) {
+      //   Future.delayed(Duration(seconds: 1)).then((value) {
+      //     _callSetting();
+      //
+      //   });
+      // });
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    _isLoading = false;
+    update();
+    return response;
+  }
+
+ 
   Future getContactsData(int offset, {bool reload = false}) async{
     if(reload) {
       _offsetList = [];

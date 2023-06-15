@@ -35,12 +35,7 @@ class PassRepo extends GetxService{
    Future<Response> registrationhome(Map<String,String> customerInfo,) async {
      return await apiClient.postData(AppConstants.PASS_REGISTRATION_URI, customerInfo);
    }
-   Future<Response> addContact(Map<String,String> customerInfo,) async {
-     return await apiClient.postData(AppConstants.ADD_CONTACT_URI, customerInfo);
-   }
-   Future<Response> updateContact(Map<String,String> customerInfo,) async {
-     return await apiClient.postData(AppConstants.UPDATE_CONTACT_URI, customerInfo);
-   }
+   
 
    Future<Response> getPass(int offset ) async {
      return await apiClient.getData('${AppConstants.LIST_PASS_URI}?limit=1000&offset=$offset');
@@ -49,10 +44,7 @@ class PassRepo extends GetxService{
    Future<Response> getHistory(int offset ) async {
      return await apiClient.getData('${AppConstants.HISTORY_PASS_URI}?limit=1000&offset=$offset');
    }
-   Future<Response> deleteContact(String id,) async {
-
-     return await apiClient.getData('${AppConstants.DELETE_CONTACT_URI}/$id');
-   }
+   
    Future<Response> pass(String id,) async {
 
      return await apiClient.getData('${AppConstants.PASS_GET_URI}/$id');

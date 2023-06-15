@@ -5,6 +5,7 @@ import 'package:six_cash/Constants.dart';
 import 'package:six_cash/CustomWidgets/FormLabelText.dart';
 import 'package:six_cash/CustomWidgets/InputField.dart';
 import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
+import 'package:six_cash/controller/contacts_controller.dart';
 import 'package:six_cash/view/screens/contacts/contacts.dart';
 
 import '../../../controller/pass_controller.dart';
@@ -164,7 +165,7 @@ class _AddContactState extends State<AddContact> {
                         String _customerEmail = customerEmail.text;
                         String _phone = customerPhone.text;
 
-                        Get.find<PassController>()
+                        Get.find<ContactsController>()
                             .deleteContact(widget.cont.id, context);
                       },
                       child: Text(
@@ -198,7 +199,7 @@ class _AddContactState extends State<AddContact> {
                   String _phone = customerPhone.text;
 
                   if (widget.update) {
-                    Get.find<PassController>().updateContact(
+                    Get.find<ContactsController>().updateContact(
                         _customerFullName,
                         _customerEmail,
                         _customerVisitType,
@@ -206,7 +207,7 @@ class _AddContactState extends State<AddContact> {
                         widget.cont.id,
                         context);
                   } else {
-                    Get.find<PassController>().addContact(_customerFullName,
+                    Get.find<ContactsController>().addContact(_customerFullName,
                         _customerEmail, _customerVisitType, _phone, context);
                   }
                 },
