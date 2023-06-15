@@ -10,6 +10,7 @@ import 'package:six_cash/CustomWidgets/FormLabelText.dart';
 import 'package:six_cash/CustomWidgets/ImageUpload.dart';
 import 'package:six_cash/CustomWidgets/InputField.dart';
 import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
+import 'package:six_cash/controller/amenties_controller.dart';
 
 import '../../../controller/camera_screen_controller.dart';
 import '../../../controller/edit_profile_controller.dart';
@@ -78,7 +79,7 @@ class _CreateAmenityState extends State<CreateAmenity> {
       start: _startTime,
       end: _endTime,
     );
-    Get.find<EditProfileController>()
+    Get.find<AmenitiesController>()
         .updateAmentiesData(editProfileBody, _multipartBody)
         .then((value) {
       if (value) {
