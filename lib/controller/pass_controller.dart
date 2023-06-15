@@ -324,6 +324,7 @@ class PassController extends GetxController implements GetxService {
     Response response = await passRepo.addContact(_allCustomerInfo);
     print('error is');
     if (response.statusCode == 200) {
+      await getContactsData(1, reload: true);
       Navigator.pop(context);
 
       // Get.offAllNamed(RouteHelper.getWelcomeRoute(
