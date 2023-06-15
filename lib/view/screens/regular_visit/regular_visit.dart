@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:six_cash/Constants.dart';
 import 'package:six_cash/CustomWidgets/ButtonCustom.dart';
 import 'package:six_cash/CustomWidgets/DropDownInputField.dart';
 import 'package:six_cash/CustomWidgets/FormLabelText.dart';
 import 'package:six_cash/CustomWidgets/MyCustomTextAppBar.dart';
 import 'package:six_cash/CustomWidgets/UserReservationsLists.dart';
+
+import '../../../controller/amenties_controller.dart';
+import '../../../controller/splash_controller.dart';
+import '../../../data/model/amenity_model.dart';
+import '../../../util/dimensions.dart';
+import '../../base/no_data_screen.dart';
+import '../history/widget/history_shimmer.dart';
 
 class UserReservations extends StatefulWidget {
   UserReservations({Key key}) : super(key: key);
@@ -22,10 +31,18 @@ class _UserReservationsState extends State<UserReservations> {
 
   @override
   void initState() {
+    _loadData(context,false);
     super.initState();
+
     switchButton = false;
   }
+  Future<void> _loadData(BuildContext context, bool reload) async {
 
+
+    Get.find<AmenitiesController>().getAmenitiesforMe(1, reload: true);
+    Get.find<AmenitiesController>().getAmenitiesBookingforME(1, reload: true);
+
+  }
   @override
   void dispose() {
     bookingDate.dispose();
@@ -102,82 +119,136 @@ class _UserReservationsState extends State<UserReservations> {
             switchButton ? Column(
               children: [
 
-FormLabelText(
+            FormLabelText(
               labelText: "Select the amenity you wish to book",
               fontSize: 16,
             ),
-            FormLabelText(
-              labelText: "Pool Zone",
-              textWeight: FontWeight.w900,
-              paddingbottom: 0,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  "assets/PoolZone.png",
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  fit: BoxFit.cover,
+                Padding(
+                  padding: EdgeInsets.only(left: 50,right :50),
+                  child: SingleChildScrollView(
+                    child:
+                    GetBuilder<AmenitiesController>(builder: (transactionHistory) {
+                      List<AmenityData> transactionList =
+                          transactionHistory.contactList;
+
+                      return Column(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          !transactionHistory.firstLoading
+                              ? transactionList.length != 0
+                              ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal:
+                                Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: transactionList.length,
+                                itemBuilder: (ctx, index) {
+                                  return Column(
+                                    children: [
+                                      FormLabelText(
+                                        labelText: transactionList[index]
+                                            .name,
+                                        paddingtop: 0,
+                                        textWeight: FontWeight.w700,
+                                        paddingbottom: 0,
+                                      ),
+
+
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(16),
+                                          child: Image.network(
+                                            '${Get.find<SplashController>().configModel.baseUrls.amenityImageUrl}/${transactionList[index]
+                                                .image == null ? '' : transactionList[index]
+                                                .image}',
+                                            width: MediaQuery.of(context).size.width,
+                                            height: 150,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      // Form(
+                                      //   key: _formKey,
+                                      //   child: Column(
+                                      //     children: [
+                                      //       FormLabelText(labelText: "Booking date"),
+                                      //       Row(
+                                      //         mainAxisAlignment: MainAxisAlignment.start,
+                                      //         children: [
+                                      //           DropdownInputField(
+                                      //             values: ["12-02-2023", "01-01-05"],
+                                      //             controller: bookingDate,
+                                      //             placeholder: "02-01-2023",
+                                      //           ),
+                                      //         ],
+                                      //       ),
+                                      //       Row(
+                                      //         children: [
+                                      //           Column(
+                                      //             children: [
+                                      //               SizedBox(
+                                      //                 width: 200,
+                                      //                 child: Container(
+                                      //                   child: FormLabelText(labelText: "Start time"),
+                                      //                 ),
+                                      //               ),
+                                      //               DropdownInputField(
+                                      //                 placeholder: "12:00 PM",
+                                      //                 controller: startTime,
+                                      //                 width: 175,
+                                      //                 values: ['12:00', '12:00', '12:00', '12:00'],
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //           Column(
+                                      //             children: [
+                                      //               SizedBox(
+                                      //                 width: 200,
+                                      //                 child: Container(
+                                      //                   child: FormLabelText(labelText: "End time"),
+                                      //                 ),
+                                      //               ),
+                                      //               DropdownInputField(
+                                      //                 placeholder: "12:00 PM",
+                                      //                 controller: endTime,
+                                      //                 width: 175,
+                                      //                 values: ["1200", "12:00", "12:00", "12:00"],
+                                      //               ),
+                                      //             ],
+                                      //           )
+                                      //         ],
+                                      //       ),
+                                      //       ButtonCustom(buttonText: "Book Now", onPress: () {})
+                                      //     ],
+                                      //   ),
+                                      // ),
+
+                                      Divider(),
+                                    ],
+                                  );
+                                }),
+                          )
+                              : NoDataFoundScreen(fromHome: false)
+                              : HistoryShimmer(),
+                          transactionHistory.isLoading
+                              ? Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(
+                                    Dimensions.PADDING_SIZE_DEFAULT),
+                                child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Theme.of(context).primaryColor)),
+                              ))
+                              : SizedBox.shrink(),
+                        ],
+                      );
+                    }),
+                  ),
                 ),
-              ),
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  FormLabelText(labelText: "Booking date"),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      DropdownInputField(
-                        values: ["12-02-2023", "01-01-05"],
-                        controller: bookingDate,
-                        placeholder: "02-01-2023",
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: Container(
-                              child: FormLabelText(labelText: "Start time"),
-                            ),
-                          ),
-                          DropdownInputField(
-                            placeholder: "12:00 PM",
-                            controller: startTime,
-                            width: 175,
-                            values: ['12:00', '12:00', '12:00', '12:00'],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: Container(
-                              child: FormLabelText(labelText: "End time"),
-                            ),
-                          ),
-                          DropdownInputField(
-                            placeholder: "12:00 PM",
-                            controller: endTime,
-                            width: 175,
-                            values: ["1200", "12:00", "12:00", "12:00"],
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  ButtonCustom(buttonText: "Book Now", onPress: () {})
-                ],
-              ),
-            )
+
               ],
             ): Column(
               children: [

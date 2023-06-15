@@ -81,6 +81,7 @@ class ConfigModel {
 class BaseUrls {
   BaseUrls({
     this.customerImageUrl,
+    this.amenityImageUrl,
     this.agentImageUrl,
     this.linkedWebsiteImageUrl,
     this.purposeImageUrl,
@@ -90,6 +91,7 @@ class BaseUrls {
   });
 
   String customerImageUrl;
+  String amenityImageUrl;
   String agentImageUrl;
   String linkedWebsiteImageUrl;
   String purposeImageUrl;
@@ -99,6 +101,7 @@ class BaseUrls {
 
   factory BaseUrls.fromJson(Map<String, dynamic> json) => BaseUrls(
     customerImageUrl: json["customer_image_url"],
+    amenityImageUrl: json["amenity_image_url"],
     agentImageUrl: json["agent_image_url"],
     linkedWebsiteImageUrl: json["linked_website_image_url"],
     purposeImageUrl: json["purpose_image_url"],

@@ -12,6 +12,37 @@ class AmenitiesRepo {
     return await apiClient
         .getData('${AppConstants.LIST_CONTACT_URI}?limit=1000&offset=$offset');
   }
+  ///admin start
+  Future<Response> getmyAmenity(int offset) async {
+    return await apiClient
+        .getData('${AppConstants.LIST_AMIENITY_URI}?limit=1000&offset=$offset');
+  }
+
+  Future<Response> getAmenityBooking(int offset) async {
+    return await apiClient
+        .getData('${AppConstants.LIST_AMIENITY_BOOKING_URI}?limit=1000&offset=$offset');
+  }
+
+  //admin end
+
+  //gaurd start /
+
+
+
+  Future<Response> getAmenityForME(int offset) async {
+    return await apiClient
+        .getData('${AppConstants.LIST_AMIENITY_URI}?limit=1000&offset=$offset');
+  }
+
+
+  Future<Response> getAmenityBookingForMe(int offset) async {
+    return await apiClient
+        .getData('${AppConstants.LIST_AMIENITY_URI}?limit=1000&offset=$offset');
+  }
+
+
+
+  //gaurd end
   Future<Response> updateAmenties(Map<String, String> profileInfo,
       List<MultipartBody> multipartBody) async {
     return await apiClient.postMultipartData(

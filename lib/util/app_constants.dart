@@ -27,6 +27,8 @@ class AppConstants {
   static const String PASS_GET_URI = '/api/v1/customer/pass-get';
   static const String PASS_VERIFY_URI = '/api/v1/customer/pass-verify';
   static const String LIST_CONTACT_URI = '/api/v1/customer/list-contact';
+  static const String LIST_AMIENITY_URI = '/api/v1/customer/list-amenity-forme';
+  static const String LIST_AMIENITY_BOOKING_URI = '/api/v1/customer/list-amenity-bookings';
   static const String LIST_PASS_URI = '/api/v1/customer/list-pass';
   static const String HISTORY_PASS_URI = '/api/v1/customer/pass-history';
   static const String LIST_RESIDENTS_URI = '/api/v1/customer/list-residents';

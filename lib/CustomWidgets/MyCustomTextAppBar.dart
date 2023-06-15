@@ -56,7 +56,7 @@ class MyCustomTextAppBar extends StatelessWidget
       centerTitle: true,
       title: Text(
         titleText,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
       ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(0),

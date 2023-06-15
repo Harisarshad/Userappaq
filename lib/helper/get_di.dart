@@ -29,6 +29,7 @@ import 'package:six_cash/controller/verification_controller.dart';
 import 'package:six_cash/controller/websitelink_controller.dart';
 import 'package:six_cash/data/api/api_client.dart';
 import 'package:six_cash/data/repository/add_money_repo.dart';
+import 'package:six_cash/data/repository/amenities_repo.dart';
 import 'package:six_cash/data/repository/auth_repo.dart';
 import 'package:six_cash/data/repository/banner_repo.dart';
 import 'package:six_cash/data/repository/contacts_repo.dart';
@@ -50,6 +51,7 @@ import 'package:get/get.dart';
 import 'package:six_cash/view/screens/residents/residents.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
+import '../controller/amenties_controller.dart';
 import '../controller/resident_controller.dart';
 import '../data/repository/kyc_verify_repo.dart';
 import '../data/repository/pass_repo.dart';
@@ -87,6 +89,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => WebsiteLinkRepo(apiClient: Get.find()));
   Get.lazyPut(() => BannerRepo(apiClient: Get.find()));
   Get.lazyPut(() => AddMoneyRepo(apiClient: Get.find()));
+  Get.lazyPut(() => AmenitiesRepo(apiClient: Get.find()));
   Get.lazyPut(() => FaqRepo(apiClient: Get.find()));
   Get.lazyPut(() => NotificationRepo(apiClient: Get.find()));
   Get.lazyPut(() => RequestedMoneyRepo(apiClient: Get.find()));
@@ -124,6 +127,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => PassController(passRepo: Get.find()));
   Get.lazyPut(() => EditProfileController(authRepo: Get.find()));
   Get.lazyPut(() => RequestedMoneyController(requestedMoneyRepo: Get.find()));
+  Get.lazyPut(() => AmenitiesController(transactionHistoryRepo: Get.find()));
   Get.lazyPut(() => ScreenShootWidgetController());
   Get.lazyPut(() => KycVerifyController(kycVerifyRepo: Get.find()));
 
