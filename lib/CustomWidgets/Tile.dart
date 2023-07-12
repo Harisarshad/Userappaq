@@ -119,7 +119,7 @@ class _TileState extends State<Tile> {
         elevation: 8,
         child: SizedBox(
           width: 175,
-          height: 150,
+          height: 160,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

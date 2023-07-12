@@ -17,7 +17,7 @@ class DateConverter {
   }
 
   static DateTime isoStringToLocalDate(String dateTime) {
-    return DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').parse(dateTime, true).toLocal();
+    return DateFormat('yyyy-MM-dd HH:mm').parse(dateTime, true);
   }
 
   static String isoStringToLocalTimeOnly(String dateTime) {

@@ -20,6 +20,7 @@ import '../../../../Constants.dart';
 import '../../../../CustomWidgets/FormLabelText.dart';
 import '../../../../data/model/body/pass_body.dart';
 import '../../../../data/model/pass_model.dart';
+import '../../../../helper/date_converter.dart';
 import '../../../base/custom_snackbar.dart';
 import '../../history/widget/history_shimmer.dart';
 class QrCodeDownloadOrShareScreen extends StatefulWidget {
@@ -81,7 +82,7 @@ class _QrCodeDownloadOrShareScreenState extends State<QrCodeDownloadOrShareScree
                       ),
                     ),
                     Container(
-                      width: 300,
+                      width: 310,
                       height: 500,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -167,7 +168,7 @@ class _QrCodeDownloadOrShareScreenState extends State<QrCodeDownloadOrShareScree
                               Column(
                                 children: [
                                   SizedBox(
-                                    width: 200,
+                                    width: 240,
                                     child: Container(
                                         child: FormLabelText(
                                           labelText: "Time And Date",
@@ -178,11 +179,12 @@ class _QrCodeDownloadOrShareScreenState extends State<QrCodeDownloadOrShareScree
                                         )),
                                   ),
                                   SizedBox(
-                                    width: 200,
+                                    width: 250,
                                     child: Container(
                                         child: FormLabelText(
-                                          labelText: widget.passData.date,
-                                          paddingtop: 0,
+                                          labelText: DateConverter.isoStringToLocalDate (widget.passData.date).toString(),
+                                          paddingtop: 5,
+
                                         )),
                                   ),
                                 ],

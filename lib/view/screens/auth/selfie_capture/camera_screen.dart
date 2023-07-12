@@ -119,12 +119,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
                 SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-                  child: Text(cameraScreenController.eyeBlink < 3 ? 'straighten_your_face'.tr : 'processing_image'.tr,
-                    style: rubikRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT), maxLines: 2, textAlign: TextAlign.center,
-                  ),
-                ),
+
 
               ],
             ),

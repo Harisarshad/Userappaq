@@ -117,7 +117,7 @@ class _CreatePassState extends State<CreatePass> {
                 ),
               ),
               Text(
-                "Back",
+                "back_to_page".tr,
                 style: TextStyle(fontSize: 18),
               ),
             ],

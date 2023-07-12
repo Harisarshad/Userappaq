@@ -7,7 +7,7 @@ class UserReservationsLists extends StatelessWidget {
   final String time;
   final double wholePadding;
 
-  const UserReservationsLists({
+   UserReservationsLists({
 
      this.name,
      this.date,

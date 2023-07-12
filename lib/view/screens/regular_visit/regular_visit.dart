@@ -253,34 +253,16 @@ class _UserReservationsState extends State<UserReservations> {
                           ],
                         ),
                       ),
-                      UserReservationsLists(
-                        name: "John Doe Sharma",
-                        date: "23/28/26",
-                        time: "10:25 Am",
-                        wholePadding: 12,
-                      ),
-                      Divider(),
-                      UserReservationsLists(
-                        name: "John Doe Sharma",
-                        date: "23/28/26",
-                        time: "10:25 Am",
-                        wholePadding: 12,
-                      ),
-                      Divider(),
-                      UserReservationsLists(
-                        name: "John Doe Sharma",
-                        date: "23/28/26",
-                        time: "10:25 Am",
-                        wholePadding: 12,
-                      ),
-                      Divider(),
-                      UserReservationsLists(
-                        name: "John Doe Sharma",
-                        date: "23/28/26",
-                        time: "10:25 Am",
-                        wholePadding: 12,
-                      ),
-                      Divider(),
+
+
+
+                      // UserReservationsLists(
+                      //   name: "John Doe Sharma",
+                      //   date: "23/28/26",
+                      //   time: "10:25 Am",
+                      //   wholePadding: 12,
+                      // ),
+                      // Divider(),
                     ],
                   ),
           ],

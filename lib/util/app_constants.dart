@@ -7,7 +7,8 @@ import 'images.dart';
 class AppConstants {
   static const String APP_NAME = 'TestCash';
   //demo
-  static const String BASE_URL = 'http://192.168.100.99/aqcess';
+ // static const String BASE_URL = 'http://192.168.100.99/aqcess';
+  static const String BASE_URL = 'https://aqcess.host';
   //
   // static const String BASE_URL = 'https://6cash-admin.6am.one';
   // //fun
@@ -129,8 +130,10 @@ class AppConstants {
   static const int BALANCE_INPUT_LEN = 10;
 
   static List<LanguageModel> languages = [
+    LanguageModel(imageUrl: Images.english, languageName: 'Spanish', countryCode: 'ES', languageCode: 'es'),
     LanguageModel(imageUrl: Images.english, languageName: 'English', countryCode: 'US', languageCode: 'en'),
-    LanguageModel(imageUrl: Images.saudi, languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
+
+ //   LanguageModel(imageUrl: Images.saudi, languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
 
   ];
 

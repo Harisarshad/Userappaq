@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
           backgroundColor: AqcessColors().secondary,
           centerTitle: true,
           title: Text(
-            "Login to",
+            "Login to".tr,
             style: TextStyle(fontSize: 18, color: AqcessColors().black),
           ),
           elevation: 0,
@@ -142,17 +142,17 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                             height: 150,
                           ),
                         ),
-                        const Text(
-                          "Welcome To Aqcess",
+                         Text(
+                          "welcome".tr,
                           style: TextStyle(fontSize: 32),
                         ),
-                        const Text(
-                          "Login to your account",
+                         Text(
+                          "login_to_account".tr,
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                         ),
                         // const Padding(padding: EdgeInsets.only(top: 25)),
                         SizedBox(
-                          height: 100,
+                          height: 30,
                         ),
                         Form(
                           key: _formKey,
@@ -238,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> with WidgetsBindingObserver {
                                                 type = '1';
                                                 Get.toNamed(RouteHelper
                                                     .getRegistrationRoute(
-                                                        countryCode: '2'));
+                                                        countryCode: '1'));
                                               },
                                               child: ListStyleCard(
                                                 imagePath:

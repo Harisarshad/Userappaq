@@ -34,7 +34,7 @@ class ScanPass extends StatelessWidget {
                 ),
               ),
                Text(
-                "Back",
+                "back_to_page".tr,
                 style: TextStyle(fontSize: 16),
               ),
             ],
@@ -45,7 +45,7 @@ class ScanPass extends StatelessWidget {
         title: Center(
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, 0, 65, 0),
-            child: Text("Scan Pass"),
+            child: Text('scanpass'.tr),
           ),
         ),
         
@@ -95,7 +95,7 @@ class ScanPass extends StatelessWidget {
             left: 16, // Adjust this value to position the button as needed
             right: 16, // Adjust this value to position the button as needed
             child: ButtonCustom(
-              buttonText: "Verify Access Pass",
+              buttonText: "verify_pass".tr,
               onPress: () {
                 Get.to(()=> CameraScreen(
                   fromEditProfile: false,
